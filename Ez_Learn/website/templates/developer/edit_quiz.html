@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Quiz - {{ quiz.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-right: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .question-section {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+        }
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .choice-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .choice-item:last-child {
+            border-bottom: none;
+        }
+        .correct-choice {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Edit Quiz: {{ quiz.title }}</h1>
+        <div>
+            <a href="{% url 'quiz_list' developer.id %}" class="btn btn-secondary">Back to Quizzes</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="content-section">
+            <h2>Quiz Information</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="quiz_title">Quiz Title:</label>
+                    <input type="text" name="quiz_title" id="quiz_title" value="{{ quiz.title }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="course_id">Course:</label>
+                    <select name="course_id" id="course_id" required>
+                        {% for course in courses %}
+                        <option value="{{ course.id }}" {% if course.id == quiz.course.id %}selected{% endif %}>
+                            {{ course.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-success">Update Quiz</button>
+            </form>
+        </div>
+        
+        <div class="content-section">
+            <h2>Quiz Questions and Answers</h2>
+            {% if questions_data %}
+                {% for item in questions_data %}
+                <div class="question-section">
+                    <div class="question-title">
+                        Question {{ item.question.question_number }}: {{ item.question.question }}
+                    </div>
+                    {% for choice in item.choices %}
+                    <div class="choice-item">
+                        {% if choice.is_correct %}
+                        <span class="correct-choice">✓ {{ choice.choice }}</span>
+                        {% else %}
+                        {{ choice.choice }}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No questions found for this quiz.</p>
+            {% endif %}
+            
+            <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 5px;">
+                <h3>⚠️ Advanced Editing Coming Soon</h3>
+                <p>Currently, you can edit the quiz title and course. Full question and answer editing functionality is coming soon!</p>
+                <p>For now, if you need to modify questions or answers, you can delete this quiz and create a new one.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

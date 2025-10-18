@@ -65,7 +65,19 @@
     <div class="container">
         <div style="text-align: center; margin-bottom: 30px;">
             <a href="{% url 'learn_course' learner.id course.id %}" class="btn">← Back to Course</a>
-            <a href="{% url 'home' learner.id %}" class="btn">Dashboard</a>
+            <a href="{% url 'home' learner.id %}" class="btn">🏠 Dashboard</a>
+            {% if not has_full_access %}
+            <a href="{% url 'check_payment' learner.id course.name %}" class="btn" style="background: #28a745;">🚀 Upgrade Course</a>
+            {% endif %}
+        </div>
+
+        <!-- Progress indicator -->
+        <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
+            <h4 style="margin: 0; color: #667eea;">📚 Python Basics - Free Content</h4>
+            <div style="width: 100%; background: rgba(102, 126, 234, 0.2); border-radius: 10px; margin-top: 10px;">
+                <div style="width: 60%; background: linear-gradient(135deg, #667eea, #764ba2); height: 8px; border-radius: 10px; transition: width 0.3s;"></div>
+            </div>
+            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: 60% Complete (3/5 lessons)</p>
         </div>
 
         <h2>🎓 Python Fundamentals - FREE CONTENT</h2>
@@ -141,14 +153,83 @@ print(f"Total fruits: {len(fruits)}")
             </div>
         </div>
 
-        <div style="text-align: center; margin-top: 40px; padding: 20px; background: #e8f5e8; border-radius: 5px;">
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #e8f5e8, #f1f8e9); border-radius: 15px; border: 2px solid #4caf50;">
             <h3>🎉 Congratulations!</h3>
-            <p>You've completed the Python Basics free content!</p>
-            <p><strong>Ready for more?</strong> Purchase the full course to access Intermediate and Advanced lessons.</p>
+            <p style="font-size: 1.1rem; margin: 15px 0;">You've completed the Python Basics free content!</p>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+                <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <div style="font-size: 1.5rem; color: #4caf50;">✅</div>
+                    <div style="font-weight: 600; color: #333;">Basics Complete</div>
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <div style="font-size: 1.5rem; color: #ff9800;">⏳</div>
+                    <div style="font-weight: 600; color: #333;">Intermediate Ready</div>
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <div style="font-size: 1.5rem; color: #9c27b0;">🎯</div>
+                    <div style="font-weight: 600; color: #333;">Advanced Awaits</div>
+                </div>
+            </div>
             {% if not has_full_access %}
-            <a href="{% url 'check_payment' learner.id course.name %}" class="btn" style="background: #28a745;">Upgrade to Full Course</a>
+            <div style="margin-top: 20px;">
+                <p style="font-size: 1.1rem; color: #666;"><strong>Ready for the next level?</strong> Unlock Intermediate and Advanced Python lessons!</p>
+                <a href="{% url 'check_payment' learner.id course.name %}" class="btn" style="background: linear-gradient(135deg, #4caf50, #45a049); font-size: 1.1rem; padding: 15px 30px;">
+                    🚀 Upgrade to Full Course - ₹{{ course.price }}
+                </a>
+            </div>
+            {% else %}
+            <div style="margin-top: 20px;">
+                <a href="{% url 'learn_course' learner.id course.id %}" class="btn" style="background: linear-gradient(135deg, #4caf50, #45a049); font-size: 1.1rem; padding: 15px 30px;">
+                    ➡️ Continue to Intermediate
+                </a>
+            </div>
             {% endif %}
         </div>
     </div>
+
+    <script>
+        // Add interactivity to course content
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to code blocks for copy functionality
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach(block => {
+                block.style.cursor = 'pointer';
+                block.title = 'Click to copy code';
+                
+                block.addEventListener('click', function() {
+                    const text = this.textContent;
+                    navigator.clipboard.writeText(text).then(() => {
+                        // Show temporary feedback
+                        const original = this.style.background;
+                        this.style.background = '#4caf50';
+                        setTimeout(() => {
+                            this.style.background = original;
+                        }, 200);
+                    });
+                });
+            });
+
+            // Animate progress bar on load
+            const progressBar = document.querySelector('div[style*="width: 60%"]');
+            if (progressBar) {
+                progressBar.style.width = '0%';
+                setTimeout(() => {
+                    progressBar.style.width = '60%';
+                }, 500);
+            }
+
+            // Add smooth scroll for lesson navigation
+            const lessons = document.querySelectorAll('.lesson');
+            lessons.forEach((lesson, index) => {
+                lesson.style.opacity = '0';
+                lesson.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    lesson.style.transition = 'all 0.6s ease';
+                    lesson.style.opacity = '1';
+                    lesson.style.transform = 'translateY(0)';
+                }, 200 + (index * 100));
+            });
+        });
+    </script>
 </body>
 </html>

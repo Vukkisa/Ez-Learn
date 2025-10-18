@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Completion - Ez-Learn</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .certificate-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .certificate {
+            width: 85%;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        
+        .certificate::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        
+        .certificate-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .certificate-logo {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .certificate-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .certificate-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .certificate-body {
+            margin: 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .certificate-text {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #444;
+        }
+        
+        .learner-name {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+            text-decoration: underline;
+            text-decoration-color: #667eea;
+            text-underline-offset: 10px;
+        }
+        
+        .course-info {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .course-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .score-info {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .completion-date {
+            font-size: 1.1rem;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .certificate-footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+        }
+        
+        .signature-section {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .signature-line {
+            border-bottom: 2px solid #333;
+            width: 200px;
+            height: 60px;
+            margin: 0 auto 10px;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .certificate-seal {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            border: 3px solid #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .seal-text {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .verification-info {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #999;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <div class="certificate">
+            <div class="certificate-seal">
+                <div class="seal-text">
+                    EZ-LEARN<br>
+                    CERTIFIED
+                </div>
+            </div>
+            
+            <div class="certificate-header">
+                <div class="certificate-logo">🎓</div>
+                <div class="certificate-title">Certificate of Completion</div>
+                <div class="certificate-subtitle">This certifies that</div>
+            </div>
+            
+            <div class="certificate-body">
+                <div class="learner-name">
+                    {{ learner.first_name|default:learner.username }} {{ learner.last_name }}
+                </div>
+                
+                <div class="certificate-text">
+                    has successfully completed the course and demonstrated proficiency in
+                </div>
+                
+                <div class="course-info">
+                    <div class="course-name">{{ course.name }} Programming</div>
+                    <div class="score-info">Achievement Score: {{ score }}%</div>
+                    <div class="completion-date">Completed on: {{ completion_date|date:"F d, Y" }}</div>
+                </div>
+                
+                <div class="certificate-text">
+                    This certificate is awarded in recognition of the student's dedication, hard work, and successful completion of all course requirements and assessments.
+                </div>
+            </div>
+            
+            <div class="certificate-footer">
+                <div class="signature-section">
+                    <div class="signature-line"></div>
+                    <div class="signature-label">Course Instructor</div>
+                </div>
+                
+                <div class="signature-section">
+                    <div class="signature-line"></div>
+                    <div class="signature-label">Ez-Learn Administration</div>
+                </div>
+            </div>
+            
+            <div class="verification-info">
+                Certificate ID: {{ learner.id }}{{ course.id }}{{ completion_date|date:"Ymd" }}<br>
+                This certificate can be verified at Ez-Learn Platform
+            </div>
+        </div>
+    </div>
+</body>
+</html>

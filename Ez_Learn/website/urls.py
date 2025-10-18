@@ -3,11 +3,6 @@ from . import views
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    # ... your existing patterns ...
-    path('main-template/', TemplateView.as_view(template_name='main_template.html'), name='main_template'),
-]
-
-urlpatterns = [
     
     path('hello/', views.say_hello, name='say_hello' ),
     #main
@@ -31,10 +26,13 @@ urlpatterns = [
     path('courses_list/<int:id>', views.courses_list, name='courses_list'),
     path('quiz_list/<int:id>', views.quiz_list, name='quiz_list'),
     path('add_course/<int:id>', views.add_course, name='add_course' ),
+    path('edit_course/<int:course_id>/<int:did>', views.edit_course, name='edit_course'),
+    path('manage_course_content/<int:course_id>/<int:did>', views.manage_course_content, name='manage_course_content'),
     path('delete_course/<int:id>/<int:did>', views.delete_course, name='delete_course'),
     path('create_quiz/<int:id>', views.quiz_creation_view, name='create_quiz'),
+    path('edit_quiz/<int:quiz_id>/<int:did>', views.edit_quiz, name='edit_quiz'),
     path('delete_quiz/<int:id>/<int:did>', views.delete_quiz, name='delete_quiz'),
-    path('developer_logout', views.developer_logout, name='d_logout'),
+    path('developer_logout/', views.developer_logout, name='d_logout'),
 
     #regarding courses
     path('home/<int:id>', views.home, name='home'),

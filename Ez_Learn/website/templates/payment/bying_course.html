@@ -3,62 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Course - Ez-Learn</title>
+    <title>Upgrade Course - Ez-Learn</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 0;
-            padding: 0;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .payment-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 500px;
-            text-align: center;
+            max-width: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        .course-info {
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .upgrade-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+        }
+        .course-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
             margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 5px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .course-name {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .course-description {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .features-list {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .features-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px 0;
+        }
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        .feature-text {
+            color: #555;
+            font-size: 1rem;
+        }
+        .pricing-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        .original-price {
+            text-decoration: line-through;
+            opacity: 0.7;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .current-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .price-period {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .discount-badge {
+            background: #ffc107;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 15px;
         }
         .btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
-            padding: 15px 30px;
+            padding: 18px 40px;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 1.2rem;
+            font-weight: 600;
             width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .btn:hover {
-            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+        }
+        .security-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        .security-item {
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .security-icon {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .payment-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            .security-features {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="payment-container">
-        <h2>Purchase Course</h2>
+        <a href="{% url 'learn_course' learnt.learner.id learnt.course_learning.id %}" class="back-link">← Back to Course</a>
         
-        <div class="course-info">
-            <h3>{{ learnt.course_learning.name }}</h3>
-            <p>{{ learnt.course_learning.description }}</p>
-            <p><strong>Price: ₹{{ learnt.course_learning.price }}</strong></p>
+        <div class="header">
+            <h1 class="upgrade-title">🚀 Upgrade Now</h1>
+            <p class="subtitle">Unlock Premium Features & Advanced Content</p>
+        </div>
+        
+        <div class="course-card">
+            <div class="course-name">{{ learnt.course_learning.name }} Premium</div>
+            <div class="course-description">{{ learnt.course_learning.description }}</div>
+            
+            <div class="features-list">
+                <div class="features-title">✨ What You'll Get:</div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">🔓</span>
+                    <span class="feature-text">Full access to Intermediate & Advanced content</span>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">📚</span>
+                    <span class="feature-text">Comprehensive learning materials</span>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">💻</span>
+                    <span class="feature-text">Hands-on coding exercises</span>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">🏆</span>
+                    <span class="feature-text">Completion certificate</span>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">🆘</span>
+                    <span class="feature-text">Priority support access</span>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">♾️</span>
+                    <span class="feature-text">Lifetime access to course updates</span>
+                </div>
+            </div>
+            
+            <div class="pricing-section">
+                {% if learnt.course_learning.discount %}
+                <div class="original-price">₹{{ learnt.course_learning.price|add:200 }}</div>
+                <div class="current-price">₹{{ learnt.course_learning.price }}</div>
+                <div class="discount-badge">{{ learnt.course_learning.discount }}% OFF</div>
+                {% else %}
+                <div class="current-price">₹{{ learnt.course_learning.price }}</div>
+                {% endif %}
+                <div class="price-period">One-time payment • Access forever</div>
+            </div>
+            
+            {% if message %}
+            <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 10px; padding: 15px; margin: 20px 0; color: #856404;">
+                <strong>Note:</strong> {{ message }}
+            </div>
+            {% endif %}
         </div>
         
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn">Proceed to Payment</button>
+            <button type="submit" class="btn">
+                💳 Proceed to Secure Payment
+            </button>
         </form>
+        
+        <div class="security-features">
+            <div class="security-item">
+                <span class="security-icon">🔒</span>
+                <span>SSL Secured</span>
+            </div>
+            <div class="security-item">
+                <span class="security-icon">💰</span>
+                <span>30-Day Money Back</span>
+            </div>
+            <div class="security-item">
+                <span class="security-icon">⚡</span>
+                <span>Instant Access</span>
+            </div>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add entrance animation
+            const container = document.querySelector('.payment-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.6s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 200);
+
+            // Add button click animation
+            const button = document.querySelector('.btn');
+            button.addEventListener('click', function(e) {
+                if (!confirm('Ready to upgrade your learning experience? You\'ll get instant access to all premium content!')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

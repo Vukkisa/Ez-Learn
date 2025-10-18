@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Advanced - Ez-Learn</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #9c27b0, #673ab7);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #9c27b0;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .lesson {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #9c27b0;
+            background: #f8f9fa;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .premium-badge {
+            background: linear-gradient(135deg, #9c27b0, #673ab7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CSS Advanced</h1>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <div class="premium-badge">🏆 ADVANCED PREMIUM</div>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{% url 'learn_course' learner.id course.id %}" class="btn">← Back to Course</a>
+            <a href="{% url 'home' learner.id %}" class="btn">🏠 Dashboard</a>
+        </div>
+
+        <h2>🏆 CSS Advanced - PREMIUM MASTERY</h2>
+        
+        <div class="lesson">
+            <h3>1. CSS Animations and Keyframes</h3>
+            <p>Create smooth, professional animations using CSS keyframes and transitions.</p>
+            <div class="code-block">
+/* Keyframe Animation */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Animation Classes */
+.slide-in {
+    animation: slideInFromLeft 1s ease-out forwards;
+}
+
+.pulse-effect {
+    animation: pulse 2s infinite;
+}
+
+/* Advanced Transition */
+.button {
+    background: #1572b6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    /* Transition */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Transform origin */
+    transform-origin: center;
+}
+
+.button:hover {
+    background: #0d5a99;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(21, 114, 182, 0.3);
+}
+
+.button:active {
+    transform: translateY(0) scale(0.98);
+    transition: all 0.1s ease;
+}
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>2. CSS Variables and Custom Properties</h3>
+            <p>Master CSS custom properties for maintainable and dynamic styling.</p>
+            <div class="code-block">
+/* CSS Custom Properties (Variables) */
+:root {
+    /* Color Scheme */
+    --primary-color: #1572b6;
+    --secondary-color: #28a745;
+    --accent-color: #ffc107;
+    --danger-color: #dc3545;
+    
+    /* Typography */
+    --font-family-primary: 'Inter', sans-serif;
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 3rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+
+/* Using Variables */
+.button {
+    background: var(--primary-color);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    box-shadow: var(--shadow-md);
+}
+
+/* Dynamic Theme Switching */
+[data-theme="dark"] {
+    --primary-color: #66b3ff;
+    --secondary-color: #4ade80;
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+}
+
+[data-theme="light"] {
+    --primary-color: #1572b6;
+    --secondary-color: #28a745;
+    --bg-color: #ffffff;
+    --text-color: #333333;
+}
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>3. Advanced Selectors and Pseudo-elements</h3>
+            <p>Master complex selectors and create dynamic content with pseudo-elements.</p>
+            <div class="code-block">
+/* Advanced Selectors */
+
+/* Attribute Selectors */
+input[type="text"] {
+    border: 2px solid #ccc;
+}
+
+input[data-validation="error"] {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+}
+
+/* Combinators */
+.nav > li {                    /* Direct child */
+    margin: 0 10px;
+}
+
+.content h2 + p {              /* Adjacent sibling */
+    margin-top: 0;
+}
+
+.article h2 ~ p {              /* General sibling */
+    color: #666;
+}
+
+/* Pseudo-classes */
+.button:nth-child(even) {      /* Even elements */
+    background: var(--secondary-color);
+}
+
+.tr:hover .delete-btn {        /* Show on parent hover */
+    opacity: 1;
+    visibility: visible;
+}
+
+.delete-btn {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Pseudo-elements */
+.quote::before {
+    content: """;
+    font-size: 4rem;
+    color: var(--primary-color);
+    position: absolute;
+    top: -10px;
+    left: -20px;
+}
+
+.quote::after {
+    content: """;
+    font-size: 4rem;
+    color: var(--primary-color);
+    position: absolute;
+    bottom: -30px;
+    right: -20px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0d5a99;
+}
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 40px; background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; border-radius: 20px;">
+            <h2 style="color: white; margin-top: 0;">🏆 CONGRATULATIONS!</h2>
+            <div style="font-size: 4rem; margin: 20px 0;">🎨</div>
+            <h3 style="color: white;">CSS Master Achieved!</h3>
+            <p style="font-size: 1.2rem; margin: 20px 0;">From basic styles to advanced animations and layouts - you've mastered CSS!</p>
+            
+            <div style="margin-top: 30px;">
+                <a href="{% url 'home' learner.id %}" class="btn" style="background: white; color: #9c27b0; font-size: 1.2rem; padding: 15px 30px;">
+                    🏠 Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

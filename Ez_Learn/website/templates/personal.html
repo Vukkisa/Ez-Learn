@@ -55,6 +55,12 @@
     <div class="form-container">
         <h2 style="text-align: center; margin-bottom: 30px;">Complete Your Profile</h2>
         
+        {% if error %}
+        <div style="background-color: #ffebee; color: #c62828; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+            {{ error }}
+        </div>
+        {% endif %}
+        
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             
@@ -100,7 +106,7 @@
             
             <div class="form-group">
                 <label for="dob">Date of Birth:</label>
-                <input type="date" name="dob" id="dob" value="{{ learner.DOB|date:'Y-m-d' }}">
+                <input type="date" name="dob" id="dob" value="{% if learner.DOB %}{{ learner.DOB|date:'Y-m-d' }}{% endif %}">
             </div>
             
             <button type="submit" class="btn">Complete Profile</button>

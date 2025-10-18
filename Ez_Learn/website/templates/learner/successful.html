@@ -45,7 +45,10 @@
         <h2>Registration Successful!</h2>
         <p>Welcome to Ez-Learn, {{ learner.username }}!</p>
         <p>Your account has been created successfully.</p>
-        <a href="{% url 'complete_profile' learner.id %}" class="btn">Complete Your Profile</a>
+        <div style="margin-top: 20px;">
+            <a href="{% url 'complete_profile' learner.id %}" class="btn" style="margin-right: 10px;">Complete Your Profile</a>
+            <a href="{% url 'learner_login' %}" class="btn" style="background: #28a745;">Go to Login</a>
+        </div>
     </div>
 </body>
 </html>

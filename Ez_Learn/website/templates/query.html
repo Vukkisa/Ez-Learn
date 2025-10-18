@@ -6,7 +6,7 @@
     <title>Contact Support - Ez-Learn</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 0;
             padding: 0;
@@ -15,75 +15,212 @@
         .container {
             max-width: 800px;
             margin: 20px auto;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .support-info {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        .support-info h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .support-info p {
+            color: #666;
+            margin: 5px 0;
+        }
+        .support-email {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
         }
         input[type="text"], textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
             font-size: 16px;
             box-sizing: border-box;
+            transition: border-color 0.3s ease;
+            background: #f8f9fa;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         textarea {
             height: 120px;
             resize: vertical;
+            font-family: inherit;
         }
         .btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 12px 30px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
         }
         .btn:hover {
-            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
         .success {
             background: #d4edda;
             color: #155724;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #28a745;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #dc3545;
+        }
+        .back-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .back-link a:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Contact Support</h2>
-        <p>Have a question? Send us a message and we'll get back to you as soon as possible.</p>
+        <div class="header">
+            <h2>💬 Contact Support</h2>
+            <p>Have a question? Send us a message and we'll get back to you as soon as possible.</p>
+        </div>
         
+        <div class="support-info">
+            <h4>📧 Support Information</h4>
+            <p><strong>Direct Email:</strong> <span class="support-email">{{ admin_email|default:"jayanthyadav237@gmail.com" }}</span></p>
+            <p><strong>Response Time:</strong> We typically respond within 24 hours</p>
+            <p><strong>Alternative:</strong> You can also reach us directly via the email address above</p>
+        </div>
+        
+        {% if success_message %}
+        <div class="success">
+            <strong>✅ {{ success_message }}</strong><br>
+            A confirmation email has been sent to your registered email address, and our support team has been notified.
+        </div>
+        {% endif %}
+        
+        {% if error %}
+        <div class="error">
+            <strong>❌ Error:</strong> {{ error }}
+        </div>
+        {% endif %}
+        
+        {% if not success_message %}
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="topic">Topic:</label>
-                <input type="text" name="topic" id="topic" placeholder="Brief description of your query" required>
+                <label for="topic">📋 Topic:</label>
+                <input type="text" name="topic" id="topic" placeholder="Brief description of your query (e.g., Payment Issue, Course Access)" required>
             </div>
             
             <div class="form-group">
-                <label for="query">Your Query:</label>
-                <textarea name="query" id="query" placeholder="Please describe your question or issue in detail..." required></textarea>
+                <label for="query">💭 Your Query:</label>
+                <textarea name="query" id="query" placeholder="Please describe your question or issue in detail. The more information you provide, the better we can help you..." required></textarea>
             </div>
             
-            <button type="submit" class="btn">Send Query</button>
+            <button type="submit" class="btn">📤 Send Support Query</button>
         </form>
+        {% endif %}
         
-        <p style="margin-top: 30px;">
+        <div class="back-link">
             <a href="{% url 'home' learner.id %}">← Back to Dashboard</a>
-        </p>
+        </div>
     </div>
+    
+    <script>
+        // Add form validation and user feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const topic = document.getElementById('topic').value.trim();
+                    const query = document.getElementById('query').value.trim();
+                    
+                    if (!topic || !query) {
+                        e.preventDefault();
+                        alert('Please fill in both the topic and query fields.');
+                        return;
+                    }
+                    
+                    if (topic.length < 5) {
+                        e.preventDefault();
+                        alert('Please provide a more descriptive topic (at least 5 characters).');
+                        return;
+                    }
+                    
+                    if (query.length < 20) {
+                        e.preventDefault();
+                        alert('Please provide more details in your query (at least 20 characters).');
+                        return;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

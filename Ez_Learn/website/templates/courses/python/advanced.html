@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Advanced - Ez-Learn</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #9c27b0, #673ab7);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #9c27b0;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #7b1fa2;
+        }
+        .lesson {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #9c27b0;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            cursor: pointer;
+        }
+        .premium-badge {
+            background: linear-gradient(135deg, #9c27b0, #673ab7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Python Advanced</h1>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <div class="premium-badge">🏆 ADVANCED PREMIUM</div>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{% url 'learn_course' learner.id course.id %}" class="btn">← Back to Course</a>
+            <a href="{% url 'home' learner.id %}" class="btn">🏠 Dashboard</a>
+        </div>
+
+        <!-- Progress indicator -->
+        <div style="background: rgba(156, 39, 176, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
+            <h4 style="margin: 0; color: #9c27b0;">📚 Python Advanced - Premium Mastery</h4>
+            <div style="width: 100%; background: rgba(156, 39, 176, 0.2); border-radius: 10px; margin-top: 10px;">
+                <div style="width: 100%; background: linear-gradient(135deg, #9c27b0, #673ab7); height: 8px; border-radius: 10px;"></div>
+            </div>
+            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: 100% Complete - Python Master! 🎉</p>
+        </div>
+
+        <h2>🏆 Python Advanced - PREMIUM MASTERY</h2>
+        
+        <div class="lesson">
+            <h3>1. Advanced OOP Concepts</h3>
+            <p>Master inheritance, polymorphism, composition, and design patterns.</p>
+            <div class="code-block">
+# Multiple inheritance and method resolution order
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        return "Some generic animal sound"
+
+class Flyable:
+    def fly(self):
+        return f"{self.name} is flying"
+
+class Bird(Animal, Flyable):
+    def speak(self):
+        return f"{self.name} says: Tweet!"
+
+# Using the classes
+parrot = Bird("Parrot")
+print(parrot.speak())  # Method overriding
+print(parrot.fly())    # Multiple inheritance
+
+# Composition over inheritance
+class Engine:
+    def start(self):
+        return "Engine started"
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()  # Composition
+    
+    def start(self):
+        return self.engine.start()
+
+my_car = Car()
+print(my_car.start())
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>2. Generators and Iterators</h3>
+            <p>Learn about memory-efficient iteration with generators and custom iterators.</p>
+            <div class="code-block">
+# Generator function
+def fibonacci(n):
+    """Generate fibonacci sequence up to n terms"""
+    a, b = 0, 1
+    count = 0
+    while count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
+
+# Using generator
+fib_gen = fibonacci(10)
+for num in fib_gen:
+    print(num, end=" ")
+
+# List comprehension vs generator expression
+squares_list = [x**2 for x in range(1000)]  # Creates full list in memory
+squares_gen = (x**2 for x in range(1000))   # Creates generator object
+
+# Custom iterator class
+class NumberRange:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.start < self.end:
+            current = self.start
+            self.start += 1
+            return current
+        raise StopIteration
+
+for num in NumberRange(1, 5):
+    print(num)
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>3. Decorators and Context Managers</h3>
+            <p>Master the art of function and class decorators, plus context management.</p>
+            <div class="code-block">
+# Function decorator
+def timing_decorator(func):
+    import time
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"{func.__name__} took {end_time - start_time:.4f} seconds")
+        return result
+    return wrapper
+
+# Using decorator
+@timing_decorator
+def slow_function():
+    import time
+    time.sleep(1)
+    return "Done!"
+
+result = slow_function()
+
+# Class decorator
+def add_method(cls):
+    def new_method(self):
+        return "This method was added by decorator!"
+    cls.added_method = new_method
+    return cls
+
+@add_method
+class MyClass:
+    pass
+
+obj = MyClass()
+print(obj.added_method())
+
+# Context manager
+class FileHandler:
+    def __init__(self, filename, mode):
+        self.filename = filename
+        self.mode = mode
+        self.file = None
+    
+    def __enter__(self):
+        self.file = open(self.filename, self.mode)
+        return self.file
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.file:
+            self.file.close()
+
+# Using context manager
+with FileHandler('example.txt', 'w') as f:
+    f.write("Hello, World!")
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>4. Advanced Libraries and Frameworks</h3>
+            <p>Introduction to popular Python libraries: requests, pandas, flask basics.</p>
+            <div class="code-block">
+# Working with external APIs using requests
+import requests
+import json
+
+def fetch_weather(city):
+    """Fetch weather data for a city (example API)"""
+    try:
+        # This is a mock example - real API would have actual endpoints
+        response = requests.get(f"https://api.weather.com/v1/current?city={city}")
+        return response.json()
+    except requests.RequestException as e:
+        print(f"Error fetching weather: {e}")
+        return None
+
+# Data manipulation with pandas concepts
+import pandas as pd
+
+# Creating a DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'City': ['New York', 'London', 'Tokyo']
+}
+df = pd.DataFrame(data)
+print(df)
+
+# Flask web framework basics
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to Python Advanced!"
+
+@app.route('/api/user/<name>')
+def get_user(name):
+    return f"Hello, {name}!"
+
+if __name__ == '__main__':
+    app.run(debug=True)
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>5. Performance Optimization</h3>
+            <p>Learn profiling, optimization techniques, and best practices.</p>
+            <div class="code-block">
+# Using cProfile for performance analysis
+import cProfile
+import pstats
+
+def inefficient_function():
+    """Example of inefficient code"""
+    result = []
+    for i in range(10000):
+        result.append(i * 2)
+    return result
+
+# Profiling the function
+profiler = cProfile.Profile()
+profiler.enable()
+inefficient_function()
+profiler.disable()
+
+stats = pstats.Stats(profiler)
+stats.sort_stats('cumulative')
+stats.print_stats(10)
+
+# Memory optimization with generators
+def memory_efficient_squares(n):
+    """Memory-efficient way to generate squares"""
+    for i in range(n):
+        yield i ** 2
+
+# Using itertools for performance
+import itertools
+
+# Efficient combinations without storing in memory
+combinations = itertools.combinations([1, 2, 3, 4, 5], 3)
+for combo in combinations:
+    print(combo)
+
+# Using functools for function optimization
+from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def fibonacci_cached(n):
+    if n < 2:
+        return n
+    return fibonacci_cached(n-1) + fibonacci_cached(n-2)
+
+# This will be much faster due to caching
+print(fibonacci_cached(100))
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 40px; background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; border-radius: 20px;">
+            <h2 style="color: white; margin-top: 0;">🏆 CONGRATULATIONS!</h2>
+            <div style="font-size: 4rem; margin: 20px 0;">🎓</div>
+            <h3 style="color: white;">You've Mastered Python!</h3>
+            <p style="font-size: 1.2rem; margin: 20px 0;">From basics to advanced concepts - you've completed the full Python journey!</p>
+            
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 30px 0;">
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem;">✅</div>
+                    <div>Basics Mastered</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem;">🚀</div>
+                    <div>Intermediate Complete</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem;">🏆</div>
+                    <div>Advanced Achieved</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <a href="{% url 'get_certificate' learner.id course.id %}" class="btn" style="background: white; color: #9c27b0; font-size: 1.2rem; padding: 15px 30px;">
+                    📜 Download Certificate
+                </a>
+                <a href="{% url 'home' learner.id %}" class="btn" style="background: rgba(255,255,255,0.2); color: white; font-size: 1.2rem; padding: 15px 30px;">
+                    🏠 Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Celebration animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate lessons
+            const lessons = document.querySelectorAll('.lesson');
+            lessons.forEach((lesson, index) => {
+                lesson.style.opacity = '0';
+                lesson.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    lesson.style.transition = 'all 0.8s ease';
+                    lesson.style.opacity = '1';
+                    lesson.style.transform = 'translateY(0)';
+                }, 300 + (index * 200));
+            });
+
+            // Add confetti effect for completion
+            setTimeout(() => {
+                const completionSection = document.querySelector('div[style*="linear-gradient(135deg, #9c27b0"]');
+                if (completionSection) {
+                    completionSection.style.transform = 'scale(1.02)';
+                    completionSection.style.transition = 'transform 0.3s ease';
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

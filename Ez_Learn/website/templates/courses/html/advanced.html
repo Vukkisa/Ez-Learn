@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Advanced - Ez-Learn</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #9c27b0, #673ab7);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #9c27b0;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .lesson {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #9c27b0;
+            background: #f8f9fa;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .premium-badge {
+            background: linear-gradient(135deg, #9c27b0, #673ab7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HTML Advanced</h1>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <div class="premium-badge">🏆 ADVANCED PREMIUM</div>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{% url 'learn_course' learner.id course.id %}" class="btn">← Back to Course</a>
+            <a href="{% url 'home' learner.id %}" class="btn">🏠 Dashboard</a>
+        </div>
+
+        <h2>🏆 HTML Advanced - PREMIUM MASTERY</h2>
+        
+        <div class="lesson">
+            <h3>1. HTML5 Semantic Elements</h3>
+            <p>Master modern HTML5 semantic elements for better structure and accessibility.</p>
+            <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Semantic HTML5 Structure&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;header&gt;
+                &lt;h1&gt;Article Title&lt;/h1&gt;
+                &lt;time datetime="2024-01-15"&gt;January 15, 2024&lt;/time&gt;
+            &lt;/header&gt;
+            
+            &lt;section&gt;
+                &lt;h2&gt;Introduction&lt;/h2&gt;
+                &lt;p&gt;Article content here...&lt;/p&gt;
+            &lt;/section&gt;
+            
+            &lt;aside&gt;
+                &lt;h3&gt;Related Links&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;a href="#"&gt;Related Article 1&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="#"&gt;Related Article 2&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/aside&gt;
+        &lt;/article&gt;
+    &lt;/main&gt;
+    
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2024 Your Website. All rights reserved.&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>2. Advanced Form Features</h3>
+            <p>Learn advanced form elements, validation, and accessibility features.</p>
+            <div class="code-block">
+&lt;!-- Advanced HTML5 form features --&gt;
+&lt;form novalidate&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Advanced Form Controls&lt;/legend&gt;
+        
+        &lt;!-- HTML5 Input Types --&gt;
+        &lt;label for="color"&gt;Favorite Color:&lt;/label&gt;
+        &lt;input type="color" id="color" name="color" value="#ff6b6b"&gt;
+        
+        &lt;label for="date"&gt;Birth Date:&lt;/label&gt;
+        &lt;input type="date" id="date" name="birthdate" min="1900-01-01" max="2024-12-31"&gt;
+        
+        &lt;label for="range"&gt;Experience Level:&lt;/label&gt;
+        &lt;input type="range" id="range" name="experience" min="0" max="10" value="5"&gt;
+        &lt;output for="range" id="range-value"&gt;5&lt;/output&gt;
+        
+        &lt;label for="file"&gt;Upload Resume:&lt;/label&gt;
+        &lt;input type="file" id="file" name="resume" accept=".pdf,.doc,.docx"&gt;
+        
+        &lt;!-- Data List --&gt;
+        &lt;label for="browser"&gt;Preferred Browser:&lt;/label&gt;
+        &lt;input list="browsers" id="browser" name="browser"&gt;
+        &lt;datalist id="browsers"&gt;
+            &lt;option value="Chrome"&gt;
+            &lt;option value="Firefox"&gt;
+            &lt;option value="Safari"&gt;
+            &lt;option value="Edge"&gt;
+        &lt;/datalist&gt;
+        
+        &lt;!-- Pattern Validation --&gt;
+        &lt;label for="phone"&gt;Phone Number:&lt;/label&gt;
+        &lt;input type="tel" id="phone" name="phone" 
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
+               placeholder="123-456-7890" required&gt;
+        
+        &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+// Range slider update
+document.getElementById('range').addEventListener('input', function(e) {
+    document.getElementById('range-value').value = e.target.value;
+});
+&lt;/script&gt;
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 40px; background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; border-radius: 20px;">
+            <h2 style="color: white; margin-top: 0;">🏆 CONGRATULATIONS!</h2>
+            <div style="font-size: 4rem; margin: 20px 0;">🎓</div>
+            <h3 style="color: white;">HTML Master Achieved!</h3>
+            <p style="font-size: 1.2rem; margin: 20px 0;">From basic tags to advanced HTML5 features - you've completed the full HTML journey!</p>
+            
+            <div style="margin-top: 30px;">
+                <a href="{% url 'home' learner.id %}" class="btn" style="background: white; color: #9c27b0; font-size: 1.2rem; padding: 15px 30px;">
+                    🏠 Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

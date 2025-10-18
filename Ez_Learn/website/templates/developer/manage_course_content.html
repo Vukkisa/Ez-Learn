@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Course Content - {{ course.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-right: 10px;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .content-level {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .content-level.basics {
+            border-left: 4px solid #28a745;
+        }
+        .content-level.intermediate {
+            border-left: 4px solid #ffc107;
+        }
+        .content-level.advanced {
+            border-left: 4px solid #dc3545;
+        }
+        .level-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .level-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .level-badge.basics {
+            background: #d4edda;
+            color: #155724;
+        }
+        .level-badge.intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .level-badge.advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: monospace;
+            resize: vertical;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Manage Content: {{ course.name }}</h1>
+        <div>
+            <a href="{% url 'courses_list' developer.id %}" class="btn btn-secondary">Back to Courses</a>
+            <a href="{% url 'edit_course' course.id developer.id %}" class="btn">Edit Course Info</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="content-section">
+            <h2>Course Content Management</h2>
+            <p>Manage the content for different levels of this course. You can edit the HTML content for each level.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Basics Content -->
+                <div class="content-level basics">
+                    <div class="level-title">
+                        <span class="level-badge basics">Free</span> 
+                        Basics Content
+                    </div>
+                    <div class="form-group">
+                        <label for="basics_content">Basics Content (HTML):</label>
+                        <textarea name="basics_content" id="basics_content" placeholder="Enter HTML content for basics level...">
+<!-- Add your basics content HTML here -->
+<div class="basics-lesson">
+    <h3>Welcome to {{ course.name }} Basics</h3>
+    <p>Start your learning journey here...</p>
+    <!-- Add more content as needed -->
+</div>
+                        </textarea>
+                    </div>
+                </div>
+
+                <!-- Intermediate Content -->
+                <div class="content-level intermediate">
+                    <div class="level-title">
+                        <span class="level-badge intermediate">Premium</span> 
+                        Intermediate Content
+                    </div>
+                    <div class="form-group">
+                        <label for="intermediate_content">Intermediate Content (HTML):</label>
+                        <textarea name="intermediate_content" id="intermediate_content" placeholder="Enter HTML content for intermediate level...">
+<!-- Add your intermediate content HTML here -->
+<div class="intermediate-lesson">
+    <h3>{{ course.name }} Intermediate</h3>
+    <p>Take your skills to the next level...</p>
+    <!-- Add more content as needed -->
+</div>
+                        </textarea>
+                    </div>
+                </div>
+
+                <!-- Advanced Content -->
+                <div class="content-level advanced">
+                    <div class="level-title">
+                        <span class="level-badge advanced">Premium</span> 
+                        Advanced Content
+                    </div>
+                    <div class="form-group">
+                        <label for="advanced_content">Advanced Content (HTML):</label>
+                        <textarea name="advanced_content" id="advanced_content" placeholder="Enter HTML content for advanced level...">
+<!-- Add your advanced content HTML here -->
+<div class="advanced-lesson">
+    <h3>{{ course.name }} Advanced</h3>
+    <p>Master {{ course.name }} with advanced concepts...</p>
+    <!-- Add more content as needed -->
+</div>
+                        </textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Save Content Changes</button>
+            </form>
+        </div>
+        
+        <div class="content-section">
+            <h3>Content Management Tips</h3>
+            <ul>
+                <li><strong>Basics:</strong> Free content accessible to all users</li>
+                <li><strong>Intermediate:</strong> Premium content requiring course purchase</li>
+                <li><strong>Advanced:</strong> Premium content for advanced learners</li>
+                <li>Use HTML to format your content with proper structure</li>
+                <li>Include interactive elements like code examples and exercises</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

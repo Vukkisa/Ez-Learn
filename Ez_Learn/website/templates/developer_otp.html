@@ -65,7 +65,7 @@
         <div class="error">{{ error_message }}</div>
         {% endif %}
         
-        <form method="post">
+        <form method="post" action="{% url 'validate_dregistration' %}">
             {% csrf_token %}
             <div class="form-group">
                 <input type="text" name="otp" placeholder="Enter OTP" maxlength="6" required>

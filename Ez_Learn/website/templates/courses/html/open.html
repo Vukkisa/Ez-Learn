@@ -73,7 +73,7 @@
                     {% if has_full_access %}
                         <button type="submit" name="intermediate" value="intermediate" class="btn" style="background: #28a745;">Start Intermediate</button>
                     {% else %}
-                        <button type="submit" name="intermediate" value="intermediate" class="btn" style="background: #dc3545;">Purchase to Access</button>
+                        <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #dc3545; text-decoration: none;">Purchase to Access</a>
                     {% endif %}
                 </div>
                 
@@ -83,7 +83,7 @@
                     {% if has_full_access %}
                         <button type="submit" name="advanced" value="advanced" class="btn" style="background: #28a745;">Start Advanced</button>
                     {% else %}
-                        <button type="submit" name="advanced" value="advanced" class="btn" style="background: #dc3545;">Purchase to Access</button>
+                        <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #dc3545; text-decoration: none;">Purchase to Access</a>
                     {% endif %}
                 </div>
             </div>

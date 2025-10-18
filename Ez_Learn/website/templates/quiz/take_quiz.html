@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ quiz.title }} - Ez-Learn Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: #333;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .quiz-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .quiz-info {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+        .question-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .choices {
+            margin-left: 20px;
+        }
+        .choice {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        .choice input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            accent-color: #667eea;
+        }
+        .choice label {
+            font-size: 1.1rem;
+            color: #555;
+            cursor: pointer;
+            flex: 1;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+        }
+        .timer {
+            background: #ffc107;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .required {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>🎯 Quiz: {{ quiz.title }}</h2>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <div class="quiz-card">
+            <div class="quiz-header">
+                <h1 class="quiz-title">{{ quiz.title }}</h1>
+                <div class="quiz-info">
+                    <strong>{{ course.name }}</strong> • {{ questions|length }} questions
+                </div>
+            </div>
+
+            <form method="post" id="quiz-form">
+                {% csrf_token %}
+                
+                {% for question in questions %}
+                <div class="question">
+                    <div class="question-number">{{ question.question_number }}</div>
+                    <div class="question-text">{{ question.question }} <span class="required">*</span></div>
+                    
+                    <div class="choices">
+                        {% for choice in question.choice_set.all %}
+                        <div class="choice">
+                            <input type="radio" 
+                                   id="choice_{{ choice.id }}" 
+                                   name="{{ question.id }}" 
+                                   value="{{ choice.id }}"
+                                   required>
+                            <label for="choice_{{ choice.id }}">{{ choice.choice }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="navigation">
+                    <a href="{% url 'home' learner.id %}" class="btn btn-secondary">🏠 Back to Dashboard</a>
+                    <button type="submit" class="btn" onclick="return validateForm()">
+                        ✅ Submit Quiz
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        const questions = document.querySelectorAll('.question');
+        const totalQuestions = questions.length;
+
+        // Form validation
+        function validateForm() {
+            const requiredQuestions = document.querySelectorAll('input[type="radio"]:checked');
+            if (requiredQuestions.length !== totalQuestions) {
+                alert(`Please answer all ${totalQuestions} questions before submitting.`);
+                return false;
+            }
+            return confirm('Are you sure you want to submit your quiz? You cannot change answers after submission.');
+        }
+
+        // Add smooth animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.question');
+            questions.forEach((question, index) => {
+                question.style.opacity = '0';
+                question.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    question.style.transition = 'all 0.6s ease';
+                    question.style.opacity = '1';
+                    question.style.transform = 'translateY(0)';
+                }, 200 + (index * 100));
+            });
+
+            // Add radio button styling
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // Remove selected class from all siblings
+                    const siblings = document.querySelectorAll(`input[name="${this.name}"]`);
+                    siblings.forEach(sibling => {
+                        sibling.closest('.choice').classList.remove('selected');
+                    });
+                    
+                    // Add selected class to current choice
+                    this.closest('.choice').classList.add('selected');
+                });
+            });
+        });
+
+        // Add selected state styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .choice.selected {
+                background: rgba(102, 126, 234, 0.1);
+                border-radius: 8px;
+                padding: 10px;
+                margin: 10px 0;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

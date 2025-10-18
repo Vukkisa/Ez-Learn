@@ -3,50 +3,622 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Confirmation - Ez-Learn</title>
+    <title>Payment Processing - Ez-Learn</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 0;
-            padding: 0;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .payment-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .status-icon {
+            font-size: 5rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        .status-icon.success {
+            color: #28a745;
+            animation: none;
+        }
+        .status-icon.processing {
+            color: #ffc107;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        .order-details {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid #667eea;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #333;
+        }
+        .detail-value {
+            color: #666;
+            font-family: monospace;
+        }
+        .status-message {
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        .status-message.success {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        .status-message.processing {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+            color: #856404;
+            border: 2px solid #ffc107;
         }
         .btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 12px 30px;
+            padding: 15px 30px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 25px;
             display: inline-block;
-            margin-top: 20px;
+            margin: 15px 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        .next-steps {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        .next-steps h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .steps-list {
+            list-style: none;
+            padding: 0;
+        }
+        .steps-list li {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .steps-list li:last-child {
+            border-bottom: none;
+        }
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            font-size: 1.2rem;
+        }
+        .step-text {
+            flex: 1;
+        }
+        .security-note {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            color: #333;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .payment-gateway-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .payment-method:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .payment-method.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .method-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            width: 50px;
+            text-align: center;
+        }
+        
+        .method-details {
+            flex: 1;
+        }
+        
+        .method-details h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .method-details p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .method-check {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .payment-method.selected .method-check {
+            opacity: 1;
+        }
+        
+        .payment-amount {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 25px 0;
+        }
+        
+        .amount-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .amount-label {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .amount-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .amount-display {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="payment-container">
-        <h2>Payment Processing</h2>
-        <p>Order ID: {{ payment.order_id }}</p>
-        <p>Course: {{ payment.course.name }}</p>
-        <p>Please complete your payment to access the course.</p>
-        
+        <!-- Add CSRF token for JavaScript -->
+        {% csrf_token %}
         {% if payment.status %}
-            <p style="color: green;">Payment completed successfully!</p>
+            <div class="status-icon success">✅</div>
+            <h1 class="title">Payment Successful!</h1>
+            <p class="subtitle">Your course access has been activated</p>
         {% else %}
-            <p style="color: orange;">Payment is being processed...</p>
+            <div class="status-icon processing">⏳</div>
+            <h1 class="title">Processing Payment</h1>
+            <p class="subtitle">Please complete your payment to access the course</p>
         {% endif %}
+
+        <div class="order-details">
+            <div class="detail-row">
+                <span class="detail-label">Order ID:</span>
+                <span class="detail-value">{{ payment.order_id }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Course:</span>
+                <span class="detail-value">{{ payment.course.name }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Learner:</span>
+                <span class="detail-value">{{ learner.username }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Amount:</span>
+                <span class="detail-value">₹{{ payment.course.price }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Status:</span>
+                <span class="detail-value">
+                    {% if payment.status %}
+                        <span style="color: #28a745; font-weight: bold;">✅ Completed</span>
+                    {% else %}
+                        <span style="color: #ffc107; font-weight: bold;">⏳ Pending</span>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        {% if payment.status %}
+            <div class="status-message success">
+                🎉 Congratulations! Your payment was successful and your course access has been activated. You now have full access to all premium content!
+            </div>
+
+            <div class="next-steps">
+                <h3>🚀 What's Next?</h3>
+                <ul class="steps-list">
+                    <li>
+                        <div class="step-icon">1</div>
+                        <div class="step-text">
+                            <strong>Access Premium Content</strong><br>
+                            Go back to your course and explore Intermediate & Advanced lessons
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-icon">2</div>
+                        <div class="step-text">
+                            <strong>Track Your Progress</strong><br>
+                            Monitor your learning journey in your dashboard
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-icon">3</div>
+                        <div class="step-text">
+                            <strong>Earn Your Certificate</strong><br>
+                            Complete all content to unlock your completion certificate
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <a href="{% url 'learn_course' learner.id payment.course.id %}" class="btn btn-success">
+                🎯 Start Learning Now
+            </a>
+        {% else %}
+            <div class="status-message processing">
+                💳 Complete Your Payment to Access Premium Content
+            </div>
+
+            <!-- Payment Gateway Integration -->
+            <div class="payment-gateway-section">
+                <h3 style="color: #333; margin-bottom: 15px; text-align: center;">Choose Payment Method</h3>
+                
+                {% if razorpay_configured %}
+                <div style="background: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; border-radius: 8px; padding: 12px; margin-bottom: 20px; text-align: center;">
+                    <span style="color: #28a745; font-weight: 600;">🔒 Secure Payment Gateway Active</span>
+                </div>
+                {% else %}
+                <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid #ffc107; border-radius: 8px; padding: 12px; margin-bottom: 20px; text-align: center;">
+                    <span style="color: #856404; font-weight: 600;">🔧 Development Mode - Test Payment</span>
+                </div>
+                {% endif %}
+                
+                <div class="payment-options">
+                    <div class="payment-method selected" onclick="selectPaymentMethod('razorpay')">
+                        <div class="method-icon">💳</div>
+                        <div class="method-details">
+                            <h4>Credit/Debit Card</h4>
+                            <p>Visa, Mastercard, Amex</p>
+                        </div>
+                        <div class="method-check">✓</div>
+                    </div>
+                    
+                    <div class="payment-method" onclick="selectPaymentMethod('netbanking')">
+                        <div class="method-icon">🏦</div>
+                        <div class="method-details">
+                            <h4>Net Banking</h4>
+                            <p>Pay using any bank account</p>
+                        </div>
+                        <div class="method-check">✓</div>
+                    </div>
+                    
+                    <div class="payment-method" onclick="selectPaymentMethod('wallet')">
+                        <div class="method-icon">📱</div>
+                        <div class="method-details">
+                            <h4>UPI/Wallet</h4>
+                            <p>Paytm, PhonePe, Google Pay</p>
+                        </div>
+                        <div class="method-check">✓</div>
+                    </div>
+                </div>
+
+                <div class="payment-amount">
+                    <div class="amount-display">
+                        <span class="amount-label">Amount to Pay:</span>
+                        <span class="amount-value">₹{{ payment.course.price }}</span>
+                    </div>
+                </div>
+
+                <button id="pay-button" class="btn btn-success" onclick="initiatePayment()" style="margin: 20px 0;">
+                    💳 Pay Now - ₹{{ payment.course.price }}
+                </button>
+                
+                <!-- Razorpay Integration -->
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                <script>
+                    let selectedPaymentMethod = 'razorpay';
+                    
+                    function selectPaymentMethod(method) {
+                        selectedPaymentMethod = method;
+                        document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
+                        event.currentTarget.classList.add('selected');
+                    }
+                    
+                    function initiatePayment() {
+                        // Check if Razorpay is configured
+                        const razorpayKey = "{{ razorpay_key|default:'' }}";
+                        const isConfigured = {{ razorpay_configured|yesno:"true,false" }};
+                        
+                        // Show configuration status
+                        if (!isConfigured && !razorpayKey) {
+                            if (confirm('Payment gateway is not configured. You can test the payment flow with a development order. Continue?')) {
+                                // Continue with development mode
+                            } else {
+                                return;
+                            }
+                        }
+                        
+                        // For development/testing - simulate successful payment
+                        if ("{{ payment.order_id }}" && "{{ payment.order_id }}".includes('dev_order')) {
+                            if (confirm('This is a development order. Mark as paid for testing?')) {
+                                // Simulate payment verification
+                                const form = document.createElement('form');
+                                form.method = 'POST';
+                                form.action = '/verify';
+                                
+                                const csrfInput = document.createElement('input');
+                                csrfInput.type = 'hidden';
+                                csrfInput.name = 'csrfmiddlewaretoken';
+                                csrfInput.value = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                                form.appendChild(csrfInput);
+                                
+                                const orderInput = document.createElement('input');
+                                orderInput.type = 'hidden';
+                                orderInput.name = 'razorpay_order_id';
+                                orderInput.value = "{{ payment.order_id }}";
+                                form.appendChild(orderInput);
+                                
+                                const paymentInput = document.createElement('input');
+                                paymentInput.type = 'hidden';
+                                paymentInput.name = 'razorpay_payment_id';
+                                paymentInput.value = 'dev_payment_' + Date.now();
+                                form.appendChild(paymentInput);
+                                
+                                document.body.appendChild(form);
+                                form.submit();
+                                return;
+                            }
+                        }
+                        
+                        const amount = {{ payment.course.price }} * 100; // Convert to paise
+                        const options = {
+                            "key": razorpayKey,
+                            "amount": amount,
+                            "currency": "INR",
+                            "name": "Ez-Learn",
+                            "description": "{{ payment.course.name }} Course Payment",
+                            "order_id": "{{ payment.order_id }}",
+                            "handler": function (response) {
+                                // Handle successful payment
+                                console.log('Payment successful:', response);
+                                
+                                // Show loading state
+                                const payButton = document.getElementById('pay-button');
+                                payButton.innerHTML = 'Processing...';
+                                payButton.disabled = true;
+                                
+                                // Submit payment details to verify endpoint
+                                fetch('/verify', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                                    },
+                                    body: new URLSearchParams({
+                                        'razorpay_order_id': response.razorpay_order_id,
+                                        'razorpay_payment_id': response.razorpay_payment_id,
+                                        'razorpay_signature': response.razorpay_signature || 'dev_signature'
+                                    })
+                                }).then(response => {
+                                    if (response.ok) {
+                                        // Redirect to home page
+                                        window.location.href = "{% url 'home' learner.id %}";
+                                    } else {
+                                        throw new Error('Payment verification failed');
+                                    }
+                                }).catch(error => {
+                                    console.error('Payment verification error:', error);
+                                    alert('Payment successful but verification failed. Please contact support.');
+                                    payButton.innerHTML = 'Pay Now - ₹{{ payment.course.price }}';
+                                    payButton.disabled = false;
+                                });
+                            },
+                            "prefill": {
+                                "name": "{{ learner.first_name|default:learner.username }}",
+                                "email": "{{ learner.email|default:'' }}"
+                            },
+                            "theme": {
+                                "color": "#667eea"
+                            }
+                        };
+                        
+                        const rzp = new Razorpay(options);
+                        rzp.on('payment.failed', function (response) {
+                            alert('Payment failed: ' + (response.error.description || 'Please try again'));
+                            console.error('Payment failed:', response.error);
+                        });
+                        
+                        rzp.open();
+                    }
+                </script>
+            </div>
+
+            <div class="next-steps">
+                <h3>💡 What Happens Next?</h3>
+                <ul class="steps-list">
+                    <li>
+                        <div class="step-icon">1</div>
+                        <div class="step-text">
+                            <strong>Complete Payment</strong><br>
+                            Choose your preferred payment method and complete the transaction
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-icon">2</div>
+                        <div class="step-text">
+                            <strong>Instant Access</strong><br>
+                            Your course access will be activated immediately after successful payment
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-icon">3</div>
+                        <div class="step-text">
+                            <strong>Start Learning</strong><br>
+                            Return to your course and explore all premium content
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="{% url 'learn_course' learner.id payment.course.id %}" class="btn">
+                    📚 Preview Free Content
+                </a>
+                <button onclick="window.location.reload()" class="btn btn-secondary">
+                    🔄 Check Payment Status
+                </button>
+            </div>
+        {% endif %}
+
+        <a href="{% url 'home' learner.id %}" class="btn">
+            🏠 Back to Dashboard
+        </a>
+
+        <div class="security-note">
+            🔒 Your payment information is secure and encrypted. We use industry-standard security protocols to protect your data.
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add entrance animation
+            const container = document.querySelector('.payment-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.6s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 200);
+
+            // Auto-refresh if payment is pending
+            {% if not payment.status %}
+            setTimeout(() => {
+                if (confirm('Payment still pending. Would you like to refresh the page to check for updates?')) {
+                    window.location.reload();
+                }
+            }, 10000); // 10 seconds
+            {% endif %}
+        });
+    </script>
 </body>
 </html>

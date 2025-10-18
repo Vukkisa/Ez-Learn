@@ -4,87 +4,280 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learner Login - Ez-Learn</title>
-    <link rel="stylesheet" href="{% load static %}{% static 'learner_login.css' %}">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
+        
         .login-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.6s ease-out;
         }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .login-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
+        
+        .input-container {
+            position: relative;
+        }
+        
         input[type="text"], input[type="password"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
             font-size: 16px;
-            box-sizing: border-box;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            outline: none;
         }
+        
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+        }
+        
         .btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 12px 20px;
+            padding: 15px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             cursor: pointer;
             width: 100%;
             font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
         .btn:hover {
-            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
         .error {
-            color: red;
-            margin-bottom: 15px;
+            background: #ffe6e6;
+            color: #d63031;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d63031;
+            animation: shake 0.5s ease-in-out;
         }
-        .register-link {
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .register-links {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #e1e5e9;
         }
-        .register-link a {
+        
+        .register-links p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .register-links a {
             color: #667eea;
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .register-links a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .loading {
+            display: none;
+            margin-left: 10px;
+        }
+        
+        .loading.show {
+            display: inline-block;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2 style="text-align: center; margin-bottom: 30px;">Learner Login</h2>
+        <div class="login-header">
+            <h2 class="login-title">Welcome Back</h2>
+            <p class="login-subtitle">Sign in to continue your learning journey</p>
+        </div>
         
         {% if error %}
-        <div class="error">{{ error }}</div>
+        <div class="error">
+            <strong>⚠️ Login Failed</strong><br>
+            {{ error }}
+        </div>
         {% endif %}
         
-        <form method="post">
+        <form method="post" id="loginForm">
             {% csrf_token %}
             <div class="form-group">
-                <input type="text" name="username" placeholder="Username" required>
+                <div class="input-container">
+                    <span class="input-icon">👤</span>
+                    <input type="text" name="username" placeholder="Enter your username" required>
+                </div>
             </div>
+            
             <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
+                <div class="input-container">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
             </div>
-            <button type="submit" class="btn">Login</button>
+            
+            <div class="forgot-password">
+                <a href="#" onclick="alert('Contact support for password reset')">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="btn">
+                Sign In
+                <span class="loading">⏳</span>
+            </button>
         </form>
         
-        <div class="register-link">
-            <p>Don't have an account? <a href="{% url 'register_learner' %}">Register here</a></p>
-            <p><a href="{% url 'main' %}" style="color: #667eea;">← Back to Home</a></p>
+        <div class="register-links">
+            <p>Don't have an account?</p>
+            <p><a href="{% url 'register_learner' %}">Create New Account</a></p>
+            <p><a href="{% url 'main' %}">← Back to Home</a></p>
         </div>
     </div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function() {
+            const btn = document.querySelector('.btn');
+            const loading = document.querySelector('.loading');
+            
+            btn.innerHTML = 'Signing In... <span class="loading show">⏳</span>';
+            btn.disabled = true;
+        });
+        
+        // Add input animations
+        const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>

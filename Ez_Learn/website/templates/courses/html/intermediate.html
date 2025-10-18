@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Intermediate - Ez-Learn</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #e34c26, #f39c12);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #e34c26;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .lesson {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #e34c26;
+            background: #f8f9fa;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .premium-badge {
+            background: linear-gradient(135deg, #e34c26, #f39c12);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HTML Intermediate</h1>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <div class="premium-badge">🔥 PREMIUM CONTENT</div>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{% url 'learn_course' learner.id course.id %}" class="btn">← Back to Course</a>
+            <a href="{% url 'home' learner.id %}" class="btn">🏠 Dashboard</a>
+        </div>
+
+        <h2>🚀 HTML Intermediate - PREMIUM CONTENT</h2>
+        
+        <div class="lesson">
+            <h3>1. Forms and Input Elements</h3>
+            <p>Learn to create interactive forms with various input types and validation.</p>
+            <div class="code-block">
+&lt;!-- Complete form example --&gt;
+&lt;form action="/submit" method="POST"&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Contact Information&lt;/legend&gt;
+        
+        &lt;label for="name"&gt;Full Name:&lt;/label&gt;
+        &lt;input type="text" id="name" name="fullname" required&gt;
+        
+        &lt;label for="email"&gt;Email:&lt;/label&gt;
+        &lt;input type="email" id="email" name="email" required&gt;
+        
+        &lt;label for="age"&gt;Age:&lt;/label&gt;
+        &lt;input type="number" id="age" name="age" min="1" max="120"&gt;
+        
+        &lt;label for="country"&gt;Country:&lt;/label&gt;
+        &lt;select id="country" name="country"&gt;
+            &lt;option value=""&gt;Select Country&lt;/option&gt;
+            &lt;option value="us"&gt;United States&lt;/option&gt;
+            &lt;option value="uk"&gt;United Kingdom&lt;/option&gt;
+            &lt;option value="ca"&gt;Canada&lt;/option&gt;
+        &lt;/select&gt;
+        
+        &lt;label&gt;Interests:&lt;/label&gt;
+        &lt;input type="checkbox" id="web" name="interests" value="web"&gt;
+        &lt;label for="web"&gt;Web Development&lt;/label&gt;
+        
+        &lt;input type="checkbox" id="mobile" name="interests" value="mobile"&gt;
+        &lt;label for="mobile"&gt;Mobile Development&lt;/label&gt;
+        
+        &lt;label for="bio"&gt;Bio:&lt;/label&gt;
+        &lt;textarea id="bio" name="bio" rows="4" cols="50"&gt;&lt;/textarea&gt;
+        
+        &lt;button type="submit"&gt;Submit&lt;/button&gt;
+        &lt;button type="reset"&gt;Reset&lt;/button&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>2. Tables and Data Display</h3>
+            <p>Create structured tables for presenting data effectively.</p>
+            <div class="code-block">
+&lt;!-- Advanced table with headers and styling --&gt;
+&lt;table border="1" cellpadding="10" cellspacing="0"&gt;
+    &lt;caption&gt;Student Grades&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Student ID&lt;/th&gt;
+            &lt;th scope="col"&gt;Name&lt;/th&gt;
+            &lt;th scope="col"&gt;Math&lt;/th&gt;
+            &lt;th scope="col"&gt;English&lt;/th&gt;
+            &lt;th scope="col"&gt;Science&lt;/th&gt;
+            &lt;th scope="col"&gt;Average&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;001&lt;/td&gt;
+            &lt;td&gt;Alice Johnson&lt;/td&gt;
+            &lt;td&gt;95&lt;/td&gt;
+            &lt;td&gt;88&lt;/td&gt;
+            &lt;td&gt;92&lt;/td&gt;
+            &lt;td&gt;91.7&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;002&lt;/td&gt;
+            &lt;td&gt;Bob Smith&lt;/td&gt;
+            &lt;td&gt;78&lt;/td&gt;
+            &lt;td&gt;85&lt;/td&gt;
+            &lt;td&gt;90&lt;/td&gt;
+            &lt;td&gt;84.3&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td colspan="5"&gt;Class Average&lt;/td&gt;
+            &lt;td&gt;88.0&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #e8f5e8, #f1f8e9); border-radius: 15px; border: 2px solid #28a745;">
+            <h3>🎉 Great Progress!</h3>
+            <p style="font-size: 1.1rem; margin: 15px 0;">You've mastered HTML Intermediate concepts!</p>
+            <div style="margin-top: 20px;">
+                <a href="{% url 'learn_course' learner.id course.id %}" class="btn" style="background: linear-gradient(135deg, #9c27b0, #673ab7); font-size: 1.1rem; padding: 15px 30px;">
+                    🚀 Continue to Advanced HTML
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
