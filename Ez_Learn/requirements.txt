@@ -5,3 +5,11 @@ psycopg2-binary==2.9.10
 whitenoise>=6.0
 python-dotenv>=1.0
 pytz
+razorpay
+xhtml2pdf
+Pillow
+django-crispy-forms
+crispy-bootstrap5
+django-bootstrap5
+django-allauth
+dj-rest-framework
