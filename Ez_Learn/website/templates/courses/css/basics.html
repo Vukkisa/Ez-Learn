@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Basics - Ez-Learn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: #1572b6;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #1572b6;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background: #0d5a99;
+        }
+        .lesson {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #1572b6;
+            background: #f8f9fa;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CSS Basics</h1>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{% url 'learn_course' learner.id course.id %}" class="btn">← Back to Course</a>
+            <a href="{% url 'home' learner.id %}" class="btn">Dashboard</a>
+        </div>
+
+        <h2>🎨 CSS Fundamentals - FREE CONTENT</h2>
+        
+        <div class="lesson">
+            <h3>1. What is CSS?</h3>
+            <p>CSS (Cascading Style Sheets) controls the visual appearance of HTML elements. It's what makes websites beautiful!</p>
+            <div class="code-block">
+/* This is a CSS comment */
+
+/* Change text color */
+p {
+    color: blue;
+}
+
+/* Change background */
+body {
+    background-color: lightgray;
+}
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>2. CSS Syntax</h3>
+            <p>CSS follows a simple syntax rule:</p>
+            <div class="code-block">
+selector {
+    property: value;
+    property: value;
+}
+
+/* Example */
+h1 {
+    color: red;
+    font-size: 24px;
+    text-align: center;
+}
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>3. Colors and Typography</h3>
+            <p>Control colors and text appearance:</p>
+            <div class="code-block">
+/* Text colors */
+.blue-text { color: blue; }
+.green-text { color: #00ff00; }
+.red-text { color: rgb(255, 0, 0); }
+
+/* Font styling */
+.bold-text { font-weight: bold; }
+.italic-text { font-style: italic; }
+.large-text { font-size: 20px; }
+.small-text { font-size: 12px; }
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>4. Backgrounds and Borders</h3>
+            <p>Style backgrounds and add borders to elements:</p>
+            <div class="code-block">
+/* Background colors */
+.background-blue { background-color: lightblue; }
+.background-red { background-color: #ffcccc; }
+
+/* Borders */
+.border-solid { border: 2px solid black; }
+.border-dashed { border: 1px dashed red; }
+.border-rounded { border-radius: 10px; }
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>5. Basic Layout - Box Model</h3>
+            <p>Understand how elements are sized and spaced:</p>
+            <div class="code-block">
+.box {
+    width: 200px;          /* Width of the content */
+    height: 100px;         /* Height of the content */
+    padding: 20px;         /* Space inside the element */
+    margin: 10px;          /* Space outside the element */
+    border: 2px solid black; /* Border around the element */
+}
+
+/* Center text */
+.center-text { text-align: center; }
+.center-div { 
+    margin-left: auto;
+    margin-right: auto;
+}
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background: #e8f5e8; border-radius: 5px;">
+            <h3>🎉 Excellent!</h3>
+            <p>You've mastered CSS basics!</p>
+            <p><strong>Want to go further?</strong> Get the full course for advanced CSS techniques, layouts, and animations.</p>
+            {% if not has_full_access %}
+            <a href="{% url 'check_payment' learner.id course.name %}" class="btn" style="background: #28a745;">Upgrade to Full Course</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

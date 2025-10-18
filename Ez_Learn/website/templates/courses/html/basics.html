@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Basics - Ez-Learn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: #e34c26;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #e34c26;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background: #d32f2f;
+        }
+        .lesson {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #e34c26;
+            background: #f8f9fa;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HTML Basics</h1>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{% url 'learn_course' learner.id course.id %}" class="btn">← Back to Course</a>
+            <a href="{% url 'home' learner.id %}" class="btn">Dashboard</a>
+        </div>
+
+        <h2>🌐 HTML Fundamentals - FREE CONTENT</h2>
+        
+        <div class="lesson">
+            <h3>1. What is HTML?</h3>
+            <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages. It uses tags to structure content.</p>
+            <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My First Web Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>2. Basic HTML Structure</h3>
+            <p>Every HTML document has a basic structure:</p>
+            <div class="code-block">
+&lt;!DOCTYPE html&gt;           &lt;!-- Document type --&gt;
+&lt;html lang="en"&gt;          &lt;!-- Root element --&gt;
+&lt;head&gt;                    &lt;!-- Meta information --&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;                    &lt;!-- Visible content --&gt;
+    &lt;!-- Your content here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>3. Common HTML Tags</h3>
+            <p>Learn the most essential HTML tags:</p>
+            <div class="code-block">
+&lt;h1&gt;Main Heading&lt;/h1&gt;          &lt;!-- Largest heading --&gt;
+&lt;h2&gt;Sub Heading&lt;/h2&gt;            &lt;!-- Smaller heading --&gt;
+&lt;p&gt;This is a paragraph.&lt;/p&gt;     &lt;!-- Paragraph text --&gt;
+&lt;strong&gt;Bold text&lt;/strong&gt;       &lt;!-- Bold/strong text --&gt;
+&lt;em&gt;Italic text&lt;/em&gt;            &lt;!-- Italic/emphasized text --&gt;
+&lt;br&gt;                            &lt;!-- Line break --&gt;
+&lt;a href="https://example.com"&gt;Link&lt;/a&gt;  &lt;!-- Hyperlink --&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>4. Lists - Organized Content</h3>
+            <p>Create ordered and unordered lists:</p>
+            <div class="code-block">
+&lt;!-- Unordered List (bullets) --&gt;
+&lt;ul&gt;
+    &lt;li&gt;First item&lt;/li&gt;
+    &lt;li&gt;Second item&lt;/li&gt;
+    &lt;li&gt;Third item&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Ordered List (numbers) --&gt;
+&lt;ol&gt;
+    &lt;li&gt;First step&lt;/li&gt;
+    &lt;li&gt;Second step&lt;/li&gt;
+    &lt;li&gt;Third step&lt;/li&gt;
+&lt;/ol&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>5. Images and Links</h3>
+            <p>Add images and create links to other pages:</p>
+            <div class="code-block">
+&lt;!-- Adding an image --&gt;
+&lt;img src="photo.jpg" alt="Description" width="300" height="200"&gt;
+
+&lt;!-- Creating links --&gt;
+&lt;a href="https://www.google.com"&gt;Visit Google&lt;/a&gt;
+&lt;a href="about.html"&gt;About Page&lt;/a&gt;
+&lt;a href="#section1"&gt;Jump to Section&lt;/a&gt;
+
+&lt;!-- Email link --&gt;
+&lt;a href="mailto:contact@example.com"&gt;Send Email&lt;/a&gt;
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background: #e8f5e8; border-radius: 5px;">
+            <h3>🎉 Great Work!</h3>
+            <p>You've learned the HTML basics!</p>
+            <p><strong>Ready for more?</strong> Purchase the full course for intermediate and advanced HTML techniques.</p>
+            {% if not has_full_access %}
+            <a href="{% url 'check_payment' learner.id course.name %}" class="btn" style="background: #28a745;">Upgrade to Full Course</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

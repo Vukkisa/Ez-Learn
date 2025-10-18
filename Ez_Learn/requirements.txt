@@ -12,4 +12,4 @@ django-crispy-forms
 crispy-bootstrap5
 django-bootstrap5
 django-allauth
-dj-rest-framework
+djangorestframework

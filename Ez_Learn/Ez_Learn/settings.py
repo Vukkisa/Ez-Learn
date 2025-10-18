@@ -5,7 +5,11 @@ Django settings for Ez_Learn project (secure + Render-ready)
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import dj_database_url
+
+try:
+    import dj_database_url
+except ImportError:
+    dj_database_url = None
 
 # ----------------------------------------------------------
 # Base Directory & Environment
@@ -69,7 +73,10 @@ WSGI_APPLICATION = "Ez_Learn.wsgi.application"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates"),
+            os.path.join(BASE_DIR, "website", "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,12 +92,20 @@ TEMPLATES = [
 # ----------------------------------------------------------
 # Database (SQLite local / Postgres via DATABASE_URL)
 # ----------------------------------------------------------
-DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
-    )
-}
+if dj_database_url:
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+            conn_max_age=600
+        )
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # ----------------------------------------------------------
 # Password Validation
@@ -143,6 +158,10 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 RAZORPAY_KEY = os.environ.get("RAZORPAY_KEY")
 RAZORPAY_SECRET = os.environ.get("RAZORPAY_SECRET")
 
+# Add these for backwards compatibility with views.py
+KEY_ID = RAZORPAY_KEY
+KEY_SECRET = RAZORPAY_SECRET
+
 razorpay_client = None
 if RAZORPAY_KEY and RAZORPAY_SECRET:
     try:
@@ -156,8 +175,9 @@ if RAZORPAY_KEY and RAZORPAY_SECRET:
 # Security Headers (for Render HTTPS)
 # ----------------------------------------------------------
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# Only enable secure cookies when not in debug mode
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 # ----------------------------------------------------------
 # Logging (minimal console output)

@@ -83,7 +83,7 @@ class Submission_quiz(models.Model):
     score = models.IntegerField(blank=True, null=True, default = 0)
 
     def __str__(self):
-        return self.Learner.username
+        return f"{self.Learner.username if self.Learner else 'No Learner'} - {self.Quiz.title if self.Quiz else 'No Quiz'}"
      
     
 class Payment(models.Model):
@@ -95,7 +95,7 @@ class Payment(models.Model):
 
 
     def __str__(self):
-         return self.order_id
+         return self.order_id or f"Payment for {self.learner.username if self.learner else 'Unknown'}"
 
 
 
@@ -105,5 +105,5 @@ class Query(models.Model):
     query = models.CharField(max_length=2000, null=True, blank=True)
 
     def __str__(self):
-         return self.query
+         return self.query or f"Query from {self.learner.username if self.learner else 'Unknown User'}"
 

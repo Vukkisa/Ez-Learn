@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Course - Ez-Learn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .level-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .level-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CSS Course</h1>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <h2>Choose Your Learning Level</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="level-selector">
+                <div class="level-card" style="border: 2px solid #28a745;">
+                    <h3>Basics <span style="color: #28a745; font-size: 0.8em;">FREE</span></h3>
+                    <p>Learn CSS fundamentals and styling basics.</p>
+                    <button type="submit" name="basics" value="basics" class="btn" style="background: #28a745;">Start Basics</button>
+                </div>
+                
+                <div class="level-card" style="border: 2px solid {% if has_full_access %}#28a745{% else %}#dc3545{% endif %};">
+                    <h3>Intermediate <span style="color: {% if has_full_access %}#28a745{% else %}#dc3545{% endif %}; font-size: 0.8em;">{% if has_full_access %}UNLOCKED{% else %}PREMIUM{% endif %}</span></h3>
+                    <p>Layout, positioning, and advanced selectors.</p>
+                    {% if has_full_access %}
+                        <button type="submit" name="intermediate" value="intermediate" class="btn" style="background: #28a745;">Start Intermediate</button>
+                    {% else %}
+                        <button type="submit" name="intermediate" value="intermediate" class="btn" style="background: #dc3545;">Purchase to Access</button>
+                    {% endif %}
+                </div>
+                
+                <div class="level-card" style="border: 2px solid {% if has_full_access %}#28a745{% else %}#dc3545{% endif %};">
+                    <h3>Advanced <span style="color: {% if has_full_access %}#28a745{% else %}#dc3545{% endif %}; font-size: 0.8em;">{% if has_full_access %}UNLOCKED{% else %}PREMIUM{% endif %}</span></h3>
+                    <p>CSS3 features, animations, and responsive design.</p>
+                    {% if has_full_access %}
+                        <button type="submit" name="advanced" value="advanced" class="btn" style="background: #28a745;">Start Advanced</button>
+                    {% else %}
+                        <button type="submit" name="advanced" value="advanced" class="btn" style="background: #dc3545;">Purchase to Access</button>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if not has_full_access %}
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px;">
+                <p><strong>Want full access?</strong> <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #667eea;">Purchase Full Course - ₹{{ course.price }}</a></p>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
+

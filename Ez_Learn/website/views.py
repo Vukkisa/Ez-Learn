@@ -15,7 +15,10 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import ImageForm
 import sys
 from django.template.loader import get_template
-from xhtml2pdf import pisa
+try:
+    from xhtml2pdf import pisa
+except ImportError:
+    pisa = None
 
 
 # Create your views here.
@@ -197,33 +200,61 @@ def learner_profile(request, id):
 def course_content(request, id, cid):
     learner = Learner.objects.get(id = id)
     course = Course.objects.get(id = cid)
+    
+    # Check if learner has access to this course
+    try:
+        learning = learnings.objects.get(learner=learner, course_learning=course)
+        has_full_access = learning.activation
+    except learnings.DoesNotExist:
+        # Create learning record if it doesn't exist
+        learning = learnings.objects.create(learner=learner, course_learning=course, activation=False)
+        has_full_access = False
+    
     if course.name == 'PYTHON':
         if request.method == 'POST':
             if request.POST.get('basics') == 'basics':
-                return render(request, 'courses/python/basics.html', {'learner': learner, 'course': course})
+                return render(request, 'courses/python/basics.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
             if request.POST.get('intermediate') == 'intermediate':
-                return render(request, 'courses/python/intermediate.html', {'learner': learner, 'course': course})
+                if has_full_access:
+                    return render(request, 'courses/python/intermediate.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
+                else:
+                    return render(request, 'payment/bying_course.html', {'learnt': learning, 'message': 'Please purchase the course to access intermediate content.'})
             if request.POST.get('advanced') == 'advanced':
-                return render(request, 'courses/python/advanced.html', {'learner': learner, 'course': course})
-        return render(request, 'courses/python/open.html', {'learner': learner, 'course': course})
+                if has_full_access:
+                    return render(request, 'courses/python/advanced.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
+                else:
+                    return render(request, 'payment/bying_course.html', {'learnt': learning, 'message': 'Please purchase the course to access advanced content.'})
+        return render(request, 'courses/python/open.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access, 'learning': learning})
     elif course.name == 'HTML':
         if request.method == 'POST':
             if request.POST.get('basics') == 'basics':
-                return render(request, 'courses/html/basics.html', {'learner': learner, 'course': course})
+                return render(request, 'courses/html/basics.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
             if request.POST.get('intermediate') == 'intermediate':
-                return render(request, 'courses/html/intermediate.html', {'learner': learner, 'course': course})
+                if has_full_access:
+                    return render(request, 'courses/html/intermediate.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
+                else:
+                    return render(request, 'payment/bying_course.html', {'learnt': learning, 'message': 'Please purchase the course to access intermediate content.'})
             if request.POST.get('advanced') == 'advanced':
-                return render(request, 'courses/html/advanced.html', {'learner': learner, 'course': course})
-        return render(request, 'courses/html/open.html', {'learner': learner, 'course': course})
+                if has_full_access:
+                    return render(request, 'courses/html/advanced.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
+                else:
+                    return render(request, 'payment/bying_course.html', {'learnt': learning, 'message': 'Please purchase the course to access advanced content.'})
+        return render(request, 'courses/html/open.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access, 'learning': learning})
     elif course.name == 'CSS':
         if request.method == 'POST':
             if request.POST.get('basics') == 'basics':
-                return render(request, 'courses/css/basics.html', {'learner': learner, 'course': course})
+                return render(request, 'courses/css/basics.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
             if request.POST.get('intermediate') == 'intermediate':
-                return render(request, 'courses/css/intermediate.html', {'learner': learner, 'course': course})
+                if has_full_access:
+                    return render(request, 'courses/css/intermediate.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
+                else:
+                    return render(request, 'payment/bying_course.html', {'learnt': learning, 'message': 'Please purchase the course to access intermediate content.'})
             if request.POST.get('advanced') == 'advanced':
-                return render(request, 'courses/css/advanced.html', {'learner': learner, 'course': course})
-        return render(request, 'courses/css/open.html', {'learner': learner, 'course': course})
+                if has_full_access:
+                    return render(request, 'courses/css/advanced.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access})
+                else:
+                    return render(request, 'payment/bying_course.html', {'learnt': learning, 'message': 'Please purchase the course to access advanced content.'})
+        return render(request, 'courses/css/open.html', {'learner': learner, 'course': course, 'has_full_access': has_full_access, 'learning': learning})
 
 
 
@@ -291,16 +322,20 @@ def get_certificate(request, id , cid):
         maximum_score = max([submission.score for submission in submissions])
         # highest_score = request.session[f'highest_score_{course.name}']
         if maximum_score >= 15:
-            template_path = 'certificate.html'
-            context = {'learner': learner}
-            response = HttpResponse(content_type='application/pdf')
-            response['Content-Disposition'] = 'filename="report.pdf"'
-            template = get_template(template_path)
-            html = template.render(context)
-            pisa_status = pisa.CreatePDF(html, dest=response)
-            if pisa_status.err:
-                return HttpResponse('We had some errors <pre>' + html + '</pre>')
-            return response
+            if pisa is not None:
+                template_path = 'certificate.html'
+                context = {'learner': learner}
+                response = HttpResponse(content_type='application/pdf')
+                response['Content-Disposition'] = 'filename="report.pdf"'
+                template = get_template(template_path)
+                html = template.render(context)
+                pisa_status = pisa.CreatePDF(html, dest=response)
+                if pisa_status.err:
+                    return HttpResponse('We had some errors <pre>' + html + '</pre>')
+                return response
+            else:
+                # Fallback when xhtml2pdf is not available
+                return HttpResponse(f'Certificate ready for {learner.username}! (PDF generation not available)')
         else:
             error = f'Your all time highest quiz score in this course is {maximum_score}. You need to get minimum of 15 to get the certificate'
             return render(request, 'quiz/no_quiz_taken.html' , {'error': error, 'learner': learner, 'course': course, 'score': maximum_score})
@@ -320,12 +355,21 @@ def leaner_logout(request):
 def check_payment(request, id, name):
     learner = Learner.objects.get(id= id)
     course = Course.objects.get(name= name)
-    learnt_list =  learnings.objects.filter(learner=learner, course_learning=course)
-    learnt = learnt_list[0]                                                                                                                                                                                               
-    if learnt.activation == True:
-        return redirect('get_certificate', learner.id, course.id)
-    else:
-        return redirect('making_payment', learnt.id)
+    try:
+        learnt_list = learnings.objects.filter(learner=learner, course_learning=course)
+        if learnt_list.exists():
+            learnt = learnt_list[0]
+            if learnt.activation == True:
+                return redirect('learn_course', learner.id, course.id)
+            else:
+                # Allow access to course content even without payment - basics are free
+                return redirect('learn_course', learner.id, course.id)
+        else:
+            # Create learning record if it doesn't exist
+            learnt = learnings.objects.create(learner=learner, course_learning=course, activation=False)
+            return redirect('learn_course', learner.id, course.id)
+    except Exception as e:
+        return redirect('learn_course', learner.id, course.id)
 
 
 #making_payment 
@@ -334,8 +378,12 @@ def making_payment(request, id):
     course = learnt.course_learning
     learner = learnt.learner
     if request.method == 'POST':
-        client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
-        order = client.order.create({'amount' : 50000, 'currency': 'INR'})
+        if KEY_ID and KEY_SECRET:
+            client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
+            order = client.order.create({'amount' : 50000, 'currency': 'INR'})
+        else:
+            # Fallback for development when Razorpay keys are not set
+            order = {'id': 'test_order_123'}
         print(order)
         uid = order['id']
         payment = Payment.objects.create(order_id = uid, course = course, learner= learner)
@@ -430,7 +478,7 @@ def developer_home(request, id):
 
 
 
-login_required
+@login_required
 def learners_list(request, id):
     developer = D.objects.get(id=id)
     Learners = Learner.objects.all()

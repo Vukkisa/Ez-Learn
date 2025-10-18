@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics - Ez-Learn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background: #5a6fd8;
+        }
+        .lesson {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Python Basics</h1>
+        <span>Welcome, {{ learner.username }}</span>
+    </div>
+    
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{% url 'learn_course' learner.id course.id %}" class="btn">← Back to Course</a>
+            <a href="{% url 'home' learner.id %}" class="btn">Dashboard</a>
+        </div>
+
+        <h2>🎓 Python Fundamentals - FREE CONTENT</h2>
+        
+        <div class="lesson">
+            <h3>1. What is Python?</h3>
+            <p>Python is a high-level, interpreted programming language with simple syntax and powerful capabilities. It's perfect for beginners!</p>
+            <div class="code-block">
+# Your first Python program
+print("Hello, World!")
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>2. Variables and Data Types</h3>
+            <p>In Python, you can store different types of data in variables:</p>
+            <div class="code-block">
+# Different data types
+name = "Alice"           # String
+age = 25                 # Integer
+height = 5.6            # Float
+is_student = True       # Boolean
+
+print(f"Name: {name}")
+print(f"Age: {age}")
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>3. Basic Operations</h3>
+            <p>Python supports all basic mathematical operations:</p>
+            <div class="code-block">
+a = 10
+b = 3
+
+# Basic operations
+print(a + b)    # Addition
+print(a - b)    # Subtraction
+print(a * b)    # Multiplication
+print(a / b)    # Division
+print(a % b)    # Modulus (remainder)
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>4. Conditional Statements</h3>
+            <p>Use if/else statements to make decisions in your code:</p>
+            <div class="code-block">
+score = 85
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+else:
+    grade = "F"
+
+print(f"Your grade: {grade}")
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>5. Lists - Your First Data Structure</h3>
+            <p>Lists are used to store multiple items in a single variable:</p>
+            <div class="code-block">
+# Creating and using lists
+fruits = ["apple", "banana", "orange"]
+print(fruits[0])        # Access first item
+fruits.append("grape")  # Add new item
+print(f"Total fruits: {len(fruits)}")
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background: #e8f5e8; border-radius: 5px;">
+            <h3>🎉 Congratulations!</h3>
+            <p>You've completed the Python Basics free content!</p>
+            <p><strong>Ready for more?</strong> Purchase the full course to access Intermediate and Advanced lessons.</p>
+            {% if not has_full_access %}
+            <a href="{% url 'check_payment' learner.id course.name %}" class="btn" style="background: #28a745;">Upgrade to Full Course</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

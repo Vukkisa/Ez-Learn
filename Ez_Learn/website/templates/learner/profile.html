@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Ez-Learn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .profile-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: start;
+        }
+        .profile-pic {
+            text-align: center;
+        }
+        .profile-pic img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .info-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Profile - {{ learner.username }}</h1>
+        <a href="{% url 'home' learner.id %}" class="btn">Back to Dashboard</a>
+    </div>
+    
+    <div class="container">
+        <div class="profile-info">
+            <div class="profile-pic">
+                <img src="{{ learner.profile_picture.url }}" alt="Profile Picture">
+                <p><strong>{{ learner.username }}</strong></p>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">First Name:</div>
+                    <div>{{ learner.first_name }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Last Name:</div>
+                    <div>{{ learner.last_name }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email:</div>
+                    <div>{{ learner.email }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Phone:</div>
+                    <div>{{ learner.ph_number|default:"Not provided" }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Date of Birth:</div>
+                    <div>{{ learner.DOB|date:"Y-m-d" }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Address:</div>
+                    <div>{{ learner.dno }} {{ learner.street }}, {{ learner.city }}, {{ learner.state }}, {{ learner.country }} - {{ learner.pincode }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
