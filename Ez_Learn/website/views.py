@@ -10,9 +10,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 import razorpay
-from ez_learn_project.settings import KEY_ID,KEY_SECRET
+from Ez_Learn.settings import KEY_ID,KEY_SECRET
 from django.views.decorators.csrf import csrf_exempt
-from .forms import imageForm
+from .forms import ImageForm
 import sys
 from django.template.loader import get_template
 from xhtml2pdf import pisa
