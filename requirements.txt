@@ -5,3 +5,8 @@ psycopg2-binary==2.9.10
 whitenoise>=6.0
 python-dotenv>=1.0
 pytz
+razorpay>=2.8.0
+xhtml2pdf>=0.2.8    
+Pillow>=9.0.0   
+djangorestframework>=3.14.0
+django-cors-headers>=4.0.0 
