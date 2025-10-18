@@ -1,149 +1,170 @@
 """
-Django settings for Ez_Learn project (configured to use the 'website' app).
+Django settings for Ez_Learn project (secure + Render-ready)
 """
 
 from pathlib import Path
 import os
-import razorpay
+from dotenv import load_dotenv
+import dj_database_url
 
-# ------------------------------------------
-# Base directory
-# ------------------------------------------
+# ----------------------------------------------------------
+# Base Directory & Environment
+# ----------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")  # for local .env use (ignored on Render)
 
-# ------------------------------------------
-# Security
-# ------------------------------------------
-SECRET_KEY = 'django-insecure-vozk(zqnn=tutaaay=-n6z-z051pwedv$6k)n2g65j!*z4jen&'
-DEBUG = True
-ALLOWED_HOSTS = []
+# ----------------------------------------------------------
+# Security Settings
+# ----------------------------------------------------------
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "unsafe-dev-secret"  # fallback for local dev only
+)
 
-# ------------------------------------------
-# Installed apps
-# ------------------------------------------
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    "localhost,127.0.0.1"
+).split(",")
+
+# ----------------------------------------------------------
+# Installed Applications
+# ----------------------------------------------------------
 INSTALLED_APPS = [
-    # Django built-ins
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    # Default Django apps
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 
-    # Your application(s)
-    # If website/apps.py defines class WebsiteConfig, use 'website.apps.WebsiteConfig'
-    # Otherwise you can use 'website'
-    'website.apps.WebsiteConfig',
+    # Your app
+    "website.apps.WebsiteConfig",
 ]
 
-# ------------------------------------------
+# ----------------------------------------------------------
 # Middleware
-# ------------------------------------------
+# ----------------------------------------------------------
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# ------------------------------------------
-# URLs & WSGI
-# ------------------------------------------
-ROOT_URLCONF = 'Ez_Learn.urls'
-WSGI_APPLICATION = 'Ez_Learn.wsgi.application'
+# ----------------------------------------------------------
+# URL & WSGI Configuration
+# ----------------------------------------------------------
+ROOT_URLCONF = "Ez_Learn.urls"
+WSGI_APPLICATION = "Ez_Learn.wsgi.application"
 
-# ------------------------------------------
+# ----------------------------------------------------------
 # Templates
-# ------------------------------------------
+# ----------------------------------------------------------
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # add if you use project-level templates
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-# ------------------------------------------
-# Database (sqlite for dev)
-# ------------------------------------------
+# ----------------------------------------------------------
+# Database (SQLite local / Postgres via DATABASE_URL)
+# ----------------------------------------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600
+    )
 }
 
-# ------------------------------------------
-# Password validators
-# ------------------------------------------
+# ----------------------------------------------------------
+# Password Validation
+# ----------------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# ------------------------------------------
+# ----------------------------------------------------------
 # Internationalization
-# ------------------------------------------
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+# ----------------------------------------------------------
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# ------------------------------------------
-# Static & media
-# ------------------------------------------
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# ----------------------------------------------------------
+# Static & Media Files
+# ----------------------------------------------------------
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# ------------------------------------------
-# Default primary key field type
-# ------------------------------------------
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# ----------------------------------------------------------
+# Default Primary Key
+# ----------------------------------------------------------
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# ------------------------------------------
-# Email (local dev credentials kept inline as requested)
-# ------------------------------------------
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'jayanthchange@gmail.com'
-EMAIL_HOST_PASSWORD = 'bhhwjofuqiuggsyp'
-EMAIL_PORT = 587
+# ----------------------------------------------------------
+# Email (from environment)
+# ----------------------------------------------------------
+EMAIL_BACKEND = os.environ.get(
+    "EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend"
+)
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True") == "True"
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 
-# ------------------------------------------
-# Razorpay keys (inline for local dev)
-# ------------------------------------------
-KEY_ID = "rzp_test_ALvDvnHKMbLQmU"
-KEY_SECRET = "GkvGt6afXG8aiWKwUK6F3m9S"
+# ----------------------------------------------------------
+# Razorpay (Safe optional integration)
+# ----------------------------------------------------------
+RAZORPAY_KEY = os.environ.get("RAZORPAY_KEY")
+RAZORPAY_SECRET = os.environ.get("RAZORPAY_SECRET")
 
-# optional razorpay client instance
-razorpay_client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
+razorpay_client = None
+if RAZORPAY_KEY and RAZORPAY_SECRET:
+    try:
+        import razorpay
+        razorpay_client = razorpay.Client(auth=(RAZORPAY_KEY, RAZORPAY_SECRET))
+    except Exception as e:
+        print("⚠️ Razorpay not initialized:", e)
+        razorpay_client = None
 
-# ------------------------------------------
-# Logging
-# ------------------------------------------
+# ----------------------------------------------------------
+# Security Headers (for Render HTTPS)
+# ----------------------------------------------------------
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# ----------------------------------------------------------
+# Logging (minimal console output)
+# ----------------------------------------------------------
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {'class': 'logging.StreamHandler'},
-    },
-    'root': {'handlers': ['console'], 'level': 'WARNING'},
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "root": {"handlers": ["console"], "level": "WARNING"},
 }
