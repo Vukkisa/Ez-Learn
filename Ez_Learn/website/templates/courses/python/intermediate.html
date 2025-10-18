@@ -68,6 +68,62 @@
             display: inline-block;
             margin-bottom: 10px;
         }
+        .code-block {
+            transition: all 0.3s ease;
+        }
+        .code-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .interactive-demo {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3763a4;
+        }
+        .demo-button {
+            background: linear-gradient(135deg, #3763a4, #28a745);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(55, 99, 164, 0.3);
+        }
+        .quiz-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .quiz-option {
+            background: white;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .quiz-option:hover {
+            border-color: #3763a4;
+            background: #f8f9fa;
+        }
+        .quiz-option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .quiz-option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
     </style>
 </head>
 <body>
@@ -88,114 +144,485 @@
         <div style="background: rgba(55, 99, 164, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
             <h4 style="margin: 0; color: #3763a4;">📚 Python Intermediate - Premium Content</h4>
             <div style="width: 100%; background: rgba(55, 99, 164, 0.2); border-radius: 10px; margin-top: 10px;">
-                <div style="width: 75%; background: linear-gradient(135deg, #3763a4, #28a745); height: 8px; border-radius: 10px;"></div>
+                <div id="progress-bar" style="width: 0%; background: linear-gradient(135deg, #3763a4, #28a745); height: 8px; border-radius: 10px; transition: width 0.5s ease;"></div>
             </div>
-            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: 75% Complete (Advanced topics unlocked)</p>
+            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: <span id="progress-text">0%</span> Complete (<span id="completed-lessons">0</span>/8 lessons) - Est. 90 minutes</p>
         </div>
 
         <h2>🚀 Python Intermediate - PREMIUM CONTENT</h2>
         
         <div class="lesson">
-            <h3>1. Functions and Modules</h3>
-            <p>Learn to create reusable functions and organize code into modules.</p>
-            <div class="code-block">
-# Defining and using functions
-def greet_user(name, age=18):
-    """Function to greet a user with optional age parameter"""
-    return f"Hello {name}, you are {age} years old!"
+            <h3>1. Advanced Functions & Modules 🧩</h3>
+            <p>Master function arguments, decorators, and module organization.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+# Advanced function features
+def process_data(data, *args, **kwargs):
+    """Function with positional, keyword, and arbitrary arguments"""
+    print(f"Data: {data}")
+    print(f"Args: {args}")
+    print(f"Kwargs: {kwargs}")
 
-# Using the function
-message = greet_user("Alice", 25)
-print(message)
+# Lambda functions
+square = lambda x: x ** 2
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(square, numbers))
+print(squared)  # [1, 4, 9, 16, 25]
 
 # Working with modules
-import datetime
-current_time = datetime.datetime.now()
-print(f"Current time: {current_time}")
+import datetime as dt
+from pathlib import Path
+
+current_time = dt.datetime.now()
+file_path = Path("data.txt")
+print(f"Current time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🎯 Function Practice</h4>
+                <button class="demo-button" onclick="runDemo('demo1')">Run Function Demo</button>
+                <div id="demo1" style="display: none; margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <strong>Output:</strong><br>
+                    <code style="color: #28a745;">Data: hello<br>Args: ('world', 'python')<br>Kwargs: {'type': 'advanced'}<br>[1, 4, 9, 16, 25]</code>
+                </div>
             </div>
         </div>
 
         <div class="lesson">
-            <h3>2. Data Structures</h3>
-            <p>Deep dive into lists, dictionaries, sets, and tuples.</p>
-            <div class="code-block">
-# Lists - mutable and ordered
-fruits = ['apple', 'banana', 'orange']
-fruits.append('grape')
-fruits.insert(1, 'kiwi')
+            <h3>2. Data Structures Mastery 📊</h3>
+            <p>Deep dive into advanced list comprehensions, nested dictionaries, and set operations.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+# Advanced list operations
+original_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-# Dictionaries - key-value pairs
-student = {
-    'name': 'John',
-    'age': 20,
-    'courses': ['Python', 'Web Development'],
-    'gpa': 3.8
+# List comprehension with conditions
+even_squares = [x**2 for x in original_list if x % 2 == 0]
+print(f"Even squares: {even_squares}")
+
+# Nested dictionaries
+library = {
+    'books': {
+        'fiction': ['1984', 'To Kill a Mockingbird'],
+        'non-fiction': ['Sapiens', 'Atomic Habits']
+    },
+    'authors': {
+        'George Orwell': 1949,
+        'Harper Lee': 1960
+    }
 }
 
-# Accessing dictionary values
-print(f"Student: {student['name']}")
-print(f"Courses: {', '.join(student['courses'])}")
+# Advanced dictionary operations
+all_books = [book for category in library['books'].values() for book in category]
+print(f"All books: {all_books}")
 
-# Sets - unique unordered collection
-unique_numbers = {1, 2, 3, 4, 4, 5}  # Duplicates removed
-print(unique_numbers)  # {1, 2, 3, 4, 5}
+# Set operations
+set_a = {1, 2, 3, 4, 5}
+set_b = {4, 5, 6, 7, 8}
+union_set = set_a | set_b
+intersection_set = set_a & set_b
+difference_set = set_a - set_b
+print(f"Union: {union_set}")
+print(f"Intersection: {intersection_set}")
+print(f"Difference: {difference_set}")
+            </div>
+            
+            <div class="quiz-container">
+                <h4>🧩 Data Structures Quiz</h4>
+                <p><strong>What does this list comprehension return: <code>[x for x in range(10) if x % 3 == 0]</code>?</strong></p>
+                <div class="quiz-option" onclick="checkQuiz('quiz2', 'wrong1', this)">
+                    [0, 3, 6, 9]
+                </div>
+                <div class="quiz-option" onclick="checkQuiz('quiz2', 'correct', this)">
+                    [0, 3, 6, 9]
+                </div>
+                <div id="quiz2-feedback" style="margin-top: 15px; font-weight: bold;"></div>
             </div>
         </div>
 
         <div class="lesson">
-            <h3>3. Object-Oriented Programming</h3>
-            <p>Introduction to classes, objects, inheritance, and encapsulation.</p>
-            <div class="code-block">
-# Creating a class
-class Car:
-    def __init__(self, make, model, year):
-        self.make = make      # Instance attribute
-        self.model = model
-        self.year = year
-        self.mileage = 0
+            <h3>3. Object-Oriented Programming 🏗️</h3>
+            <p>Master classes, inheritance, polymorphism, and encapsulation principles.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+# Advanced OOP concepts
+class Animal:
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+        self._energy = 100  # Protected attribute
     
-    def drive(self, miles):
-        """Method to update mileage"""
-        self.mileage += miles
-        print(f"The {self.year} {self.make} {self.model} has driven {self.mileage} miles.")
+    def eat(self, food_amount):
+        self._energy = min(self._energy + food_amount, 100)
+        print(f"{self.name} ate and now has {self._energy} energy")
     
-    def get_info(self):
-        """Method to return car information"""
-        return f"{self.year} {self.make} {self.model}"
+    def make_sound(self):
+        return f"{self.name} makes a generic sound"
 
-# Creating objects and using methods
-my_car = Car("Toyota", "Camry", 2023)
-my_car.drive(150)
-print(my_car.get_info())
+class Dog(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name, "Canine")
+        self.breed = breed
+    
+    def make_sound(self):  # Polymorphism
+        return f"{self.name} barks!"
+    
+    def fetch(self):
+        if self._energy > 20:
+            self._energy -= 20
+            return f"{self.name} fetches the ball!"
+        return f"{self.name} is too tired to fetch"
+
+# Usage example
+my_dog = Dog("Buddy", "Golden Retriever")
+print(my_dog.make_sound())
+print(my_dog.fetch())
+my_dog.eat(50)
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🎯 OOP Simulator</h4>
+                <div style="margin: 15px 0;">
+                    <input type="text" id="dog-name" placeholder="Dog name" value="Max" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 5px;">
+                    <input type="text" id="dog-breed" placeholder="Breed" value="Labrador" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 5px;">
+                </div>
+                <button class="demo-button" onclick="simulateDog()">Create & Test Dog</button>
+                <div id="dog-result" style="margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                    <strong>Dog Simulation:</strong><br>
+                    <div id="dog-output" style="color: #28a745; font-family: monospace;"></div>
+                </div>
             </div>
         </div>
 
         <div class="lesson">
-            <h3>4. Error Handling</h3>
-            <p>Learn to handle exceptions gracefully with try-except blocks.</p>
-            <div class="code-block">
-# Basic error handling
-try:
-    number = int(input("Enter a number: "))
-    result = 10 / number
-    print(f"Result: {result}")
-except ValueError:
-    print("Please enter a valid number!")
-except ZeroDivisionError:
-    print("Cannot divide by zero!")
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")
-finally:
-    print("This always runs regardless of errors")
+            <h3>4. Advanced Error Handling 🛡️</h3>
+            <p>Learn comprehensive exception handling, custom exceptions, and logging.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+import logging
 
-# Custom exceptions
-class CustomError(Exception):
-    pass
+# Setup logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def validate_age(age):
-    if age < 0:
-        raise CustomError("Age cannot be negative")
-    return age
+class ValidationError(Exception):
+    """Custom exception for validation errors"""
+    def __init__(self, message, field=None):
+        self.message = message
+        self.field = field
+        super().__init__(self.message)
+
+def validate_user_data(data):
+    """Validate user input with detailed error handling"""
+    try:
+        if not isinstance(data, dict):
+            raise ValidationError("User data must be a dictionary")
+        
+        required_fields = ['name', 'email', 'age']
+        for field in required_fields:
+            if field not in data:
+                raise ValidationError(f"Missing required field: {field}", field)
+        
+        # Validate age
+        if not isinstance(data['age'], int) or data['age'] < 0:
+            raise ValidationError("Age must be a positive integer", 'age')
+        
+        # Validate email
+        if '@' not in data['email']:
+            raise ValidationError("Invalid email format", 'email')
+        
+        logging.info(f"User validation successful for: {data['name']}")
+        return True
+        
+    except ValidationError as ve:
+        logging.error(f"Validation error in field '{ve.field}': {ve.message}")
+        return False
+    except Exception as e:
+        logging.error(f"Unexpected error during validation: {e}")
+        return False
+
+# Example usage
+user_data = {'name': 'Alice', 'email': 'alice@example.com', 'age': 25}
+result = validate_user_data(user_data)
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>5. File Operations & I/O 📁</h3>
+            <p>Master file handling, CSV processing, and working with different file formats.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+import csv
+import json
+from pathlib import Path
+
+# Working with CSV files
+def read_csv_data(filename):
+    """Read data from CSV file"""
+    data = []
+    try:
+        with open(filename, 'r', newline='', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                data.append(row)
+        return data
+    except FileNotFoundError:
+        print(f"File {filename} not found")
+        return []
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return []
+
+# JSON operations
+def save_to_json(data, filename):
+    """Save data to JSON file"""
+    try:
+        with open(filename, 'w', encoding='utf-8') as file:
+            json.dump(data, file, indent=4, ensure_ascii=False)
+        print(f"Data saved to {filename}")
+    except Exception as e:
+        print(f"Error saving JSON: {e}")
+
+# Path operations
+def analyze_directory(path):
+    """Analyze directory contents"""
+    path_obj = Path(path)
+    if path_obj.exists() and path_obj.is_dir():
+        files = list(path_obj.glob('*'))
+        return {
+            'total_files': len(files),
+            'python_files': len(path_obj.glob('*.py')),
+            'directories': len([f for f in files if f.is_dir()])
+        }
+    return None
+
+# Example data for demonstration
+sample_data = [
+    {'name': 'Alice', 'age': 25, 'city': 'New York'},
+    {'name': 'Bob', 'age': 30, 'city': 'London'}
+]
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>6. Working with APIs 🌐</h3>
+            <p>Learn to make HTTP requests, handle API responses, and work with JSON data.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+import requests
+import json
+
+# Basic API request
+def fetch_weather_data(city, api_key="demo_key"):
+    """
+    Fetch weather data for a city.
+    Note: This is a mock function for educational purposes.
+    """
+    # Mock API response for demonstration
+    mock_response = {
+        "city": city,
+        "temperature": 22,
+        "humidity": 65,
+        "description": "Partly cloudy",
+        "status": "success"
+    }
+    
+    return mock_response
+
+def process_api_response(response_data):
+    """Process and format API response data"""
+    try:
+        if response_data.get('status') == 'success':
+            formatted_output = f"""
+Weather Report for {response_data['city']}:
+🌡️  Temperature: {response_data['temperature']}°C
+💧 Humidity: {response_data['humidity']}%
+☁️  Description: {response_data['description']}
+            """
+            return formatted_output.strip()
+        else:
+            return "Error: Unable to fetch weather data"
+    except KeyError as e:
+        return f"Error: Missing key in response - {e}"
+
+# Example usage
+weather_data = fetch_weather_data("London")
+result = process_api_response(weather_data)
+print(result)
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🌐 API Simulator</h4>
+                <input type="text" id="city-input" placeholder="Enter city name" value="Tokyo" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 10px;">
+                <button class="demo-button" onclick="simulateAPI()">Get Weather Data</button>
+                <div id="api-result" style="margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                    <strong>API Response:</strong><br>
+                    <div id="api-output" style="color: #28a745; font-family: monospace;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>7. Database Operations 💾</h3>
+            <p>Learn to work with SQLite databases, perform CRUD operations.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+import sqlite3
+from contextlib import contextmanager
+
+# Database operations
+@contextmanager
+def database_connection(db_path):
+    """Context manager for database connections"""
+    connection = None
+    try:
+        connection = sqlite3.connect(db_path)
+        connection.row_factory = sqlite3.Row  # Enable column access by name
+        yield connection
+    except Exception as e:
+        if connection:
+            connection.rollback()
+        raise e
+    finally:
+        if connection:
+            connection.close()
+
+def setup_sample_database():
+    """Setup a sample database with student data"""
+    with database_connection(':memory:') as conn:  # In-memory database for demo
+        cursor = conn.cursor()
+        
+        # Create table
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS students (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                age INTEGER,
+                grade TEXT,
+                email TEXT UNIQUE
+            )
+        ''')
+        
+        # Insert sample data
+        sample_students = [
+            ('Alice Johnson', 20, 'A', 'alice@example.com'),
+            ('Bob Smith', 19, 'B', 'bob@example.com'),
+            ('Charlie Brown', 21, 'A', 'charlie@example.com')
+        ]
+        
+        cursor.executemany(
+            'INSERT INTO students (name, age, grade, email) VALUES (?, ?, ?, ?)',
+            sample_students
+        )
+        
+        conn.commit()
+        
+        # Query data
+        cursor.execute('SELECT * FROM students WHERE grade = ?', ('A',))
+        excellent_students = cursor.fetchall()
+        
+        return excellent_students
+
+# Example usage
+results = setup_sample_database()
+for student in results:
+    print(f"Name: {student['name']}, Age: {student['age']}")
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>8. Project: Task Manager Application 📝</h3>
+            <p>Build a complete task management application using intermediate Python concepts.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+# Complete Task Manager Application
+import json
+from datetime import datetime
+from pathlib import Path
+
+class TaskManager:
+    def __init__(self, filename="tasks.json"):
+        self.filename = filename
+        self.tasks = self.load_tasks()
+    
+    def load_tasks(self):
+        """Load tasks from JSON file"""
+        if Path(self.filename).exists():
+            try:
+                with open(self.filename, 'r') as file:
+                    return json.load(file)
+            except Exception as e:
+                print(f"Error loading tasks: {e}")
+                return []
+        return []
+    
+    def save_tasks(self):
+        """Save tasks to JSON file"""
+        try:
+            with open(self.filename, 'w') as file:
+                json.dump(self.tasks, file, indent=4, default=str)
+            return True
+        except Exception as e:
+            print(f"Error saving tasks: {e}")
+            return False
+    
+    def add_task(self, title, description="", priority="medium"):
+        """Add a new task"""
+        task = {
+            'id': len(self.tasks) + 1,
+            'title': title,
+            'description': description,
+            'priority': priority,
+            'completed': False,
+            'created_at': datetime.now().isoformat(),
+            'completed_at': None
+        }
+        self.tasks.append(task)
+        return self.save_tasks()
+    
+    def complete_task(self, task_id):
+        """Mark a task as completed"""
+        for task in self.tasks:
+            if task['id'] == task_id:
+                task['completed'] = True
+                task['completed_at'] = datetime.now().isoformat()
+                return self.save_tasks()
+        return False
+    
+    def list_tasks(self, show_completed=False):
+        """List all tasks"""
+        tasks_to_show = [task for task in self.tasks if show_completed or not task['completed']]
+        return tasks_to_show
+
+# Example usage
+if __name__ == "__main__":
+    manager = TaskManager()
+    
+    # Add some tasks
+    manager.add_task("Learn Python OOP", "Master object-oriented programming", "high")
+    manager.add_task("Build a web app", "Create a Flask web application", "medium")
+    
+    # List tasks
+    tasks = manager.list_tasks()
+    for task in tasks:
+        status = "✅" if task['completed'] else "⏳"
+        print(f"{status} {task['title']} (Priority: {task['priority']})")
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🎯 Task Manager Demo</h4>
+                <div style="margin: 15px 0;">
+                    <input type="text" id="task-title" placeholder="Task title" value="Learn Python" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 5px;">
+                    <select id="task-priority" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 5px;">
+                        <option value="low">Low Priority</option>
+                        <option value="medium" selected>Medium Priority</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                </div>
+                <button class="demo-button" onclick="demoTaskManager()">Add Task & Show List</button>
+                <div id="task-result" style="margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                    <strong>Task Manager Demo:</strong><br>
+                    <div id="task-output" style="color: #28a745; font-family: monospace;"></div>
+                </div>
             </div>
         </div>
 
@@ -212,36 +639,215 @@ def validate_age(age):
     </div>
 
     <script>
-        // Add interactivity
+        // Interactive Python Intermediate course functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const codeBlocks = document.querySelectorAll('.code-block');
-            codeBlocks.forEach(block => {
-                block.title = 'Click to copy code';
-                
-                block.addEventListener('click', function() {
-                    const text = this.textContent;
-                    navigator.clipboard.writeText(text).then(() => {
-                        const original = this.style.background;
-                        this.style.background = '#4caf50';
-                        setTimeout(() => {
-                            this.style.background = original;
-                        }, 200);
-                    });
+            // Initialize course
+            initializeIntermediateCourse();
+            
+            // Add scroll-based lesson visibility
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        updateProgress();
+                    }
                 });
+            }, { threshold: 0.5 });
+
+            // Observe all lessons
+            document.querySelectorAll('.lesson').forEach(lesson => {
+                observer.observe(lesson);
             });
 
-            // Animate lessons
-            const lessons = document.querySelectorAll('.lesson');
-            lessons.forEach((lesson, index) => {
-                lesson.style.opacity = '0';
-                lesson.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    lesson.style.transition = 'all 0.6s ease';
-                    lesson.style.opacity = '1';
-                    lesson.style.transform = 'translateY(0)';
-                }, 200 + (index * 150));
-            });
+            // Animate progress bar on load
+            setTimeout(() => {
+                updateProgressBar(0); // Start with 0%
+            }, 1000);
         });
+
+        function copyCode(element) {
+            const text = element.textContent || element.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback
+                const original = element.style.background;
+                element.style.background = '#4caf50';
+                element.style.transform = 'scale(1.02)';
+                
+                setTimeout(() => {
+                    element.style.background = original;
+                    element.style.transform = 'scale(1)';
+                }, 300);
+
+                // Show notification
+                showNotification('Python code copied to clipboard! 🐍', 'success');
+            }).catch(() => {
+                showNotification('Failed to copy code. Try selecting and copying manually.', 'error');
+            });
+        }
+
+        function initializeIntermediateCourse() {
+            // Add click handlers to all code blocks
+            document.querySelectorAll('.code-block').forEach(block => {
+                if (!block.onclick) {
+                    block.addEventListener('click', function() {
+                        copyCode(this);
+                    });
+                }
+            });
+        }
+
+        function runDemo(demoId) {
+            const demo = document.getElementById(demoId);
+            if (demo) {
+                const isVisible = demo.style.display !== 'none';
+                
+                if (isVisible) {
+                    demo.style.display = 'none';
+                } else {
+                    demo.style.display = 'block';
+                    demo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    demo.style.opacity = '0';
+                    setTimeout(() => {
+                        demo.style.transition = 'opacity 0.5s ease';
+                        demo.style.opacity = '1';
+                    }, 100);
+                }
+            }
+        }
+
+        function simulateDog() {
+            const dogName = document.getElementById('dog-name').value || 'Max';
+            const dogBreed = document.getElementById('dog-breed').value || 'Labrador';
+            
+            const output = `${dogName} (${dogBreed}) says: Woof! Woof!\n${dogName} fetches the ball!\n${dogName} is now tired (80 energy remaining)`;
+            
+            document.getElementById('dog-output').innerHTML = output.replace(/\n/g, '<br>');
+            document.getElementById('dog-result').style.display = 'block';
+            showNotification(`Created and tested ${dogName}! 🐕`, 'success');
+        }
+
+        function simulateAPI() {
+            const city = document.getElementById('city-input').value || 'Tokyo';
+            
+            const mockData = {
+                city: city,
+                temperature: Math.floor(Math.random() * 30 + 10),
+                humidity: Math.floor(Math.random() * 40 + 40),
+                description: ['Sunny', 'Cloudy', 'Rainy', 'Partly cloudy'][Math.floor(Math.random() * 4)]
+            };
+            
+            const output = `Weather Report for ${mockData.city}:\n🌡️ Temperature: ${mockData.temperature}°C\n💧 Humidity: ${mockData.humidity}%\n☁️ Description: ${mockData.description}`;
+            
+            document.getElementById('api-output').innerHTML = output.replace(/\n/g, '<br>');
+            document.getElementById('api-result').style.display = 'block';
+            showNotification(`Weather data fetched for ${city}! 🌤️`, 'info');
+        }
+
+        function demoTaskManager() {
+            const taskTitle = document.getElementById('task-title').value || 'Learn Python';
+            const taskPriority = document.getElementById('task-priority').value || 'medium';
+            
+            const tasks = [
+                { title: taskTitle, priority: taskPriority, completed: false },
+                { title: 'Build a web app', priority: 'medium', completed: false },
+                { title: 'Learn OOP', priority: 'high', completed: true }
+            ];
+            
+            let output = 'Current Tasks:\n';
+            tasks.forEach((task, index) => {
+                const status = task.completed ? '✅' : '⏳';
+                output += `${status} ${task.title} (Priority: ${task.priority})\n`;
+            });
+            output += '\nTask added successfully!';
+            
+            document.getElementById('task-output').innerHTML = output.replace(/\n/g, '<br>');
+            document.getElementById('task-result').style.display = 'block';
+            showNotification(`Task "${taskTitle}" added with ${taskPriority} priority! 📝`, 'success');
+        }
+
+        function checkQuiz(quizId, selectedAnswer, element) {
+            const feedback = document.getElementById(quizId + '-feedback');
+            const correctAnswer = 'correct';
+            
+            const quizContainer = element.parentElement;
+            const options = quizContainer.querySelectorAll('.quiz-option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                
+                if (option.onclick.toString().includes(correctAnswer)) {
+                    option.classList.add('correct');
+                    option.innerHTML = '✅ ' + option.textContent.replace('✅ ','').replace('❌ ','');
+                } else {
+                    option.classList.add('incorrect');
+                    option.innerHTML = '❌ ' + option.textContent.replace('✅ ','').replace('❌ ','');
+                }
+            });
+            
+            if (selectedAnswer === correctAnswer) {
+                feedback.innerHTML = '🎉 Correct! The list comprehension returns [0, 3, 6, 9] (numbers divisible by 3 from 0-9).';
+                feedback.style.color = '#28a745';
+                updateProgress();
+            } else {
+                feedback.innerHTML = '❌ Not quite! The list comprehension returns [0, 3, 6, 9].';
+                feedback.style.color = '#dc3545';
+            }
+        }
+
+        function updateProgress() {
+            const completedLessons = document.querySelectorAll('.lesson.visible').length;
+            const totalLessons = document.querySelectorAll('.lesson').length;
+            const percentage = Math.round((completedLessons / totalLessons) * 100);
+            
+            updateProgressBar(percentage);
+            if (document.getElementById('progress-text')) {
+                document.getElementById('progress-text').textContent = percentage + '%';
+                document.getElementById('completed-lessons').textContent = completedLessons;
+            }
+        }
+
+        function updateProgressBar(percentage) {
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                transform: translateX(100%);
+                background: ${type === 'success' ? '#4caf50' : type === 'error' ? '#f44336' : '#3763a4'};
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>

@@ -442,6 +442,215 @@
                         event.currentTarget.classList.add('selected');
                     }
                     
+                    // Enhanced Interactive Functions for Payment Verification
+                    
+                    function showCelebration(animationData) {
+                        if (animationData && animationData.show_confetti) {
+                            // Create confetti effect
+                            const confetti = document.createElement('div');
+                            confetti.style.cssText = `
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                pointer-events: none;
+                                z-index: 9999;
+                            `;
+                            
+                            for (let i = 0; i < 50; i++) {
+                                const particle = document.createElement('div');
+                                particle.style.cssText = `
+                                    position: absolute;
+                                    width: 10px;
+                                    height: 10px;
+                                    background: ${['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7'][Math.floor(Math.random() * 5)]};
+                                    border-radius: 50%;
+                                    left: ${Math.random() * 100}%;
+                                    animation: confettiFall ${2 + Math.random() * 3}s linear forwards;
+                                `;
+                                confetti.appendChild(particle);
+                            }
+                            
+                            document.body.appendChild(confetti);
+                            
+                            // Add confetti animation CSS
+                            if (!document.getElementById('confetti-styles')) {
+                                const style = document.createElement('style');
+                                style.id = 'confetti-styles';
+                                style.textContent = `
+                                    @keyframes confettiFall {
+                                        0% {
+                                            transform: translateY(-100vh) rotate(0deg);
+                                            opacity: 1;
+                                        }
+                                        100% {
+                                            transform: translateY(100vh) rotate(360deg);
+                                            opacity: 0;
+                                        }
+                                    }
+                                    @keyframes pulse {
+                                        0%, 100% { transform: scale(1); }
+                                        50% { transform: scale(1.1); }
+                                    }
+                                    @keyframes slideInUp {
+                                        from {
+                                            transform: translateY(50px);
+                                            opacity: 0;
+                                        }
+                                        to {
+                                            transform: translateY(0);
+                                            opacity: 1;
+                                        }
+                                    }
+                                    @keyframes fadeInUp {
+                                        from {
+                                            transform: translateY(20px);
+                                            opacity: 0;
+                                        }
+                                        to {
+                                            transform: translateY(0);
+                                            opacity: 1;
+                                        }
+                                    }
+                                    @keyframes bounceIn {
+                                        0% {
+                                            transform: scale(0);
+                                        }
+                                        50% {
+                                            transform: scale(1.2);
+                                        }
+                                        100% {
+                                            transform: scale(1);
+                                        }
+                                    }
+                                    @keyframes fadeOut {
+                                        from {
+                                            opacity: 1;
+                                            transform: translateY(0);
+                                        }
+                                        to {
+                                            opacity: 0;
+                                            transform: translateY(-20px);
+                                        }
+                                    }
+                                `;
+                                document.head.appendChild(style);
+                            }
+                            
+                            // Remove confetti after animation
+                            setTimeout(() => {
+                                if (document.body.contains(confetti)) {
+                                    document.body.removeChild(confetti);
+                                }
+                            }, 5000);
+                        }
+                    }
+                    
+                    function updatePaymentDetailsDisplay(paymentDetails) {
+                        // Update order details with payment information
+                        const orderDetails = document.querySelector('.order-details');
+                        if (orderDetails && paymentDetails) {
+                            const detailsDiv = document.createElement('div');
+                            detailsDiv.style.cssText = `
+                                background: #f8f9fa;
+                                padding: 15px;
+                                border-radius: 8px;
+                                margin: 10px 0;
+                                border-left: 4px solid #28a745;
+                            `;
+                            detailsDiv.innerHTML = `
+                                <h4 style="margin: 0 0 10px 0; color: #28a745;">💳 Payment Details</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                                    <div><strong>Order ID:</strong> ${paymentDetails.order_id}</div>
+                                    <div><strong>Payment ID:</strong> ${paymentDetails.payment_id}</div>
+                                    <div><strong>Course:</strong> ${paymentDetails.course_name}</div>
+                                    <div><strong>Amount:</strong> ₹${paymentDetails.amount}</div>
+                                </div>
+                            `;
+                            orderDetails.appendChild(detailsDiv);
+                        }
+                    }
+                    
+                    function animateElement(element, animationType, callback) {
+                        if (!element) return;
+                        
+                        element.style.animation = `${animationType} 0.6s ease-out`;
+                        
+                        if (callback) {
+                            element.addEventListener('animationend', callback, { once: true });
+                        }
+                    }
+                    
+                    function addInteractiveEffects(successMessage) {
+                        // Add hover effects to buttons
+                        const buttons = successMessage.querySelectorAll('.btn');
+                        buttons.forEach(button => {
+                            button.addEventListener('mouseenter', function() {
+                                this.style.transform = 'translateY(-3px) scale(1.05)';
+                                this.style.transition = 'all 0.3s ease';
+                            });
+                            button.addEventListener('mouseleave', function() {
+                                this.style.transform = 'translateY(0) scale(1)';
+                            });
+                        });
+                    }
+                    
+                    function showErrorMessage(errorData) {
+                        const errorMessage = document.createElement('div');
+                        errorMessage.className = 'status-message error interactive-error';
+                        errorMessage.style.cssText = `
+                            background: linear-gradient(135deg, #dc3545, #c82333);
+                            color: white;
+                            padding: 30px;
+                            border-radius: 15px;
+                            margin: 20px 0;
+                            text-align: center;
+                            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
+                            animation: slideInUp 0.8s ease-out;
+                        `;
+                        
+                        const suggestionsHTML = errorData.suggestions ? 
+                            errorData.suggestions.map(suggestion => `<li>${suggestion}</li>`).join('') :
+                            '<li>Please try again or contact support</li>';
+                        
+                        errorMessage.innerHTML = `
+                            <div style="font-size: 2rem; margin-bottom: 20px;">❌</div>
+                            <h3 style="margin: 15px 0; font-size: 1.5rem;">${errorData.message || 'Payment Verification Failed'}</h3>
+                            ${errorData.error_details ? `
+                                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 20px 0; text-align: left;">
+                                    <strong>Error Type:</strong> ${errorData.error_details.type}<br>
+                                    <strong>Description:</strong> ${errorData.error_details.description}
+                                </div>
+                            ` : ''}
+                            <div style="margin-top: 20px;">
+                                <h4>💡 Suggestions:</h4>
+                                <ul style="text-align: left; margin: 15px 0;">
+                                    ${suggestionsHTML}
+                                </ul>
+                            </div>
+                            <div style="margin-top: 30px;">
+                                <button onclick="location.reload()" style="background: #ffffff; color: #dc3545; padding: 12px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 5px;">
+                                    🔄 Retry Payment
+                                </button>
+                                <button onclick="window.history.back()" style="background: rgba(255,255,255,0.2); color: white; padding: 12px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 5px;">
+                                    ← Go Back
+                                </button>
+                            </div>
+                        `;
+                        
+                        // Insert error message after order details
+                        const orderDetails = document.querySelector('.order-details');
+                        if (orderDetails && orderDetails.parentNode) {
+                            orderDetails.parentNode.insertBefore(errorMessage, orderDetails.nextSibling);
+                        }
+                        
+                        // Scroll to error message
+                        setTimeout(() => {
+                            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    }
+                    
                     function initiatePayment() {
                         // Check if Razorpay is configured
                         const razorpayKey = "{{ razorpay_key|default:'' }}";
@@ -489,6 +698,30 @@
                         }
                         
                         const amount = {{ payment.course.price }} * 100; // Convert to paise
+                        
+                        // Validate required data
+                        if (!razorpayKey) {
+                            alert('Razorpay configuration error. Please contact support.');
+                            return;
+                        }
+                        
+                        if (amount <= 0) {
+                            alert('Invalid payment amount. Please try again.');
+                            return;
+                        }
+                        
+                        if (!"{{ payment.order_id }}") {
+                            alert('Payment order not found. Please try again.');
+                            return;
+                        }
+                        
+                        console.log('Payment details:', {
+                            key: razorpayKey,
+                            amount: amount,
+                            order_id: "{{ payment.order_id }}",
+                            course: "{{ payment.course.name }}"
+                        });
+                        
                         const options = {
                             "key": razorpayKey,
                             "amount": amount,
@@ -499,6 +732,15 @@
                             "handler": function (response) {
                                 // Handle successful payment
                                 console.log('Payment successful:', response);
+                                console.log('Payment response type:', typeof response);
+                                console.log('Payment response keys:', Object.keys(response));
+                                
+                                // Validate response data
+                                if (!response.razorpay_order_id || !response.razorpay_payment_id) {
+                                    console.error('❌ Missing payment data in response:', response);
+                                    alert('Payment successful but missing payment details. Please contact support.');
+                                    return;
+                                }
                                 
                                 // Show loading state
                                 const payButton = document.getElementById('pay-button');
@@ -506,29 +748,190 @@
                                 payButton.disabled = true;
                                 
                                 // Submit payment details to verify endpoint
+                                const paymentData = {
+                                    'razorpay_order_id': response.razorpay_order_id,
+                                    'razorpay_payment_id': response.razorpay_payment_id,
+                                    'razorpay_signature': response.razorpay_signature || 'dev_signature'
+                                };
+                                
+                                console.log('Payment data to verify:', paymentData);
+                                
+                                // Check if this looks like a UPI payment
+                                if (response.razorpay_payment_id && response.razorpay_payment_id.toLowerCase().includes('upi')) {
+                                    console.log('🔍 UPI payment detected in handler');
+                                }
+                                
                                 fetch('/verify', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/x-www-form-urlencoded',
                                         'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                                     },
-                                    body: new URLSearchParams({
-                                        'razorpay_order_id': response.razorpay_order_id,
-                                        'razorpay_payment_id': response.razorpay_payment_id,
-                                        'razorpay_signature': response.razorpay_signature || 'dev_signature'
-                                    })
+                                    body: new URLSearchParams(paymentData)
                                 }).then(response => {
-                                    if (response.ok) {
-                                        // Redirect to home page
-                                        window.location.href = "{% url 'home' learner.id %}";
+                                    console.log('Verification response status:', response.status, response.statusText);
+                                    
+                                    // Handle both JSON and text responses gracefully
+                                    const contentType = response.headers.get('content-type');
+                                    const isJsonResponse = contentType && contentType.includes('application/json');
+                                    
+                                    if (isJsonResponse) {
+                                        return response.json().then(data => {
+                                            return { data, response };
+                                        });
                                     } else {
-                                        throw new Error('Payment verification failed');
+                                        return response.text().then(text => {
+                                            // Try to parse as JSON, fallback to text
+                                            let data;
+                                            try {
+                                                data = JSON.parse(text);
+                                            } catch {
+                                                data = { status: response.ok ? 'success' : 'error', message: text };
+                                            }
+                                            return { data, response };
+                                        });
                                     }
+                                }).then(({ data, response }) => {
+                                    console.log('Verification response data:', data);
+                                    
+                                    if (response.ok && data.status === 'success') {
+                                        // Payment verified successfully - Enhanced Interactive Response
+                                        console.log('✅ Payment verified successfully, updating page...');
+                                        
+                                        // Add celebration animation
+                                        showCelebration(data.animation_data);
+                                        
+                                        // Update payment details display
+                                        updatePaymentDetailsDisplay(data.payment_details);
+                                        
+                                        // Show success message immediately with dynamic content
+                                        const statusIcon = document.querySelector('.status-icon');
+                                        const title = document.querySelector('.title');
+                                        const subtitle = document.querySelector('.subtitle');
+                                        
+                                        if (statusIcon) {
+                                            statusIcon.innerHTML = '🎉';
+                                            statusIcon.className = 'status-icon success';
+                                            animateElement(statusIcon, 'bounceIn');
+                                        }
+                                        if (title) {
+                                            title.textContent = data.message || 'Payment Successful!';
+                                            animateElement(title, 'fadeInUp');
+                                        }
+                                        if (subtitle) {
+                                            subtitle.textContent = 'Your course access has been activated';
+                                            animateElement(subtitle, 'fadeInUp');
+                                        }
+                                        
+                                        // Hide payment form with animation
+                                        const paymentForm = document.querySelector('.payment-form');
+                                        if (paymentForm) {
+                                            animateElement(paymentForm, 'fadeOut', () => {
+                                                paymentForm.style.display = 'none';
+                                            });
+                                        }
+                                        
+                                        // Create enhanced success message with dynamic content
+                                        const successMessage = document.createElement('div');
+                                        successMessage.className = 'status-message success interactive-success';
+                                        successMessage.style.cssText = `
+                                            background: linear-gradient(135deg, #28a745, #20c997);
+                                            color: white;
+                                            padding: 30px;
+                                            border-radius: 15px;
+                                            margin: 20px 0;
+                                            text-align: center;
+                                            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+                                            animation: slideInUp 0.8s ease-out;
+                                        `;
+                                        
+                                        // Build next steps dynamically
+                                        const nextStepsHTML = data.next_steps ? data.next_steps.map((step, index) => 
+                                            `<p style="margin: 10px 0; opacity: 0; animation: fadeInUp 0.6s ease-out ${0.2 + index * 0.2}s both;">
+                                                ${index + 1}. <strong>${step}</strong>
+                                            </p>`
+                                        ).join('') : `
+                                            <p style="margin: 10px 0; opacity: 0; animation: fadeInUp 0.6s ease-out 0.2s both;">1. <strong>Access Premium Content</strong> - Explore Intermediate & Advanced lessons</p>
+                                            <p style="margin: 10px 0; opacity: 0; animation: fadeInUp 0.6s ease-out 0.4s both;">2. <strong>Track Your Progress</strong> - Monitor your learning journey</p>
+                                            <p style="margin: 10px 0; opacity: 0; animation: fadeInUp 0.6s ease-out 0.6s both;">3. <strong>Earn Your Certificate</strong> - Complete all content to unlock your certificate</p>
+                                        `;
+                                        
+                                        successMessage.innerHTML = `
+                                            <div style="font-size: 2rem; margin-bottom: 20px; animation: pulse 2s infinite;">🎉</div>
+                                            <h3 style="margin: 15px 0; font-size: 1.5rem;">${data.message}</h3>
+                                            <p style="margin: 15px 0; opacity: 0.9;">
+                                                Welcome to <strong>${data.payment_details.course_name}</strong>! 
+                                                Your premium access is now active.
+                                            </p>
+                                            
+                                            <div class="next-steps" style="margin-top: 30px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                                                <h4 style="margin: 0 0 20px 0; font-size: 1.2rem;">🚀 What's Next?</h4>
+                                                <div style="text-align: left;">
+                                                    ${nextStepsHTML}
+                                                </div>
+                                            </div>
+                                            
+                                            <div style="margin-top: 30px;">
+                                                <a href="${data.redirect_urls ? data.redirect_urls.course : '{% url "learn_course" learner.id payment.course.id %}'}" 
+                                                   class="btn btn-primary" 
+                                                   style="background: #ffffff; color: #28a745; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold; margin: 5px; transition: all 0.3s ease;"
+                                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'"
+                                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                                                    🎯 Start Learning Now
+                                                </a>
+                                                <a href="${data.redirect_urls ? data.redirect_urls.dashboard : '{% url "home" learner.id %}'}" 
+                                                   class="btn btn-secondary" 
+                                                   style="background: rgba(255,255,255,0.2); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold; margin: 5px; transition: all 0.3s ease;"
+                                                   onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='translateY(-2px)'"
+                                                   onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='translateY(0)'">
+                                                    🏠 Back to Dashboard
+                                                </a>
+                                            </div>
+                                        `;
+                                        
+                                        // Insert success message after order details with animation
+                                        const orderDetails = document.querySelector('.order-details');
+                                        if (orderDetails && orderDetails.parentNode) {
+                                            orderDetails.parentNode.insertBefore(successMessage, orderDetails.nextSibling);
+                                        }
+                                        
+                                        // Scroll to the success message with smooth animation
+                                        setTimeout(() => {
+                                            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        }, 500);
+                                        
+                                        // Add interactive effects
+                                        addInteractiveEffects(successMessage);
+                                        
+                                    } else {
+                                        // Handle error responses
+                                        console.error('❌ Verification failed:', response.status, data);
+                                        
+                                        // Display interactive error message
+                                        showErrorMessage(data);
+                                    }
+                                });
                                 }).catch(error => {
                                     console.error('Payment verification error:', error);
-                                    alert('Payment successful but verification failed. Please contact support.');
+                                    console.error('Error details:', {
+                                        message: error.message,
+                                        stack: error.stack,
+                                        response: error.response
+                                    });
+                                    
+                                    // More detailed error message
+                                    let alertMsg = 'Payment was successful but verification failed.\n\n';
+                                    alertMsg += 'Error: ' + error.message + '\n\n';
+                                    alertMsg += 'Please contact support if this issue persists.';
+                                    
+                                    alert(alertMsg);
+                                    
+                                    // Reset button state
+                                    const payButton = document.getElementById('pay-button');
+                                    if (payButton) {
                                     payButton.innerHTML = 'Pay Now - ₹{{ payment.course.price }}';
                                     payButton.disabled = false;
+                                    }
                                 });
                             },
                             "prefill": {
@@ -542,8 +945,51 @@
                         
                         const rzp = new Razorpay(options);
                         rzp.on('payment.failed', function (response) {
-                            alert('Payment failed: ' + (response.error.description || 'Please try again'));
                             console.error('Payment failed:', response.error);
+                            console.error('Full response:', response);
+                            
+                            const errorMsg = response.error.description || response.error.reason || 'Payment failed. Please try again.';
+                            const errorCode = response.error.code || 'Unknown';
+                            
+                            // More detailed error logging
+                            console.error('Error details:', {
+                                code: errorCode,
+                                description: errorMsg,
+                                source: response.error.source,
+                                step: response.error.step,
+                                reason: response.error.reason
+                            });
+                            
+                            // More specific error handling based on error type
+                            let alertMessage = '';
+                            if (errorCode === 'BAD_REQUEST_ERROR') {
+                                alertMessage = 'Invalid payment request. Please check your details and try again.\n\nError: ' + errorMsg;
+                            } else if (errorCode === 'GATEWAY_ERROR') {
+                                alertMessage = 'Payment gateway error. Please try with a different payment method.\n\nError: ' + errorMsg;
+                            } else if (errorMsg.toLowerCase().includes('upi') || 
+                                errorMsg.toLowerCase().includes('code') || 
+                                errorMsg.toLowerCase().includes('timeout')) {
+                                alertMessage = 'UPI payment failed: ' + errorMsg + '\n\nPlease try with a different payment method or check your UPI app.';
+                            } else {
+                                alertMessage = 'Payment failed: ' + errorMsg + '\n\nError Code: ' + errorCode + '\n\nPlease try again or contact support.';
+                            }
+                            
+                            alert(alertMessage);
+                            
+                            // Reset button state
+                            const payButton = document.getElementById('pay-button');
+                            if (payButton) {
+                                payButton.innerHTML = 'Pay Now - ₹{{ payment.course.price }}';
+                                payButton.disabled = false;
+                            }
+                        });
+                        
+                        rzp.on('payment.authorized', function (response) {
+                            console.log('Payment authorized:', response);
+                        });
+                        
+                        rzp.on('payment.captured', function (response) {
+                            console.log('Payment captured:', response);
                         });
                         
                         rzp.open();

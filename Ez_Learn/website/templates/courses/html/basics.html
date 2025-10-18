@@ -39,12 +39,7 @@
         .btn:hover {
             background: #d32f2f;
         }
-        .lesson {
-            margin: 30px 0;
-            padding: 20px;
-            border-left: 4px solid #e34c26;
-            background: #f8f9fa;
-        }
+        /* Lesson styles moved to interactive section below */
         .code-block {
             background: #2d3748;
             color: #e2e8f0;
@@ -53,6 +48,59 @@
             margin: 15px 0;
             font-family: 'Courier New', monospace;
             overflow-x: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .code-block:hover {
+            background: #1a202c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .code-block::after {
+            content: "📋 Click to copy";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 12px;
+            color: #a0aec0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .code-block:hover::after {
+            opacity: 1;
+        }
+        .lesson {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #e34c26;
+            background: #f8f9fa;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .lesson.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .interactive-demo {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .demo-button {
+            background: #e34c26;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .demo-button:hover {
+            background: #d32f2f;
         }
     </style>
 </head>
@@ -70,10 +118,19 @@
 
         <h2>🌐 HTML Fundamentals - FREE CONTENT</h2>
         
+        <!-- Progress indicator -->
+        <div style="background: rgba(227, 76, 38, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
+            <h4 style="margin: 0; color: #e34c26;">📚 HTML Basics - Free Content</h4>
+            <div style="width: 100%; background: rgba(227, 76, 38, 0.2); border-radius: 10px; margin-top: 10px;">
+                <div id="progress-bar" style="width: 0%; background: linear-gradient(135deg, #e34c26, #d32f2f); height: 8px; border-radius: 10px; transition: width 0.5s ease;"></div>
+            </div>
+            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: <span id="progress-text">0%</span> Complete (<span id="completed-lessons">0</span>/5 lessons)</p>
+        </div>
+
         <div class="lesson">
-            <h3>1. What is HTML?</h3>
+            <h3>1. What is HTML? 🚀</h3>
             <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages. It uses tags to structure content.</p>
-            <div class="code-block">
+            <div class="code-block" onclick="copyCode(this)">
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -84,12 +141,20 @@
 &lt;/body&gt;
 &lt;/html&gt;
             </div>
+            <div class="interactive-demo">
+                <h4>🎯 Try it yourself!</h4>
+                <p>Click the button below to see this HTML in action:</p>
+                <button class="demo-button" onclick="showDemo('demo1')">Show Live Demo</button>
+                <div id="demo1" style="display: none; margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <iframe src="data:text/html,&lt;h1&gt;Hello, World!&lt;/h1&gt;" width="100%" height="100px" style="border: 1px solid #ccc;"></iframe>
+                </div>
+            </div>
         </div>
 
         <div class="lesson">
-            <h3>2. Basic HTML Structure</h3>
+            <h3>2. Basic HTML Structure 🏗️</h3>
             <p>Every HTML document has a basic structure:</p>
-            <div class="code-block">
+            <div class="code-block" onclick="copyCode(this)">
 &lt;!DOCTYPE html&gt;           &lt;!-- Document type --&gt;
 &lt;html lang="en"&gt;          &lt;!-- Root element --&gt;
 &lt;head&gt;                    &lt;!-- Meta information --&gt;
@@ -100,6 +165,17 @@
     &lt;!-- Your content here --&gt;
 &lt;/body&gt;
 &lt;/html&gt;
+            </div>
+            <div class="interactive-demo">
+                <h4>🧩 Interactive Quiz</h4>
+                <p>Test your understanding:</p>
+                <div id="quiz2">
+                    <p><strong>Which tag contains the visible content of a webpage?</strong></p>
+                    <button class="demo-button" onclick="checkAnswer('quiz2', 'head')">&lt;head&gt;</button>
+                    <button class="demo-button" onclick="checkAnswer('quiz2', 'body')">&lt;body&gt;</button>
+                    <button class="demo-button" onclick="checkAnswer('quiz2', 'html')">&lt;html&gt;</button>
+                    <div id="quiz2-feedback" style="margin-top: 10px; font-weight: bold;"></div>
+                </div>
             </div>
         </div>
 
@@ -163,5 +239,165 @@
             {% endif %}
         </div>
     </div>
+
+    <script>
+        // Interactive course functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize course
+            initializeCourse();
+            
+            // Add scroll-based lesson visibility
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        updateProgress();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // Observe all lessons
+            document.querySelectorAll('.lesson').forEach(lesson => {
+                observer.observe(lesson);
+            });
+
+            // Animate progress bar on load
+            setTimeout(() => {
+                updateProgressBar(20); // Start with 20%
+            }, 1000);
+        });
+
+        function initializeCourse() {
+            // Add click handlers to all code blocks
+            document.querySelectorAll('.code-block').forEach(block => {
+                block.addEventListener('click', function() {
+                    copyCode(this);
+                });
+            });
+        }
+
+        function copyCode(element) {
+            const text = element.textContent || element.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback
+                const original = element.style.background;
+                element.style.background = '#4caf50';
+                element.style.transform = 'scale(1.02)';
+                
+                setTimeout(() => {
+                    element.style.background = original;
+                    element.style.transform = 'scale(1)';
+                }, 300);
+
+                // Show notification
+                showNotification('Code copied to clipboard! 📋', 'success');
+            }).catch(() => {
+                showNotification('Failed to copy code. Try selecting and copying manually.', 'error');
+            });
+        }
+
+        function showDemo(demoId) {
+            const demo = document.getElementById(demoId);
+            const isVisible = demo.style.display !== 'none';
+            
+            if (isVisible) {
+                demo.style.display = 'none';
+            } else {
+                demo.style.display = 'block';
+                demo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function checkAnswer(quizId, answer) {
+            const feedback = document.getElementById(quizId + '-feedback');
+            const correctAnswer = 'body';
+            
+            if (answer === correctAnswer) {
+                feedback.innerHTML = '✅ Correct! The &lt;body&gt; tag contains the visible content.';
+                feedback.style.color = '#4caf50';
+                updateProgress();
+            } else {
+                feedback.innerHTML = '❌ Not quite! The &lt;body&gt; tag contains the visible content.';
+                feedback.style.color = '#f44336';
+            }
+            
+            // Disable buttons after answer
+            const quizContainer = document.getElementById(quizId);
+            quizContainer.querySelectorAll('button').forEach(btn => {
+                btn.disabled = true;
+                if (btn.onclick.toString().includes(correctAnswer)) {
+                    btn.style.background = '#4caf50';
+                } else {
+                    btn.style.background = '#f44336';
+                }
+            });
+        }
+
+        function updateProgress() {
+            const completedLessons = document.querySelectorAll('.lesson.visible').length;
+            const totalLessons = document.querySelectorAll('.lesson').length;
+            const percentage = Math.round((completedLessons / totalLessons) * 100);
+            
+            updateProgressBar(percentage);
+            document.getElementById('progress-text').textContent = percentage + '%';
+            document.getElementById('completed-lessons').textContent = completedLessons;
+        }
+
+        function updateProgressBar(percentage) {
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                transform: translateX(100%);
+                background: ${type === 'success' ? '#4caf50' : type === 'error' ? '#f44336' : '#2196f3'};
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        window.scrollBy(0, -100);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        window.scrollBy(0, 100);
+                        break;
+                }
+            }
+        });
+    </script>
 </body>
 </html>

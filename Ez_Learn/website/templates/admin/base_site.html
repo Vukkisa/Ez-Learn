@@ -1,0 +1,207 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Ez-Learn Admin Portal') }}{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+    <a href="{% url 'admin:index' %}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+        <span style="font-size: 24px; margin-right: 10px;">🔧</span>
+        <span style="font-weight: 600; font-size: 18px;">{{ site_header|default:_('Ez-Learn Administration') }}</span>
+    </a>
+</div>
+{% if user.is_anonymous %}
+    {% include "admin/color_theme_toggle.html" %}
+{% endif %}
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    /* Hide the skip to main content link from Django admin base template */
+    .skip-to-content-link,
+    .skip-to-content-link:focus,
+    .skip-to-content-link:focus-visible {
+        display: none !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+        top: -9999px !important;
+        opacity: 0 !important;
+    }
+    
+    /* Hide theme toggle for cleaner admin interface */
+    .theme-toggle,
+    .theme-toggle + * {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Hide theme toggle text labels */
+    .theme-label-when-auto,
+    .theme-label-when-light,
+    .theme-label-when-dark {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Enhanced Admin Base Styles */
+    
+    /* Header Enhancements */
+    #header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-bottom: none;
+    }
+    
+    #site-name a {
+        color: white !important;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    #site-name a:hover {
+        color: #f0f0f0 !important;
+        text-decoration: none;
+    }
+    
+    /* User Tools Enhancement */
+    #user-tools {
+        color: white;
+    }
+    
+    #user-tools a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    #user-tools a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        text-decoration: none;
+    }
+    
+    /* Navigation Enhancements */
+    #nav-global {
+        background: rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Content Area */
+    #content {
+        background: #f8f9fa;
+        min-height: calc(100vh - 80px);
+    }
+    
+    /* Breadcrumbs */
+    .breadcrumbs {
+        background: white;
+        border-radius: 8px;
+        padding: 15px 20px;
+        margin: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid #667eea;
+    }
+    
+    .breadcrumbs a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .breadcrumbs a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+    }
+    
+    /* Main Content */
+    #content-main {
+        background: transparent;
+        margin: 20px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        #site-name {
+            font-size: 16px;
+        }
+        
+        #user-tools {
+            font-size: 12px;
+        }
+        
+        .breadcrumbs {
+            margin: 10px;
+            padding: 10px 15px;
+        }
+        
+        #content-main {
+            margin: 10px;
+        }
+    }
+    
+    /* Custom animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    #content-main > * {
+        animation: fadeIn 0.6s ease-out;
+    }
+    
+    /* Button enhancements */
+    .default, input[type="submit"], input[type="button"], .submit-row input, a.button {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .default:hover, input[type="submit"]:hover, input[type="button"]:hover, .submit-row input:hover, a.button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        color: white;
+        text-decoration: none;
+    }
+    
+    /* Table enhancements */
+    #changelist table {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    #changelist th {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        font-weight: 600;
+    }
+    
+    #changelist tr:hover {
+        background: #f8f9fa;
+    }
+</style>
+{% endblock %}
+
+{% block nav-global %}
+<div style="padding: 10px 20px; color: white;">
+    <a href="/" style="color: white; text-decoration: none; margin-right: 20px;">🏠 Back to Site</a>
+    <a href="{% url 'admin:index' %}" style="color: white; text-decoration: none; margin-right: 20px;">📊 Dashboard</a>
+    <span style="opacity: 0.7;">🔧 Admin Panel</span>
+</div>
+{% endblock %}

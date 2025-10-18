@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 import urllib.parse
 from django.core.mail import send_mail
@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import permission_required
 import razorpay
 from Ez_Learn.settings import KEY_ID, KEY_SECRET, RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, razorpay_client, RAZORPAY_CURRENCY
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.middleware.csrf import get_token
 from .forms import ImageForm, imageForm
 import sys
 from django.template.loader import get_template
@@ -159,6 +160,7 @@ def main(request):
 
 
 # function for registering a learner (enhanced)
+@ensure_csrf_cookie
 def register_learner(request):
     context = {}
     if request.method == 'POST':
@@ -260,10 +262,12 @@ def register_learner(request):
     return render(request, 'learner_register.html', context)
 
 #showing otp template
+@ensure_csrf_cookie
 def otp_view(request):
     return render(request, 'otp.html')
 
 #validating registered details (enhanced)
+@ensure_csrf_cookie
 def valdate_lregistration(request):
     context = {}
     
@@ -347,6 +351,7 @@ def valdate_lregistration(request):
 
 
 #complete profile
+@ensure_csrf_cookie
 def complete_profile(request, id):
     try:
         learner = Learner.objects.get(id=id)
@@ -420,7 +425,11 @@ def complete_profile(request, id):
 #learner login function
 @ensure_csrf_cookie
 def learner_login(request):
+    """
+    Learner login view with proper CSRF handling
+    """
     context = {}
+    
     if request.method == 'POST':
         try:
             username = request.POST.get('username', '').strip()
@@ -428,23 +437,26 @@ def learner_login(request):
             
             if not username or not password:
                 context['error'] = 'Please enter both username and password'
-                return render(request, 'learner_login.html', context)
-            
-            u = authenticate(username=username, password=password)
-            if u is not None:
-                try:
-                    learner = Learner.objects.get(user=u)
-                    login(request, u)
-                    return redirect('home', learner.id)
-                except Learner.DoesNotExist:
-                    context['error'] = 'User account not found'
             else:
-                context['error'] = 'Invalid username or password'
+                u = authenticate(username=username, password=password)
+                if u is not None:
+                    try:
+                        learner = Learner.objects.get(user=u)
+                        login(request, u)
+                        return redirect('home', learner.id)
+                    except Learner.DoesNotExist:
+                        context['error'] = 'User account not found'
+                else:
+                    context['error'] = 'Invalid username or password'
         except Exception as e:
             print(f"❌ Login error: {e}")
             context['error'] = 'An error occurred during login. Please try again.'
     
-    return render(request, 'learner_login.html', context)
+    # Always render with CSRF cookie set
+    response = render(request, 'learner_login.html', context)
+    # Explicitly ensure CSRF token is set
+    get_token(request)
+    return response
 
 
 # home page of learner
@@ -477,14 +489,14 @@ def home(request, id):
     premium_courses = len([l for l in course_progress.values() if l['has_access']])
     
     return render(request, 'learner/home.html', {
-        'learner': learner,
+                                                        'learner': learner,
         'courses': courses,
         'course_progress': course_progress,
         'recent_quizzes': recent_quizzes,
         'total_courses': total_courses,
         'enrolled_courses': enrolled_courses,
         'premium_courses': premium_courses
-    })
+                                                        })
 
 def highest_score(request, id):
     pass
@@ -531,6 +543,7 @@ def learner_profile(request, id):
 
 
 #getting into particular course
+@ensure_csrf_cookie
 def course_content(request, id, cid):
     learner = Learner.objects.get(id = id)
     course = Course.objects.get(id = cid)
@@ -666,12 +679,14 @@ def get_into_quiz(request, title, id):
 
 
 @login_required
+@ensure_csrf_cookie
 def take_quiz_view(request, title, id):
     try:
         learner = Learner.objects.get(id=id)
         course = Course.objects.get(name=title)
         quiz = Quiz.objects.get(course=course)
-        questions = Question.objects.filter(quiz=quiz).order_by('question_number')
+        # Use distinct() to prevent duplicate questions, order by question_number first
+        questions = Question.objects.filter(quiz=quiz).order_by('question_number').distinct()
         
         if not questions.exists():
             return render(request, 'quiz/no_quiz.html', {
@@ -690,11 +705,11 @@ def take_quiz_view(request, title, id):
                 try:
                     correct_choice = Choice.objects.get(question=question, is_correct=True)
                     submitted_answer_id = submitted_answers[i]
-                    
+
                     # Check if answer is correct
                     if submitted_answer_id and submitted_answer_id == str(correct_choice.id):
                         score += 1
-                    
+
                     # Get submitted choice text if provided
                     if submitted_answer_id:
                         try:
@@ -707,7 +722,7 @@ def take_quiz_view(request, title, id):
                     
                     # Get all choices for this question
                     choices = Choice.objects.filter(question=question)
-                    
+
                     result = {
                         'question_number': question.question_number,
                         'question_text': question.question,
@@ -749,9 +764,33 @@ def take_quiz_view(request, title, id):
             }
             return render(request, 'quiz/result.html', context)
 
+        # Get total questions count - using distinct query to prevent duplicates
+        total_questions = questions.count()
+        
+        # Debug: Print question details for verification
+        print(f"🔍 Quiz Debug - Course: {course.name}")
+        print(f"🔍 Total questions (distinct): {total_questions}")
+        question_numbers = list(questions.values_list('question_number', flat=True))
+        print(f"🔍 Question numbers: {sorted(question_numbers)}")
+        
+        # Check for duplicate question numbers and handle them
+        unique_numbers = set(question_numbers)
+        if len(question_numbers) != len(unique_numbers):
+            print(f"⚠️ Found duplicate question numbers! Numbers: {question_numbers}")
+            print(f"⚠️ Unique numbers should be: {sorted(unique_numbers)}")
+            
+            # Get unique questions by question_number (keep the first occurrence of each number)
+            questions = Question.objects.filter(quiz=quiz).order_by('question_number', 'id').distinct('question_number')
+            total_questions = questions.count()
+            final_numbers = list(questions.values_list('question_number', flat=True))
+            print(f"🔧 Fixed: Now showing {total_questions} unique questions with numbers: {sorted(final_numbers)}")
+        else:
+            print(f"✅ All question numbers are unique: {sorted(question_numbers)}")
+        
         return render(request, 'quiz/take_quiz.html', {
             'quiz': quiz, 
             'questions': questions, 
+            'total_questions': total_questions,
             'course': course, 
             'learner': learner
         })
@@ -908,42 +947,95 @@ def making_payment(request, id):
         
         if request.method == 'POST':
             # Calculate amount in paise (Razorpay expects amount in smallest currency unit)
-            amount_in_paise = int(course.price) * 100
+            try:
+                course_price = float(course.price) if course.price else 0.0
+                amount_in_paise = int(course_price * 100)
+                
+                # Razorpay minimum amount validation (₹1 = 100 paise)
+                if amount_in_paise < 100:
+                    print(f"⚠️ Amount too small for Razorpay: {amount_in_paise} paise (₹{course_price})")
+                    amount_in_paise = 100  # Set minimum to ₹1 for testing
+                    print(f"🔄 Using minimum amount: {amount_in_paise} paise")
+                    
+                if amount_in_paise <= 0:
+                    raise ValueError("Course price must be greater than 0")
+                    
+                print(f"💰 Payment amount: ₹{course_price} → {amount_in_paise} paise")
+            except (ValueError, TypeError) as e:
+                print(f"❌ Error with course price: {e}, price: {course.price}")
+                return HttpResponse(f"Invalid course price: {course.price}", status=400)
             
             # Use the global razorpay_client if available
+            print(f"🔍 Payment setup debug:")
+            print(f"  - razorpay_client exists: {razorpay_client is not None}")
+            print(f"  - RAZORPAY_KEY_ID: {RAZORPAY_KEY_ID}")
+            print(f"  - RAZORPAY_KEY_SECRET: {'***' if RAZORPAY_KEY_SECRET else 'None'}")
+            print(f"  - amount_in_paise: {amount_in_paise}")
+            print(f"  - currency: {RAZORPAY_CURRENCY}")
+            
+            order = None
+            
             if razorpay_client and RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET:
                 try:
                     # Create Razorpay order with proper metadata
-                    order = razorpay_client.order.create({
+                    print(f"🔍 Attempting to create Razorpay order...")
+                    
+                    # Create a valid receipt ID (max 40 chars, alphanumeric and hyphens only)
+                    receipt_id = f"c{course.id}_l{learner.id}_{learnt.id}".replace(" ", "")[:40]
+                    
+                    order_data = {
                         'amount': amount_in_paise, 
                         'currency': RAZORPAY_CURRENCY,
-                        'receipt': f'course_{course.id}_{learner.id}_{learnt.id}',
+                        'receipt': receipt_id,
                         'notes': {
-                            'course': course.name,
-                            'learner': learner.username,
-                            'learning_id': learnt.id
+                            'course': course.name[:100] if course.name else 'Course',  # Limit note length
+                            'learner': learner.username[:100] if learner.username else 'Learner',
+                            'learning_id': str(learnt.id)
                         }
-                    })
-                    print(f"✅ Razorpay order created: {order['id']}")
+                    }
+                    
+                    print(f"🔍 Order data: {order_data}")
+                    order = razorpay_client.order.create(order_data)
+                    print(f"✅ Razorpay order created successfully: {order['id']}")
                 except Exception as e:
                     print(f"❌ Razorpay order creation failed: {e}")
-                    # Fallback for Razorpay errors
-                    order = {'id': f'error_order_{learner.id}_{course.id}_{random.randint(1000, 9999)}'}
-            elif KEY_ID and KEY_SECRET:
+                    print(f"❌ Error type: {type(e)}")
+                    import traceback
+                    print(f"❌ Full traceback: {traceback.format_exc()}")
+                    # Don't create error_order, instead try fallback
+                    order = None
+            
+            # If first attempt failed, try fallback methods
+            if not order and KEY_ID and KEY_SECRET:
                 # Fallback to direct client creation
                 try:
+                    print(f"🔍 Trying fallback Razorpay client creation...")
                     client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
-                    order = client.order.create({
+                    
+                    # Use the same receipt ID format
+                    receipt_id = f"c{course.id}_l{learner.id}_{learnt.id}".replace(" ", "")[:40]
+                    
+                    fallback_order_data = {
                         'amount': amount_in_paise, 
                         'currency': RAZORPAY_CURRENCY,
-                        'receipt': f'course_{course.id}_{learner.id}_{learnt.id}'
-                    })
+                        'receipt': receipt_id
+                    }
+                    
+                    print(f"🔍 Fallback order data: {fallback_order_data}")
+                    order = client.order.create(fallback_order_data)
                     print(f"✅ Razorpay order created (fallback): {order['id']}")
                 except Exception as e:
-                    print(f"❌ Razorpay client creation failed: {e}")
-                    order = {'id': f'fallback_order_{learner.id}_{course.id}_{random.randint(1000, 9999)}'}
-            else:
-                # Development mode when Razorpay keys are not set
+                    print(f"❌ Razorpay fallback client creation failed: {e}")
+                    print(f"❌ Fallback error type: {type(e)}")
+                    import traceback
+                    print(f"❌ Fallback traceback: {traceback.format_exc()}")
+                    # Use dev_order instead of fallback_order to avoid confusion
+                    order = {'id': f'dev_order_{learner.id}_{course.id}_{learnt.id}_{random.randint(1000, 9999)}'}
+                    print(f"🔧 Using development order after fallback failed: {order['id']}")
+            
+            # If still no order, create development order
+            if not order:
+                # Development mode when Razorpay keys are not set or all attempts failed
                 order = {'id': f'dev_order_{learner.id}_{course.id}_{learnt.id}_{random.randint(1000, 9999)}'}
                 print(f"🔧 Development order created: {order['id']}")
             
@@ -963,7 +1055,12 @@ def making_payment(request, id):
             'message': message
         })
     except learnings.DoesNotExist:
+        print(f"❌ Learning record not found for id: {id}")
         return redirect('home', 1)  # Redirect to a default page or handle error
+    except Exception as e:
+        print(f"❌ Error in making_payment: {e}")
+        # Return an error response instead of redirecting to avoid confusion
+        return HttpResponse(f"Payment processing error: {str(e)}", status=500)
 
 #confirming payment
 def confirm_payment(request, id, lid):
@@ -984,44 +1081,111 @@ def confirm_payment(request, id, lid):
         return render(request, 'payment/confirm_payment.html', context)
         
     except Payment.DoesNotExist:
+        print(f"❌ Payment not found for id: {id}")
         return render(request, 'payment/confirm_payment.html', {
             'error': 'Payment not found',
             'learner_id': lid
         })
     except Learner.DoesNotExist:
+        print(f"❌ Learner not found for id: {lid}")
         return render(request, 'payment/confirm_payment.html', {
             'error': 'Learner not found',
             'payment_id': id
+        })
+    except Exception as e:
+        print(f"❌ Error in confirm_payment: {e}")
+        return render(request, 'payment/confirm_payment.html', {
+            'error': f'Payment confirmation error: {str(e)}',
+            'learner_id': lid
         })
 
 
 #verifying payment
 @csrf_exempt
 def verify(request):
+    print(f"🔍 Verify endpoint called with method: {request.method}")
     if request.method == 'POST':
         try:
             data = request.POST
             print(f"Payment verification data: {data}")
+            print(f"Request headers: {request.headers}")
             
             # Get payment details from Razorpay
             razorpay_order_id = data.get('razorpay_order_id')
             razorpay_payment_id = data.get('razorpay_payment_id')
             razorpay_signature = data.get('razorpay_signature')
             
-            if not all([razorpay_order_id, razorpay_payment_id]):
+            print(f"🔍 Payment details received:")
+            print(f"  - Order ID: {razorpay_order_id}")
+            print(f"  - Payment ID: {razorpay_payment_id}")
+            print(f"  - Signature: {razorpay_signature[:20] if razorpay_signature else 'None'}...")
+            print(f"  - All POST data: {dict(data)}")
+            
+            # Check for UPI-specific issues
+            if razorpay_payment_id and 'upi' in str(razorpay_payment_id).lower():
+                print(f"🔍 UPI Payment detected: {razorpay_payment_id}")
+            
+            if not razorpay_order_id or not razorpay_payment_id:
                 print("❌ Missing payment details")
-                return HttpResponse("Missing payment details", status=400)
+                print(f"  - Order ID missing: {not razorpay_order_id}")
+                print(f"  - Payment ID missing: {not razorpay_payment_id}")
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Missing payment details',
+                    'error_details': {
+                        'type': 'missing_data',
+                        'description': 'Required payment information is missing',
+                        'missing_fields': {
+                            'order_id': not bool(razorpay_order_id),
+                            'payment_id': not bool(razorpay_payment_id)
+                        }
+                    },
+                    'suggestions': [
+                        'Please ensure all payment details are provided',
+                        'Try refreshing the page and retry payment'
+                    ]
+                }, status=400)
             
             # Get payment record
             try:
                 payment = Payment.objects.get(order_id=razorpay_order_id)
             except Payment.DoesNotExist:
                 print(f"❌ Payment not found for order: {razorpay_order_id}")
-                return HttpResponse("Payment not found", status=404)
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Payment not found',
+                    'error_details': {
+                        'type': 'payment_not_found',
+                        'description': f'No payment record found for order ID: {razorpay_order_id}',
+                        'order_id': razorpay_order_id
+                    },
+                    'suggestions': [
+                        'Check if the order was created successfully',
+                        'Contact support with your order ID',
+                        'Try creating a new payment'
+                    ]
+                }, status=404)
             
-            # Verify signature if Razorpay keys are configured
+            # Determine if we should verify signature
             signature_verified = False
-            if razorpay_client and razorpay_signature:
+            should_verify_signature = False
+            
+            # For development orders, skip signature verification
+            if (razorpay_order_id.startswith('dev_order') or 
+                razorpay_order_id.startswith('error_order') or 
+                razorpay_order_id.startswith('fallback_order')):
+                signature_verified = True
+                print(f"🔧 Development order - skipping signature verification: {razorpay_order_id}")
+            elif not razorpay_client:
+                # No Razorpay client configured, allow payment (development mode)
+                signature_verified = True
+                print(f"🔧 No Razorpay client - allowing payment (development mode): {razorpay_order_id}")
+            else:
+                # We have a Razorpay client, so we should verify signature
+                should_verify_signature = True
+                
+            # Verify signature if required and possible
+            if should_verify_signature and razorpay_client and razorpay_signature:
                 try:
                     # Create signature verification string
                     body = razorpay_order_id + "|" + razorpay_payment_id
@@ -1047,13 +1211,25 @@ def verify(request):
                         
                 except Exception as e:
                     print(f"⚠️ Signature verification error: {e}")
+                    signature_verified = False
             
-            # For development orders, skip signature verification
-            if (razorpay_order_id.startswith('dev_order') or 
-                razorpay_order_id.startswith('error_order') or 
-                razorpay_order_id.startswith('fallback_order')):
-                signature_verified = True
-                print(f"🔧 Development order - skipping signature verification: {razorpay_order_id}")
+            # Only proceed if signature is verified
+            if not signature_verified and should_verify_signature:
+                print(f"❌ Payment verification failed - signature not verified: {razorpay_order_id}")
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Payment verification failed - invalid signature',
+                    'error_details': {
+                        'type': 'signature_verification_failed',
+                        'description': 'Payment signature could not be verified',
+                        'order_id': razorpay_order_id
+                    },
+                    'suggestions': [
+                        'Payment may be fraudulent or corrupted',
+                        'Contact support immediately',
+                        'Do not proceed with this transaction'
+                    ]
+                }, status=400)
             
             # Update payment record
             payment.payment_id = razorpay_payment_id
@@ -1077,16 +1253,71 @@ def verify(request):
             except Exception as e:
                 print(f"❌ Error activating course access: {e}")
             
-            # Redirect to home page
-            return redirect('home', payment.learner.id)
+            # Return interactive JSON response with payment details
+            response_data = {
+                'status': 'success',
+                'message': 'Payment verified successfully! 🎉',
+                'payment_details': {
+                    'order_id': payment.order_id,
+                    'payment_id': razorpay_payment_id,
+                    'course_name': payment.course.name,
+                    'amount': payment.course.price,
+                    'learner_name': payment.learner.username
+                },
+                'course_access': {
+                    'activated': True,
+                    'course_id': payment.course.id,
+                    'learner_id': payment.learner.id
+                },
+                'next_steps': [
+                    'Access premium course content',
+                    'Track your learning progress',
+                    'Complete lessons to earn certificate'
+                ],
+                'redirect_urls': {
+                    'course': f'/learn_course/{payment.learner.id}/{payment.course.id}/',
+                    'dashboard': f'/home/{payment.learner.id}/'
+                },
+                'animation_data': {
+                    'celebration_type': 'success',
+                    'show_confetti': True
+                }
+            }
+            
+            return JsonResponse(response_data, status=200)
             
         except Exception as e:
             print(f"❌ Payment verification error: {e}")
-            return HttpResponse(f"Payment verification failed: {e}", status=500)
+            import traceback
+            print(f"❌ Traceback: {traceback.format_exc()}")
+            
+            # Return interactive error response
+            error_data = {
+                'status': 'error',
+                'message': f'Payment verification failed: {str(e)}',
+                'error_details': {
+                    'type': 'verification_error',
+                    'description': str(e)
+                },
+                'suggestions': [
+                    'Please check your payment details',
+                    'Contact support if the issue persists',
+                    'Try refreshing the page'
+                ]
+            }
+            return JsonResponse(error_data, status=500)
     
-    return HttpResponse("Method not allowed", status=405)
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Method not allowed',
+        'error_details': {
+            'type': 'method_error',
+            'description': 'Only POST requests are allowed'
+        }
+    }, status=405)
 
 # developer registration
+@ensure_csrf_cookie
 def register_developer(request):
     context = {}
     if request.method == 'POST':
@@ -1157,11 +1388,13 @@ def register_developer(request):
 
 
 
+@ensure_csrf_cookie
 def developer_otp_view(request):
     return render(request, 'developer_otp.html')
 
 
 
+@ensure_csrf_cookie
 def valdate_dregistration(request):
     context = {}
     
@@ -1228,7 +1461,11 @@ def valdate_dregistration(request):
 #developer login
 @ensure_csrf_cookie
 def developer_login(request):
+    """
+    Developer login view with proper CSRF handling
+    """
     context = {}
+    
     if request.method == 'POST':
         try:
             username = request.POST.get('username', '').strip()
@@ -1236,23 +1473,26 @@ def developer_login(request):
             
             if not username or not password:
                 context['error'] = 'Please enter both username and password'
-                return render(request, 'developer_login.html', context)
-            
-            u = authenticate(username=username, password=password)
-            if u is not None:
-                try:
-                    developer = D.objects.get(user=u)
-                    login(request, u)
-                    return redirect('developer_home', developer.id)
-                except D.DoesNotExist:
-                    context['error'] = 'Developer account not found'
             else:
-                context['error'] = 'Invalid username or password'
+                u = authenticate(username=username, password=password)
+                if u is not None:
+                    try:
+                        developer = D.objects.get(user=u)
+                        login(request, u)
+                        return redirect('developer_home', developer.id)
+                    except D.DoesNotExist:
+                        context['error'] = 'Developer account not found'
+                else:
+                    context['error'] = 'Invalid username or password'
         except Exception as e:
             print(f"❌ Developer login error: {e}")
             context['error'] = 'An error occurred during login. Please try again.'
     
-    return render(request, 'developer_login.html', context)
+    # Always render with CSRF cookie set
+    response = render(request, 'developer_login.html', context)
+    # Explicitly ensure CSRF token is set
+    get_token(request)
+    return response
 
 
 #@permission_required('school.change_student', login_url='login')
@@ -1485,6 +1725,7 @@ def choices(request):
             list1.append(correct_choice)
     return HttpResponse(f'{len(list1)}')
 
+@ensure_csrf_cookie
 def query(request, id):
     try:
         learner = Learner.objects.get(id=id)
@@ -1550,3 +1791,53 @@ Query ID: {Query.objects.filter(learner=learner).latest('id').id if Query.object
     from django.conf import settings
     admin_email = getattr(settings, 'EMAIL_HOST_USER', 'jayanthyadav237@gmail.com')
     return render(request, 'query.html', {'learner': learner, 'error': None, 'admin_email': admin_email})
+
+
+@login_required
+def remove_one_question_from_all_quizzes(request, did):
+    """
+    Remove 1 question from all quizzes across all courses.
+    This will remove the highest numbered question from each quiz.
+    """
+    try:
+        developer = D.objects.get(id=did)
+    except D.DoesNotExist:
+        print(f"❌ Developer not found: {did}")
+        return redirect('developer_login')
+    
+    try:
+        # Get all quizzes
+        quizzes = Quiz.objects.all()
+        removed_count = 0
+        
+        print(f"🔍 Starting to remove 1 question from all quizzes...")
+        
+        for quiz in quizzes:
+            # Get all questions for this quiz, ordered by question_number (descending)
+            questions = Question.objects.filter(quiz=quiz).order_by('-question_number')
+            
+            if questions.exists():
+                # Get the highest numbered question (last question)
+                last_question = questions.first()
+                
+                print(f"🗑️  Removing question {last_question.question_number} from quiz '{quiz.title}' (Course: {quiz.course.name if quiz.course else 'No Course'})")
+                
+                # Delete the question (choices will be deleted automatically due to CASCADE)
+                last_question.delete()
+                removed_count += 1
+            else:
+                print(f"⚠️  No questions found in quiz '{quiz.title}'")
+        
+        print(f"✅ Successfully removed 1 question from {removed_count} quizzes")
+        
+        # Return a success message
+        from django.contrib import messages
+        messages.success(request, f'Successfully removed 1 question from {removed_count} quizzes across all courses.')
+        
+        return redirect('quiz_list', developer.id)
+        
+    except Exception as e:
+        print(f"❌ Error removing questions: {e}")
+        from django.contrib import messages
+        messages.error(request, f'Error occurred while removing questions: {str(e)}')
+        return redirect('quiz_list', developer.id)

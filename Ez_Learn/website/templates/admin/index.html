@@ -1,0 +1,342 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static admin_urls %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    /* Enhanced Admin Dashboard Styles */
+    body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    #content-main {
+        background: transparent;
+        padding: 20px;
+    }
+    
+    .admin-dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .dashboard-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border-left: 4px solid #667eea;
+    }
+    
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .card-icon {
+        font-size: 24px;
+        margin-right: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+    }
+    
+    .card-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+    }
+    
+    .card-stats {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+    
+    .stat-number {
+        font-size: 32px;
+        font-weight: 700;
+        color: #667eea;
+        margin: 0;
+    }
+    
+    .stat-label {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+    }
+    
+    .quick-actions {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+    
+    .quick-actions h2 {
+        margin-top: 0;
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .action-button {
+        display: block;
+        padding: 15px 20px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: none;
+    }
+    
+    .action-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .module {
+        background: white;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .module:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .module h2 {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        margin: 0;
+        padding: 20px 25px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    
+    .module table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .module th {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        text-align: left;
+        font-weight: 600;
+        color: #333;
+        border-bottom: 2px solid #e9ecef;
+    }
+    
+    .module td {
+        padding: 15px 20px;
+        border-bottom: 1px solid #e9ecef;
+        vertical-align: middle;
+    }
+    
+    .module tr:hover {
+        background: #f8f9fa;
+    }
+    
+    .module a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+    
+    .module a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+    }
+    
+    .app-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .admin-dashboard {
+            grid-template-columns: 1fr;
+        }
+        
+        .action-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .app-list {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    /* Loading animation */
+    .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+        margin-left: 10px;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon">👥</div>
+            <h3 class="card-title">Total Learners</h3>
+        </div>
+        <div class="card-stats">
+            <p class="stat-number" id="learners-count">-</p>
+            <p class="stat-label">Registered Users</p>
+        </div>
+    </div>
+    
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon">📚</div>
+            <h3 class="card-title">Total Courses</h3>
+        </div>
+        <div class="card-stats">
+            <p class="stat-number" id="courses-count">-</p>
+            <p class="stat-label">Available Courses</p>
+        </div>
+    </div>
+    
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon">💳</div>
+            <h3 class="card-title">Payments</h3>
+        </div>
+        <div class="card-stats">
+            <p class="stat-number" id="payments-count">-</p>
+            <p class="stat-label">Total Transactions</p>
+        </div>
+    </div>
+    
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon">🧩</div>
+            <h3 class="card-title">Quizzes</h3>
+        </div>
+        <div class="card-stats">
+            <p class="stat-number" id="quizzes-count">-</p>
+            <p class="stat-label">Active Quizzes</p>
+        </div>
+    </div>
+</div>
+
+<div class="quick-actions">
+    <h2>🚀 Quick Actions</h2>
+    <div class="action-grid">
+        <a href="{% url 'admin:website_learner_add' %}" class="action-button">
+            ➕ Add New Learner
+        </a>
+        <a href="{% url 'admin:website_course_add' %}" class="action-button">
+            📚 Create Course
+        </a>
+        <a href="{% url 'admin:website_payment_changelist' %}" class="action-button">
+            💳 View Payments
+        </a>
+        <a href="{% url 'admin:website_quiz_add' %}" class="action-button">
+            🧩 Create Quiz
+        </a>
+        <a href="/" class="action-button" target="_blank">
+            🌐 Visit Site
+        </a>
+        <a href="{% url 'admin:auth_user_changelist' %}" class="action-button">
+            👤 Manage Users
+        </a>
+    </div>
+</div>
+
+{{ block.super }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load dashboard stats
+    loadDashboardStats();
+    
+    // Add smooth animations to cards
+    const cards = document.querySelectorAll('.dashboard-card, .module');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'all 0.6s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+
+function loadDashboardStats() {
+    fetch('/admin/dashboard-stats/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('learners-count').textContent = data.total_learners || 0;
+            document.getElementById('courses-count').textContent = data.total_courses || 0;
+            document.getElementById('payments-count').textContent = data.total_payments || 0;
+            document.getElementById('quizzes-count').textContent = data.total_quizzes || 0;
+        })
+        .catch(error => {
+            console.log('Could not load dashboard stats:', error);
+            // Fallback to default values
+            document.getElementById('learners-count').textContent = '0';
+            document.getElementById('courses-count').textContent = '0';
+            document.getElementById('payments-count').textContent = '0';
+            document.getElementById('quizzes-count').textContent = '0';
+        });
+}
+
+// Add interactive hover effects
+document.querySelectorAll('.module').forEach(module => {
+    module.addEventListener('mouseenter', function() {
+        this.style.borderLeft = '4px solid #667eea';
+    });
+    
+    module.addEventListener('mouseleave', function() {
+        this.style.borderLeft = '4px solid transparent';
+    });
+});
+</script>
+{% endblock %}

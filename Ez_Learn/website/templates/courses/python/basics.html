@@ -53,6 +53,74 @@
             margin: 15px 0;
             font-family: 'Courier New', monospace;
             overflow-x: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .code-block:hover {
+            background: #1a202c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .code-block::after {
+            content: "📋 Click to copy";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 12px;
+            color: #a0aec0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .code-block:hover::after {
+            opacity: 1;
+        }
+        .interactive-demo {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .demo-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .demo-button:hover {
+            background: #5a6fd8;
+        }
+        .quiz-container {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .quiz-option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        .quiz-option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .quiz-option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
         }
     </style>
 </head>
@@ -75,26 +143,47 @@
         <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
             <h4 style="margin: 0; color: #667eea;">📚 Python Basics - Free Content</h4>
             <div style="width: 100%; background: rgba(102, 126, 234, 0.2); border-radius: 10px; margin-top: 10px;">
-                <div style="width: 60%; background: linear-gradient(135deg, #667eea, #764ba2); height: 8px; border-radius: 10px; transition: width 0.3s;"></div>
+                <div id="progress-bar" style="width: 0%; background: linear-gradient(135deg, #667eea, #764ba2); height: 8px; border-radius: 10px; transition: width 0.5s ease;"></div>
             </div>
-            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: 60% Complete (3/5 lessons)</p>
+            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: <span id="progress-text">0%</span> Complete (<span id="completed-lessons">0</span>/10 lessons) - Est. 45 minutes</p>
         </div>
 
         <h2>🎓 Python Fundamentals - FREE CONTENT</h2>
         
         <div class="lesson">
-            <h3>1. What is Python?</h3>
-            <p>Python is a high-level, interpreted programming language with simple syntax and powerful capabilities. It's perfect for beginners!</p>
-            <div class="code-block">
+            <h3>1. What is Python? 🐍</h3>
+            <p><strong>Python</strong> is a high-level, interpreted programming language with simple syntax and powerful capabilities. It's perfect for beginners and used by companies like Google, Netflix, and Instagram!</p>
+            
+            <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #667eea;">
+                <h4>🌟 Why Python?</h4>
+                <ul>
+                    <li><strong>Easy to read:</strong> Code looks like plain English</li>
+                    <li><strong>Versatile:</strong> Web development, data science, AI, automation</li>
+                    <li><strong>Large community:</strong> Tons of libraries and help available</li>
+                    <li><strong>Great for beginners:</strong> Quick to learn and start building</li>
+                </ul>
+            </div>
+            
+            <div class="code-block" onclick="copyCode(this)">
 # Your first Python program
 print("Hello, World!")
+print("Welcome to Python programming!")
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🎯 Try it yourself!</h4>
+                <button class="demo-button" onclick="runPythonDemo('demo1')">Run Python Code</button>
+                <div id="demo1" style="display: none; margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <strong>Python Output:</strong><br>
+                    <code style="color: #28a745;">Hello, World!<br>Welcome to Python programming!</code>
+                </div>
             </div>
         </div>
 
         <div class="lesson">
-            <h3>2. Variables and Data Types</h3>
+            <h3>2. Variables and Data Types 🏷️</h3>
             <p>In Python, you can store different types of data in variables:</p>
-            <div class="code-block">
+            <div class="code-block" onclick="copyCode(this)">
 # Different data types
 name = "Alice"           # String
 age = 25                 # Integer
@@ -104,12 +193,40 @@ is_student = True       # Boolean
 print(f"Name: {name}")
 print(f"Age: {age}")
             </div>
+            
+            <div class="interactive-demo">
+                <h4>🎯 Try it yourself!</h4>
+                <p>Click the button to see this Python code in action:</p>
+                <button class="demo-button" onclick="runPythonDemo('demo2')">Run Code Demo</button>
+                <div id="demo2" style="display: none; margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <strong>Output:</strong><br>
+                    <code style="color: #28a745;">Name: Alice<br>Age: 25</code>
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <h4>🧩 Test Your Understanding</h4>
+                <p><strong>What data type is the variable 'age' in the code above?</strong></p>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz2', 'string', this)">
+                    String (text)
+                </div>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz2', 'integer', this)">
+                    Integer (whole number)
+                </div>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz2', 'float', this)">
+                    Float (decimal number)
+                </div>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz2', 'boolean', this)">
+                    Boolean (True/False)
+                </div>
+                <div id="quiz2-feedback" style="margin-top: 15px; font-weight: bold;"></div>
+            </div>
         </div>
 
         <div class="lesson">
-            <h3>3. Basic Operations</h3>
+            <h3>3. Basic Operations ➕➖</h3>
             <p>Python supports all basic mathematical operations:</p>
-            <div class="code-block">
+            <div class="code-block" onclick="copyCode(this)">
 a = 10
 b = 3
 
@@ -120,12 +237,33 @@ print(a * b)    # Multiplication
 print(a / b)    # Division
 print(a % b)    # Modulus (remainder)
             </div>
+            
+            <div class="interactive-demo">
+                <h4>🧮 Live Calculator</h4>
+                <p>Experiment with Python operations:</p>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <input type="number" id="num1" placeholder="First number" value="10" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <select id="operation" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="+">+ (Addition)</option>
+                        <option value="-">- (Subtraction)</option>
+                        <option value="*">* (Multiplication)</option>
+                        <option value="/">/ (Division)</option>
+                        <option value="%">% (Modulus)</option>
+                    </select>
+                    <input type="number" id="num2" placeholder="Second number" value="3" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <button class="demo-button" onclick="calculatePython()">Calculate</button>
+                </div>
+                <div id="calc-result" style="margin-top: 15px; padding: 10px; background: #e8f5e8; border-radius: 4px; display: none;">
+                    <strong>Result: <span id="result-value"></span></strong>
+                </div>
+            </div>
         </div>
 
         <div class="lesson">
-            <h3>4. Conditional Statements</h3>
-            <p>Use if/else statements to make decisions in your code:</p>
-            <div class="code-block">
+            <h3>4. Conditional Statements 🎯</h3>
+            <p>Use <code>if/else</code> statements to make decisions in your code. This is how programs choose different actions based on conditions.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
 score = 85
 
 if score >= 90:
@@ -139,17 +277,195 @@ else:
 
 print(f"Your grade: {grade}")
             </div>
+            
+            <div class="interactive-demo">
+                <h4>🧮 Grade Calculator</h4>
+                <p>Try different scores:</p>
+                <input type="number" id="score-input" placeholder="Enter score (0-100)" value="85" min="0" max="100" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 10px;">
+                <button class="demo-button" onclick="calculateGrade()">Calculate Grade</button>
+                <div id="grade-result" style="margin-top: 15px; padding: 10px; background: #e8f5e8; border-radius: 4px; display: none;">
+                    <strong>Grade: <span id="grade-value"></span></strong>
+                </div>
+            </div>
         </div>
 
         <div class="lesson">
-            <h3>5. Lists - Your First Data Structure</h3>
-            <p>Lists are used to store multiple items in a single variable:</p>
-            <div class="code-block">
+            <h3>5. Lists - Your First Data Structure 📋</h3>
+            <p>Lists are used to store multiple items in a single variable. Think of them as ordered containers!</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
 # Creating and using lists
 fruits = ["apple", "banana", "orange"]
-print(fruits[0])        # Access first item
-fruits.append("grape")  # Add new item
+print(fruits[0])        # Access first item (indexing starts at 0)
+print(fruits[-1])       # Access last item
+fruits.append("grape")  # Add new item to the end
+fruits.insert(1, "kiwi") # Insert at specific position
 print(f"Total fruits: {len(fruits)}")
+print(fruits)
+            </div>
+            
+            <div class="quiz-container">
+                <h4>🧩 Test Your Understanding</h4>
+                <p><strong>What index do Python lists start from?</strong></p>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz5', '0', this)">
+                    0 (first item is at index 0)
+                </div>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz5', '1', this)">
+                    1 (first item is at index 1)
+                </div>
+                <div id="quiz5-feedback" style="margin-top: 15px; font-weight: bold;"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>6. Loops - Repeat Actions 🔄</h3>
+            <p>Loops help you repeat code multiple times. Two main types: <code>for</code> loops and <code>while</code> loops.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+# For loop - iterate through a list
+fruits = ["apple", "banana", "orange"]
+for fruit in fruits:
+    print(f"I like {fruit}")
+
+# While loop - repeat while condition is true
+count = 0
+while count < 3:
+    print(f"Count: {count}")
+    count += 1  # Same as count = count + 1
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🎯 Loop Practice</h4>
+                <button class="demo-button" onclick="runPythonDemo('demo6')">Run Loop Demo</button>
+                <div id="demo6" style="display: none; margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">
+                    <strong>Output:</strong><br>
+                    <code style="color: #28a745;">I like apple<br>I like banana<br>I like orange<br>Count: 0<br>Count: 1<br>Count: 2</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>7. Functions - Reusable Code Blocks 🔧</h3>
+            <p>Functions are blocks of code that you can call whenever needed. They help organize and reuse code.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+# Defining a function
+def greet(name):
+    return f"Hello, {name}!"
+
+def add_numbers(a, b):
+    return a + b
+
+# Using functions
+message = greet("Alice")
+result = add_numbers(5, 3)
+print(message)
+print(f"5 + 3 = {result}")
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🧮 Function Calculator</h4>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 15px 0;">
+                    <input type="number" id="func-num1" placeholder="First number" value="10" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <select id="func-operation" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="add">Add</option>
+                        <option value="subtract">Subtract</option>
+                        <option value="multiply">Multiply</option>
+                    </select>
+                    <input type="number" id="func-num2" placeholder="Second number" value="5" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <button class="demo-button" onclick="calculateFunction()">Calculate</button>
+                </div>
+                <div id="func-result" style="margin-top: 15px; padding: 10px; background: #e8f5e8; border-radius: 4px; display: none;">
+                    <strong>Function Result: <span id="func-result-value"></span></strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>8. String Methods - Text Processing 📝</h3>
+            <p>Python has powerful built-in methods for working with text (strings).</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+text = "  Hello Python World  "
+
+# String methods
+print(f"Original: '{text}'")
+print(f"Stripped: '{text.strip()}'")
+print(f"Upper: '{text.upper()}'")
+print(f"Lower: '{text.lower()}'")
+print(f"Replace: '{text.replace('Python', 'Programming')}'")
+print(f"Split: {text.split()}")  # Splits into a list of words
+            </div>
+            
+            <div class="quiz-container">
+                <h4>🧩 String Quiz</h4>
+                <p><strong>What does the <code>strip()</code> method do?</strong></p>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz8', 'wrong1', this)">
+                    Makes the string uppercase
+                </div>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz8', 'correct', this)">
+                    Removes whitespace from beginning and end
+                </div>
+                <div class="quiz-option" onclick="checkPythonQuiz('quiz8', 'wrong2', this)">
+                    Splits the string into words
+                </div>
+                <div id="quiz8-feedback" style="margin-top: 15px; font-weight: bold;"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>9. Working with Numbers 🔢</h3>
+            <p>Python supports integers, floats, and has useful functions for mathematical operations.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+import math
+
+# Different types of numbers
+whole_number = 42
+decimal_number = 3.14
+
+# Math operations
+print(f"2 to the power of 3: {2**3}")
+print(f"Square root of 16: {math.sqrt(16)}")
+print(f"Round 3.7: {round(3.7)}")
+print(f"Absolute value of -5: {abs(-5)}")
+
+# Converting between types
+number_string = "123"
+converted_number = int(number_string)
+print(f"Converted: {converted_number}")
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>10. Input and Output 💬</h3>
+            <p>Learn how to get input from users and display output in different ways.</p>
+            
+            <div class="code-block" onclick="copyCode(this)">
+# Getting user input
+name = input("What's your name? ")
+age = int(input("How old are you? "))
+
+# Different ways to format output
+print(f"Hello, {name}!")
+print("You are", age, "years old.")
+print("In 10 years, you'll be", age + 10)
+
+# Multiple variables in one print
+print(name, "is", age, "years old")
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🎯 Try the Input Simulator</h4>
+                <div style="margin: 15px 0;">
+                    <input type="text" id="sim-name" placeholder="Enter your name" value="Alice" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 5px;">
+                    <input type="number" id="sim-age" placeholder="Enter your age" value="25" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 5px;">
+                </div>
+                <button class="demo-button" onclick="simulateInput()">Simulate Python Input</button>
+                <div id="sim-output" style="margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                    <strong>Program Output:</strong><br>
+                    <div id="sim-result" style="color: #28a745; font-family: monospace;"></div>
+                </div>
             </div>
         </div>
 
@@ -188,48 +504,282 @@ print(f"Total fruits: {len(fruits)}")
     </div>
 
     <script>
-        // Add interactivity to course content
+        // Interactive Python course functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Add click handlers to code blocks for copy functionality
-            const codeBlocks = document.querySelectorAll('.code-block');
-            codeBlocks.forEach(block => {
-                block.style.cursor = 'pointer';
-                block.title = 'Click to copy code';
-                
-                block.addEventListener('click', function() {
-                    const text = this.textContent;
-                    navigator.clipboard.writeText(text).then(() => {
-                        // Show temporary feedback
-                        const original = this.style.background;
-                        this.style.background = '#4caf50';
-                        setTimeout(() => {
-                            this.style.background = original;
-                        }, 200);
-                    });
+            // Initialize course
+            initializePythonCourse();
+            
+            // Add scroll-based lesson visibility
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        updateProgress();
+                    }
                 });
+            }, { threshold: 0.5 });
+
+            // Observe all lessons
+            document.querySelectorAll('.lesson').forEach(lesson => {
+                observer.observe(lesson);
             });
 
             // Animate progress bar on load
-            const progressBar = document.querySelector('div[style*="width: 60%"]');
-            if (progressBar) {
-                progressBar.style.width = '0%';
-                setTimeout(() => {
-                    progressBar.style.width = '60%';
-                }, 500);
-            }
-
-            // Add smooth scroll for lesson navigation
-            const lessons = document.querySelectorAll('.lesson');
-            lessons.forEach((lesson, index) => {
-                lesson.style.opacity = '0';
-                lesson.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    lesson.style.transition = 'all 0.6s ease';
-                    lesson.style.opacity = '1';
-                    lesson.style.transform = 'translateY(0)';
-                }, 200 + (index * 100));
-            });
+            setTimeout(() => {
+                updateProgressBar(0); // Start with 0%
+            }, 1000);
         });
+
+        function initializePythonCourse() {
+            // Add click handlers to all code blocks
+            document.querySelectorAll('.code-block').forEach(block => {
+                if (!block.onclick) {
+                    block.addEventListener('click', function() {
+                        copyCode(this);
+                    });
+                }
+            });
+        }
+
+        function copyCode(element) {
+            const text = element.textContent || element.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback
+                const original = element.style.background;
+                element.style.background = '#4caf50';
+                element.style.transform = 'scale(1.02)';
+                
+                setTimeout(() => {
+                    element.style.background = original;
+                    element.style.transform = 'scale(1)';
+                }, 300);
+
+                // Show notification
+                showNotification('Python code copied to clipboard! 🐍', 'success');
+            }).catch(() => {
+                showNotification('Failed to copy code. Try selecting and copying manually.', 'error');
+            });
+        }
+
+        function runPythonDemo(demoId) {
+            const demo = document.getElementById(demoId);
+            const isVisible = demo.style.display !== 'none';
+            
+            if (isVisible) {
+                demo.style.display = 'none';
+            } else {
+                demo.style.display = 'block';
+                demo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Simulate code execution with a delay
+                demo.style.opacity = '0';
+                setTimeout(() => {
+                    demo.style.transition = 'opacity 0.5s ease';
+                    demo.style.opacity = '1';
+                }, 100);
+            }
+        }
+
+        function calculatePython() {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            const operation = document.getElementById('operation').value;
+            
+            let result;
+            try {
+                switch(operation) {
+                    case '+':
+                        result = num1 + num2;
+                        break;
+                    case '-':
+                        result = num1 - num2;
+                        break;
+                    case '*':
+                        result = num1 * num2;
+                        break;
+                    case '/':
+                        result = num2 !== 0 ? num1 / num2 : 'Cannot divide by zero!';
+                        break;
+                    case '%':
+                        result = num2 !== 0 ? num1 % num2 : 'Cannot divide by zero!';
+                        break;
+                    default:
+                        result = 'Invalid operation';
+                }
+                
+                document.getElementById('result-value').textContent = result;
+                document.getElementById('calc-result').style.display = 'block';
+                
+                // Show Python-like output
+                showNotification(`Python: ${num1} ${operation} ${num2} = ${result}`, 'info');
+                
+            } catch (e) {
+                document.getElementById('result-value').textContent = 'Error: ' + e.message;
+                document.getElementById('calc-result').style.display = 'block';
+            }
+        }
+
+        function calculateGrade() {
+            const score = parseInt(document.getElementById('score-input').value) || 0;
+            let grade;
+            
+            if (score >= 90) {
+                grade = "A";
+            } else if (score >= 80) {
+                grade = "B";
+            } else if (score >= 70) {
+                grade = "C";
+            } else if (score >= 60) {
+                grade = "D";
+            } else {
+                grade = "F";
+            }
+            
+            document.getElementById('grade-value').textContent = grade;
+            document.getElementById('grade-result').style.display = 'block';
+            showNotification(`Score: ${score} = Grade: ${grade}`, 'info');
+        }
+
+        function calculateFunction() {
+            const num1 = parseFloat(document.getElementById('func-num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('func-num2').value) || 0;
+            const operation = document.getElementById('func-operation').value;
+            
+            let result;
+            switch(operation) {
+                case 'add':
+                    result = num1 + num2;
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    break;
+                default:
+                    result = 'Invalid operation';
+            }
+            
+            document.getElementById('func-result-value').textContent = result;
+            document.getElementById('func-result').style.display = 'block';
+            showNotification(`Function result: ${result}`, 'success');
+        }
+
+        function simulateInput() {
+            const name = document.getElementById('sim-name').value || 'Alice';
+            const age = parseInt(document.getElementById('sim-age').value) || 25;
+            
+            const output = `Hello, ${name}!\nYou are ${age} years old.\nIn 10 years, you'll be ${age + 10}\n${name} is ${age} years old`;
+            
+            document.getElementById('sim-result').innerHTML = output.replace(/\n/g, '<br>');
+            document.getElementById('sim-output').style.display = 'block';
+            showNotification('Python input simulation complete! 🎯', 'success');
+        }
+
+        function checkPythonQuiz(quizId, selectedAnswer, element) {
+            const feedback = document.getElementById(quizId + '-feedback');
+            const correctAnswers = {
+                'quiz2': 'integer',  // Age is an integer
+                'quiz5': '0',       // Lists start from index 0
+                'quiz8': 'correct'  // strip() removes whitespace
+            };
+            
+            const correctAnswer = correctAnswers[quizId];
+            const quizContainer = element.parentElement;
+            const options = quizContainer.querySelectorAll('.quiz-option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                
+                // Find the correct option by checking the onclick attribute
+                const optionAnswer = option.onclick.toString().match(/checkPythonQuiz\([^,]+,\s*'([^']+)'/);
+                if (optionAnswer && optionAnswer[1] === correctAnswer) {
+                    option.classList.add('correct');
+                    option.innerHTML = '✅ ' + option.textContent.replace('✅ ','').replace('❌ ','');
+                } else {
+                    option.classList.add('incorrect');
+                    option.innerHTML = '❌ ' + option.textContent.replace('✅ ','').replace('❌ ','');
+                }
+            });
+            
+            let feedbackMessage;
+            if (selectedAnswer === correctAnswer) {
+                if (quizId === 'quiz2') {
+                    feedbackMessage = '🎉 Correct! The variable "age" is an Integer (whole number).';
+                } else if (quizId === 'quiz5') {
+                    feedbackMessage = '🎉 Perfect! Python lists start from index 0, not 1.';
+                } else if (quizId === 'quiz8') {
+                    feedbackMessage = '🎉 Excellent! strip() removes whitespace from the beginning and end of strings.';
+                }
+                feedback.style.color = '#28a745';
+                updateProgress();
+            } else {
+                if (quizId === 'quiz2') {
+                    feedbackMessage = '❌ Not quite! The variable "age" is an Integer (whole number).';
+                } else if (quizId === 'quiz5') {
+                    feedbackMessage = '❌ Try again! Python lists start from index 0, not 1.';
+                } else if (quizId === 'quiz8') {
+                    feedbackMessage = '❌ Almost! strip() removes whitespace from the beginning and end of strings.';
+                }
+                feedback.style.color = '#dc3545';
+            }
+            
+            feedback.innerHTML = feedbackMessage;
+        }
+
+        function updateProgress() {
+            const completedLessons = document.querySelectorAll('.lesson.visible').length;
+            const totalLessons = document.querySelectorAll('.lesson').length;
+            const percentage = Math.round((completedLessons / totalLessons) * 100);
+            
+            updateProgressBar(percentage);
+            if (document.getElementById('progress-text')) {
+                document.getElementById('progress-text').textContent = percentage + '%';
+                document.getElementById('completed-lessons').textContent = completedLessons;
+            }
+        }
+
+        function updateProgressBar(percentage) {
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                transform: translateX(100%);
+                background: ${type === 'success' ? '#4caf50' : type === 'error' ? '#f44336' : '#2196f3'};
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>

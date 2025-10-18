@@ -36,6 +36,10 @@
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
         .btn {
             background: #667eea;
@@ -53,8 +57,49 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
         .level-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .level-card:hover::before {
+            left: 100%;
+        }
+        .level-card.unlocked {
+            border: 2px solid #28a745;
+            background: linear-gradient(135deg, #ffffff, #f8fff8);
+        }
+        .level-card.locked {
+            border: 2px solid #dc3545;
+            background: linear-gradient(135deg, #ffffff, #fff5f5);
+        }
+        .level-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        .level-badge.free {
+            background: #d4edda;
+            color: #155724;
+        }
+        .level-badge.premium {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .level-badge.unlocked {
+            background: #d1ecf1;
+            color: #0c5460;
         }
     </style>
 </head>
@@ -71,29 +116,63 @@
         <form method="post">
             {% csrf_token %}
             <div class="level-selector">
-                <div class="level-card" style="border: 2px solid #28a745;">
-                    <h3>Basics <span style="color: #28a745; font-size: 0.8em;">FREE</span></h3>
+                <div class="level-card unlocked" onclick="selectLevel('basics')">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🐍</div>
+                    <h3>Basics <span class="level-badge free">FREE</span></h3>
                     <p>Learn Python fundamentals, syntax, and basic programming concepts.</p>
-                    <button type="submit" name="basics" value="basics" class="btn" style="background: #28a745;">Start Basics</button>
+                    <div class="level-stats">
+                        <small>📚 5 Lessons • ⏱️ 45 minutes • 🎯 Beginner Friendly</small>
+                    </div>
+                    <button type="submit" name="basics" value="basics" class="btn" style="background: #28a745; margin-top: 15px;">
+                        Start Learning Python →
+                    </button>
                 </div>
                 
-                <div class="level-card" style="border: 2px solid {% if has_full_access %}#28a745{% else %}#dc3545{% endif %};">
-                    <h3>Intermediate <span style="color: {% if has_full_access %}#28a745{% else %}#dc3545{% endif %}; font-size: 0.8em;">{% if has_full_access %}UNLOCKED{% else %}PREMIUM{% endif %}</span></h3>
+                <div class="level-card {% if has_full_access %}unlocked{% else %}locked{% endif %}" onclick="selectLevel('intermediate')">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">⚡</div>
+                    <h3>Intermediate 
+                        {% if has_full_access %}
+                            <span class="level-badge unlocked">UNLOCKED</span>
+                        {% else %}
+                            <span class="level-badge premium">PREMIUM</span>
+                        {% endif %}
+                    </h3>
                     <p>Dive deeper into data structures, functions, and object-oriented programming.</p>
+                    <div class="level-stats">
+                        <small>📚 8 Lessons • ⏱️ 90 minutes • 🔧 Project-Based</small>
+                    </div>
                     {% if has_full_access %}
-                        <button type="submit" name="intermediate" value="intermediate" class="btn" style="background: #28a745;">Start Intermediate</button>
+                        <button type="submit" name="intermediate" value="intermediate" class="btn" style="background: #28a745; margin-top: 15px;">
+                            Continue Learning →
+                        </button>
                     {% else %}
-                        <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #dc3545; text-decoration: none;">Purchase to Access</a>
+                        <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #dc3545; text-decoration: none; margin-top: 15px;">
+                            🔒 Unlock Access
+                        </a>
                     {% endif %}
                 </div>
                 
-                <div class="level-card" style="border: 2px solid {% if has_full_access %}#28a745{% else %}#dc3545{% endif %};">
-                    <h3>Advanced <span style="color: {% if has_full_access %}#28a745{% else %}#dc3545{% endif %}; font-size: 0.8em;">{% if has_full_access %}UNLOCKED{% else %}PREMIUM{% endif %}</span></h3>
+                <div class="level-card {% if has_full_access %}unlocked{% else %}locked{% endif %}" onclick="selectLevel('advanced')">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🚀</div>
+                    <h3>Advanced 
+                        {% if has_full_access %}
+                            <span class="level-badge unlocked">UNLOCKED</span>
+                        {% else %}
+                            <span class="level-badge premium">PREMIUM</span>
+                        {% endif %}
+                    </h3>
                     <p>Master advanced topics, libraries, and real-world applications.</p>
+                    <div class="level-stats">
+                        <small>📚 10 Lessons • ⏱️ 120 minutes • 💼 Professional</small>
+                    </div>
                     {% if has_full_access %}
-                        <button type="submit" name="advanced" value="advanced" class="btn" style="background: #28a745;">Start Advanced</button>
+                        <button type="submit" name="advanced" value="advanced" class="btn" style="background: #28a745; margin-top: 15px;">
+                            Master Python →
+                        </button>
                     {% else %}
-                        <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #dc3545; text-decoration: none;">Purchase to Access</a>
+                        <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #dc3545; text-decoration: none; margin-top: 15px;">
+                            🔒 Unlock Access
+                        </a>
                     {% endif %}
                 </div>
             </div>
@@ -105,6 +184,164 @@
             {% endif %}
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add entrance animations to level cards
+            const levelCards = document.querySelectorAll('.level-card');
+            levelCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 + (index * 150));
+            });
+
+            // Add interactive hover effects
+            levelCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        function selectLevel(level) {
+            // Add visual feedback when level is selected
+            const cards = document.querySelectorAll('.level-card');
+            cards.forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Find the clicked card and mark it as selected
+            const clickedCard = event.currentTarget;
+            clickedCard.classList.add('selected');
+            
+            // Add a brief highlight animation
+            clickedCard.style.animation = 'pulse 0.5s ease';
+            setTimeout(() => {
+                clickedCard.style.animation = '';
+            }, 500);
+            
+            // Check if it's a locked level
+            if (clickedCard.classList.contains('locked')) {
+                showUpgradePrompt(level);
+                return false;
+            }
+        }
+
+        function showUpgradePrompt(level) {
+            // Create a modal-like overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                background: white;
+                padding: 40px;
+                border-radius: 15px;
+                max-width: 500px;
+                text-align: center;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            const levelEmoji = level === 'intermediate' ? '⚡' : '🚀';
+            const levelName = level.charAt(0).toUpperCase() + level.slice(1);
+            
+            modal.innerHTML = `
+                <div style="font-size: 4rem; margin-bottom: 20px;">🔒</div>
+                <h3 style="margin: 0 0 15px 0; color: #333;">Unlock ${levelName} Python Content!</h3>
+                <p style="color: #666; margin-bottom: 25px;">This premium content includes advanced Python concepts, real-world projects, and professional-level skills.</p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: left;">
+                    <h4 style="margin: 0 0 10px 0; color: #667eea;">✨ What you'll get:</h4>
+                    <ul style="margin: 0; padding-left: 20px; color: #666;">
+                        <li>Interactive coding exercises</li>
+                        <li>Real-world project examples</li>
+                        <li>Advanced Python concepts</li>
+                        <li>Certificate of completion</li>
+                    </ul>
+                </div>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <button onclick="closeModal()" style="padding: 12px 25px; border: 1px solid #ddd; background: white; border-radius: 8px; cursor: pointer;">
+                        Maybe Later
+                    </button>
+                    <a href="{% url 'making_payment' learning.id %}" style="padding: 12px 25px; background: #667eea; color: white; text-decoration: none; border-radius: 8px;">
+                        Upgrade Now
+                    </a>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            // Close modal when clicking outside
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeModal();
+                }
+            });
+        }
+
+        function closeModal() {
+            const overlay = document.querySelector('div[style*="position: fixed"]');
+            if (overlay) {
+                overlay.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(overlay);
+                }, 300);
+            }
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            @keyframes slideIn {
+                from { transform: translateY(-50px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            .level-card.selected {
+                border: 3px solid #667eea !important;
+                box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            }
+            .level-stats {
+                margin: 10px 0;
+                color: #666;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
 

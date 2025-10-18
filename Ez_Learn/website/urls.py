@@ -32,6 +32,7 @@ urlpatterns = [
     path('create_quiz/<int:id>', views.quiz_creation_view, name='create_quiz'),
     path('edit_quiz/<int:quiz_id>/<int:did>', views.edit_quiz, name='edit_quiz'),
     path('delete_quiz/<int:id>/<int:did>', views.delete_quiz, name='delete_quiz'),
+    path('remove_one_question_from_all_quizzes/<int:did>', views.remove_one_question_from_all_quizzes, name='remove_one_question_from_all_quizzes'),
     path('developer_logout/', views.developer_logout, name='d_logout'),
 
     #regarding courses

@@ -68,6 +68,34 @@
             display: inline-block;
             margin-bottom: 10px;
         }
+        .code-block {
+            transition: all 0.3s ease;
+        }
+        .code-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .interactive-demo {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #9c27b0;
+        }
+        .demo-button {
+            background: linear-gradient(135deg, #9c27b0, #673ab7);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -88,9 +116,9 @@
         <div style="background: rgba(156, 39, 176, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
             <h4 style="margin: 0; color: #9c27b0;">📚 Python Advanced - Premium Mastery</h4>
             <div style="width: 100%; background: rgba(156, 39, 176, 0.2); border-radius: 10px; margin-top: 10px;">
-                <div style="width: 100%; background: linear-gradient(135deg, #9c27b0, #673ab7); height: 8px; border-radius: 10px;"></div>
+                <div id="progress-bar" style="width: 0%; background: linear-gradient(135deg, #9c27b0, #673ab7); height: 8px; border-radius: 10px; transition: width 0.5s ease;"></div>
             </div>
-            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: 100% Complete - Python Master! 🎉</p>
+            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: <span id="progress-text">0%</span> Complete (<span id="completed-lessons">0</span>/10 lessons) - Est. 120 minutes</p>
         </div>
 
         <h2>🏆 Python Advanced - PREMIUM MASTERY</h2>
@@ -341,6 +369,431 @@ print(fibonacci_cached(100))
             </div>
         </div>
 
+        <div class="lesson">
+            <h3>6. Metaclasses & Advanced OOP 🧬</h3>
+            <p>Explore the deepest levels of Python object-oriented programming with metaclasses and descriptors.</p>
+            <div class="code-block" onclick="copyCode(this)">
+# Understanding metaclasses
+class SingletonMeta(type):
+    """Metaclass for singleton pattern"""
+    _instances = {}
+    
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super().__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class DatabaseConnection(metaclass=SingletonMeta):
+    def __init__(self):
+        self.connection_id = id(self)
+    
+    def query(self, sql):
+        return f"Executing: {sql} on connection {self.connection_id}"
+
+# Descriptors for custom attribute behavior
+class Temperature:
+    def __init__(self, initial=0):
+        self._celsius = initial
+    
+    def __get__(self, instance, owner):
+        return self._celsius
+    
+    def __set__(self, instance, value):
+        if value < -273.15:
+            raise ValueError("Temperature cannot be below absolute zero")
+        self._celsius = value
+    
+    def __getattr__(self, name):
+        if name == 'fahrenheit':
+            return self._celsius * 9/5 + 32
+        elif name == 'kelvin':
+            return self._celsius + 273.15
+        raise AttributeError(f"'{type(self).__name__}' has no attribute '{name}'")
+
+class WeatherStation:
+    temperature = Temperature(20)  # Default 20°C
+
+# Usage
+station = WeatherStation()
+print(f"Temperature: {station.temperature}°C")
+station.temperature = 25
+print(f"Temperature: {station.temperature}°C")
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>7. Asynchronous Programming ⚡</h3>
+            <p>Master async/await patterns, asyncio, and concurrent programming for high-performance applications.</p>
+            <div class="code-block" onclick="copyCode(this)">
+import asyncio
+import aiohttp
+import time
+
+# Basic async function
+async def fetch_data(url):
+    """Simulate async data fetching"""
+    await asyncio.sleep(1)  # Simulate network delay
+    return f"Data from {url}"
+
+# Async context manager
+class AsyncDatabase:
+    async def __aenter__(self):
+        print("Connecting to database...")
+        await asyncio.sleep(0.5)
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        print("Closing database connection...")
+        await asyncio.sleep(0.2)
+    
+    async def query(self, sql):
+        await asyncio.sleep(0.3)
+        return f"Result: {sql}"
+
+# Concurrent task execution
+async def main():
+    start_time = time.time()
+    
+    # Run multiple tasks concurrently
+    tasks = [
+        fetch_data("api/user/1"),
+        fetch_data("api/user/2"),
+        fetch_data("api/user/3")
+    ]
+    
+    results = await asyncio.gather(*tasks)
+    print(f"Results: {results}")
+    
+    # Using async context manager
+    async with AsyncDatabase() as db:
+        result = await db.query("SELECT * FROM users")
+        print(result)
+    
+    end_time = time.time()
+    print(f"Total time: {end_time - start_time:.2f} seconds")
+
+# Run the async main function
+# asyncio.run(main())
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>8. Advanced Data Processing 📊</h3>
+            <p>Work with pandas, numpy, and advanced data manipulation techniques.</p>
+            <div class="code-block" onclick="copyCode(this)">
+import pandas as pd
+import numpy as np
+from typing import List, Dict, Any
+
+# Advanced pandas operations
+def process_sales_data(data: List[Dict[str, Any]]) -> pd.DataFrame:
+    """Process and analyze sales data"""
+    df = pd.DataFrame(data)
+    
+    # Advanced data transformations
+    df['date'] = pd.to_datetime(df['date'])
+    df['month'] = df['date'].dt.month
+    df['revenue_per_unit'] = df['revenue'] / df['quantity']
+    
+    # Groupby operations with multiple aggregations
+    monthly_stats = df.groupby('month').agg({
+        'revenue': ['sum', 'mean', 'std'],
+        'quantity': 'sum',
+        'revenue_per_unit': 'mean'
+    }).round(2)
+    
+    # Pivot table creation
+    pivot_data = df.pivot_table(
+        index='product',
+        columns='month',
+        values='revenue',
+        aggfunc='sum',
+        fill_value=0
+    )
+    
+    return df, monthly_stats, pivot_data
+
+# NumPy advanced operations
+def numerical_analysis(data: List[float]) -> Dict[str, float]:
+    """Perform advanced numerical analysis"""
+    arr = np.array(data)
+    
+    analysis = {
+        'mean': np.mean(arr),
+        'median': np.median(arr),
+        'std': np.std(arr),
+        'percentile_25': np.percentile(arr, 25),
+        'percentile_75': np.percentile(arr, 75),
+        'correlation_matrix': np.corrcoef([arr, arr**2])
+    }
+    
+    return analysis
+
+# Vectorized operations
+def efficient_calculation(x_values: np.ndarray, y_values: np.ndarray) -> np.ndarray:
+    """Vectorized mathematical operations"""
+    # Broadcasting for efficient computation
+    result = np.sin(x_values) * np.cos(y_values) + np.sqrt(x_values**2 + y_values**2)
+    return result
+
+# Example usage with sample data
+sample_data = [
+    {'date': '2024-01-15', 'product': 'Widget A', 'quantity': 10, 'revenue': 1000},
+    {'date': '2024-01-20', 'product': 'Widget B', 'quantity': 5, 'revenue': 750},
+]
+df, stats, pivot = process_sales_data(sample_data)
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>9. Microservices & API Design 🏗️</h3>
+            <p>Build scalable microservices using Flask/FastAPI and understand modern API patterns.</p>
+            <div class="code-block" onclick="copyCode(this)">
+from flask import Flask, request, jsonify
+from functools import wraps
+import uuid
+from datetime import datetime, timedelta
+
+# Advanced Flask application with microservices patterns
+app = Flask(__name__)
+
+# Custom decorators for advanced functionality
+def rate_limit(max_requests=100, window_minutes=60):
+    """Rate limiting decorator"""
+    def decorator(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            # Simplified rate limiting logic
+            client_ip = request.remote_addr
+            # In production, use Redis or database for rate limiting
+            return f(*args, **kwargs)
+        return wrapper
+    return decorator
+
+def validate_json(*required_fields):
+    """JSON validation decorator"""
+    def decorator(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            data = request.get_json()
+            if not data:
+                return jsonify({'error': 'JSON data required'}), 400
+            
+            missing_fields = [field for field in required_fields if field not in data]
+            if missing_fields:
+                return jsonify({'error': f'Missing fields: {missing_fields}'}), 400
+            
+            return f(*args, **kwargs)
+        return wrapper
+    return decorator
+
+# Advanced API endpoints
+@app.route('/api/users', methods=['POST'])
+@validate_json('name', 'email')
+@rate_limit(max_requests=50)
+def create_user():
+    """Create a new user with validation and rate limiting"""
+    user_data = request.get_json()
+    
+    # Generate user ID and metadata
+    user = {
+        'id': str(uuid.uuid4()),
+        'name': user_data['name'],
+        'email': user_data['email'],
+        'created_at': datetime.utcnow().isoformat(),
+        'last_login': None,
+        'status': 'active'
+    }
+    
+    return jsonify({
+        'user': user,
+        'message': 'User created successfully'
+    }), 201
+
+@app.route('/api/analytics/<user_id>', methods=['GET'])
+def get_user_analytics(user_id):
+    """Advanced analytics endpoint with data processing"""
+    # Simulate complex data processing
+    analytics = {
+        'user_id': user_id,
+        'dashboard_metrics': {
+            'total_sessions': 45,
+            'avg_session_duration': 1200,  # seconds
+            'conversion_rate': 0.15,
+            'revenue_impact': 2500.75
+        },
+        'trends': {
+            'session_growth': 12.5,  # percentage
+            'engagement_trend': 'increasing'
+        },
+        'recommendations': [
+            'Implement A/B testing for landing page',
+            'Optimize conversion funnel step 3'
+        ]
+    }
+    
+    return jsonify(analytics)
+
+# Error handling middleware
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({'error': 'Resource not found'}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({'error': 'Internal server error'}), 500
+
+# Application factory pattern
+def create_app(config_name='development'):
+    """Application factory for different configurations"""
+    app.config['SECRET_KEY'] = 'your-secret-key-here'
+    
+    if config_name == 'production':
+        app.config['DEBUG'] = False
+    else:
+        app.config['DEBUG'] = True
+    
+    return app
+
+# if __name__ == '__main__':
+#     app = create_app()
+#     app.run(host='0.0.0.0', port=5000, debug=True)
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>10. Production-Ready Python 🚀</h3>
+            <p>Learn deployment, monitoring, logging, and testing strategies for production applications.</p>
+            <div class="code-block" onclick="copyCode(this)">
+import logging
+import unittest
+from unittest.mock import Mock, patch
+import docker
+import pytest
+
+# Production logging setup
+def setup_logging():
+    """Configure production-ready logging"""
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler('app.log'),
+            logging.StreamHandler()
+        ]
+    )
+    
+    # Separate logger for errors
+    error_logger = logging.getLogger('errors')
+    error_handler = logging.FileHandler('errors.log')
+    error_handler.setLevel(logging.ERROR)
+    error_logger.addHandler(error_handler)
+
+# Comprehensive testing suite
+class TestUserService(unittest.TestCase):
+    """Example of production testing patterns"""
+    
+    def setUp(self):
+        """Setup test fixtures"""
+        self.user_service = Mock()
+    
+    def test_user_creation(self):
+        """Test user creation with proper validation"""
+        with patch('requests.post') as mock_post:
+            mock_post.return_value.json.return_value = {'id': 123}
+            mock_post.return_value.status_code = 201
+            
+            result = self.user_service.create_user('test@example.com')
+            
+            self.assertEqual(result['id'], 123)
+            mock_post.assert_called_once()
+    
+    def test_error_handling(self):
+        """Test error handling scenarios"""
+        with patch('requests.post') as mock_post:
+            mock_post.side_effect = ConnectionError("Network error")
+            
+            with self.assertRaises(ConnectionError):
+                self.user_service.create_user('test@example.com')
+
+# Performance monitoring
+class PerformanceMonitor:
+    """Monitor application performance"""
+    
+    def __init__(self):
+        self.metrics = {}
+    
+    def record_metric(self, name: str, value: float, tags: dict = None):
+        """Record performance metrics"""
+        if name not in self.metrics:
+            self.metrics[name] = []
+        
+        self.metrics[name].append({
+            'value': value,
+            'timestamp': datetime.utcnow(),
+            'tags': tags or {}
+        })
+    
+    def get_average_response_time(self, endpoint: str) -> float:
+        """Get average response time for endpoint"""
+        endpoint_metrics = [
+            m['value'] for m in self.metrics.get('response_time', [])
+            if m['tags'].get('endpoint') == endpoint
+        ]
+        return sum(endpoint_metrics) / len(endpoint_metrics) if endpoint_metrics else 0
+
+# Health check endpoint for production
+@app.route('/health')
+def health_check():
+    """Production health check endpoint"""
+    try:
+        # Check database connection
+        # db_status = check_database_connection()
+        
+        # Check external services
+        # api_status = check_external_apis()
+        
+        return jsonify({
+            'status': 'healthy',
+            'timestamp': datetime.utcnow().isoformat(),
+            'version': '1.0.0',
+            'checks': {
+                'database': 'ok',
+                'external_apis': 'ok'
+            }
+        }), 200
+    except Exception as e:
+        logging.error(f"Health check failed: {e}")
+        return jsonify({
+            'status': 'unhealthy',
+            'error': str(e)
+        }), 503
+
+# Docker deployment configuration
+dockerfile_content = """
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+EXPOSE 5000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
+"""
+            </div>
+            
+            <div class="interactive-demo">
+                <h4>🎯 Production Monitoring Demo</h4>
+                <button class="demo-button" onclick="simulateMonitoring()">Run Health Check</button>
+                <div id="monitor-result" style="margin-top: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                    <strong>System Health Check:</strong><br>
+                    <div id="monitor-output" style="color: #28a745; font-family: monospace;"></div>
+                </div>
+            </div>
+        </div>
+
         <div style="text-align: center; margin-top: 40px; padding: 40px; background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; border-radius: 20px;">
             <h2 style="color: white; margin-top: 0;">🏆 CONGRATULATIONS!</h2>
             <div style="font-size: 4rem; margin: 20px 0;">🎓</div>
@@ -374,8 +827,31 @@ print(fibonacci_cached(100))
     </div>
 
     <script>
-        // Celebration animation
+        // Interactive Python Advanced course functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize course
+            initializeAdvancedCourse();
+            
+            // Add scroll-based lesson visibility
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        updateProgress();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // Observe all lessons
+            document.querySelectorAll('.lesson').forEach(lesson => {
+                observer.observe(lesson);
+            });
+
+            // Animate progress bar on load
+            setTimeout(() => {
+                updateProgressBar(0); // Start with 0%
+            }, 1000);
+
             // Animate lessons
             const lessons = document.querySelectorAll('.lesson');
             lessons.forEach((lesson, index) => {
@@ -397,6 +873,124 @@ print(fibonacci_cached(100))
                 }
             }, 2000);
         });
+
+        function copyCode(element) {
+            const text = element.textContent || element.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback
+                const original = element.style.background;
+                element.style.background = '#4caf50';
+                element.style.transform = 'scale(1.02)';
+                
+                setTimeout(() => {
+                    element.style.background = original;
+                    element.style.transform = 'scale(1)';
+                }, 300);
+
+                // Show notification
+                showNotification('Advanced Python code copied! 🚀', 'success');
+            }).catch(() => {
+                showNotification('Failed to copy code. Try selecting and copying manually.', 'error');
+            });
+        }
+
+        function initializeAdvancedCourse() {
+            // Add click handlers to all code blocks
+            document.querySelectorAll('.code-block').forEach(block => {
+                if (!block.onclick) {
+                    block.addEventListener('click', function() {
+                        copyCode(this);
+                    });
+                }
+            });
+        }
+
+        function simulateMonitoring() {
+            const healthCheck = {
+                status: 'healthy',
+                timestamp: new Date().toISOString(),
+                version: '2.0.0',
+                checks: {
+                    database: Math.random() > 0.1 ? 'ok' : 'warning',
+                    external_apis: Math.random() > 0.05 ? 'ok' : 'error',
+                    memory_usage: Math.floor(Math.random() * 30 + 40) + '%',
+                    response_time: Math.floor(Math.random() * 50 + 100) + 'ms'
+                },
+                uptime: '99.9%',
+                active_connections: Math.floor(Math.random() * 500 + 1000)
+            };
+            
+            const output = `System Health Check Results:
+Status: ${healthCheck.status.toUpperCase()}
+Version: ${healthCheck.version}
+Uptime: ${healthCheck.uptime}
+
+Database: ${healthCheck.checks.database}
+External APIs: ${healthCheck.checks.external_apis}
+Memory Usage: ${healthCheck.checks.memory_usage}
+Avg Response Time: ${healthCheck.checks.response_time}
+Active Connections: ${healthCheck.active_connections}
+
+All systems operational! 🚀`;
+            
+            document.getElementById('monitor-output').innerHTML = output.replace(/\n/g, '<br>');
+            document.getElementById('monitor-result').style.display = 'block';
+            showNotification('Health check completed successfully! 💚', 'success');
+        }
+
+        function updateProgress() {
+            const completedLessons = document.querySelectorAll('.lesson.visible').length;
+            const totalLessons = document.querySelectorAll('.lesson').length;
+            const percentage = Math.round((completedLessons / totalLessons) * 100);
+            
+            updateProgressBar(percentage);
+            if (document.getElementById('progress-text')) {
+                document.getElementById('progress-text').textContent = percentage + '%';
+                document.getElementById('completed-lessons').textContent = completedLessons;
+            }
+        }
+
+        function updateProgressBar(percentage) {
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                transform: translateX(100%);
+                background: ${type === 'success' ? '#4caf50' : type === 'error' ? '#f44336' : '#9c27b0'};
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
