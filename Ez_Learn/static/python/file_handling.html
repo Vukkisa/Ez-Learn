@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Introduction to Python</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-weight:normal;
+            font-size:18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #cee1f5;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        .topic-container {
+            background-color: #94beeb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .topic-container h2 {
+            color: #004C99;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+        .text-area {
+            margin-left: 100px;
+            height: fit-content;
+            resize: none; /* Prevent the textarea from being resized by the user */
+            font-family: Arial, sans-serif;
+            text-align: left; /* Set text alignment to left */
+
+        }
+        span{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="topic-container">
+        <h2>File Handling in Python.</h2>
+        <p>
+            File handling in Python is the process of <span>reading and writing data</span> to and from files on your computer's storage. Python provides built-in functions and libraries to perform file operations, making it straightforward to work with various file formats. 
+    </div>
+    <div class="topic-container">
+        <h2>1.Opening a file</h2>
+        <p>
+            To interact with a file, you need to open it first. Python provides the open() function for this purpose. The open() function takes two arguments: the file name and the mode in which you want to open the file. The mode can be "r" for reading, "w" for writing (creating a new file or overwriting an existing one), "a" for appending (adding data to the end of an existing file), or "x" for exclusive creation (fails if the file already exists).
+            <br><span>Ex: file = open("example.txt", "r")   #opens the file in read mode
+            </span>
+
+        </p>
+    </div>
+
+    <div class="topic-container">
+        <h2>2.Reading from a File</h2>
+        <p>
+            After opening a file in read mode, you can read its contents using various methods, such as <span>read(), readline(), and readlines().</span>
+            <br><span>read() :</span> Reads the entire content of the file and returns it as a single string
+            <br><span>readline() :</span>Reads a single line from the file and returns it as a string.
+            <br><span>readlines() :</span> Reads all the lines from the file and returns them as a list of strings.
+        </p>
+        
+
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="15" name="input">
+            Example to read a file:
+            content = file.read()
+            print(content)
+            
+            Example to readline from a file:
+            line = file.readline()
+            print(line)
+            
+            Example to readlines from a file:
+            line = file.readline()
+            print(line)
+
+        </textarea>
+    </div>
+
+
+    <div class="topic-container">
+        <h2>3. Writing to a File</h2>
+        <p>
+            To write data to a file, you need to open it in write mode ("w"). If the file already exists, opening it in write mode will overwrite its contents. If the file does not exist, Python will create a new file.
+
+        </p>
+        <p>Example : <br><span>file = open("example.txt", "w")</span>
+            # opens the file in write mode
+            <br>
+            <span>file.write("Hello, File Handling!")
+            </span></p>
+
+    
+    </div>
+
+    <div class="topic-container">
+        <h2>4. Appending to a File:</h2>
+        <p>
+            If you want to add data to the end of an existing file without overwriting its contents, you should open the file in append mode ("a").
+            <br><br>
+            Example :
+            <br>
+            <span>file = open("example.txt", "a") </span> # opens the file in append mode
+            <br><span>file.write("Appending new data!")
+                </span>
+        </p>
+     </div>
+     <div class="topic-container">
+        <h2>5. Closing a File:</h2>
+        <p>
+            After you finish working with a file, it is crucial to close it using the close() method. This releases the resources associated with the file.
+            <br><br>
+            Example :
+            <br>
+            <span>file.close()</span>
+        </p>
+     </div>
+     <div class="topic-container">
+        <h2>6.File Modes </h2>
+       <p>
+            Here's a summary of the different file modes:
+            <ul>
+                <li><span>"r": Read mode</span> (default). Opens the file for reading. <li>
+                <li><span>"w": Write mode.</span> Opens the file for writing. Creates a new file or overwrites the existing file.</li>
+                <li><span>"a": Append mode.</span> Opens the file for writing, but data is appended to the end of the file.</li>
+                <li><span>"x": Exclusive creation mode.</span> Opens the file for writing, but fails if the file already exists.</li>
+            </ul>
+       </p>
+     </div>
+     <div class="topic-container">
+        <h2>7. Handling Exceptions:</h2>
+        <p>When working with files, exceptions might occur if the file does not exist, there are permission issues, or other unexpected errors happen. It's essential to handle these exceptions gracefully to avoid program crashes.</p>
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="15" name="input">
+        try:
+            file = open("example.txt", "r")
+            # Perform file operations here
+        except FileNotFoundError:
+            print("File not found.")
+        except PermissionError:
+            print("Permission denied.")
+        finally:
+            file.close()
+
+
+        </textarea>
+    </div>
+    <div class="topic-container">
+        <h2>8. Using Context Managers (with Statement):</h2>
+        <p>Python provides a convenient way to handle file resources automatically using context managers. The with statement ensures that the file is properly closed, even if an exception occurs during file handling.
+            <br><br>
+            Example :
+            <br>
+            <span>with open("example.txt", "r") as file: <br>
+                    &emsp; content = file.read() <br>
+                print(content)
+
+            </span> &ensp; #The file is automatically closed after this block
+            <br>
+            <br>
+            Using with statement is considered a best practice for file handling in Python as it reduces the chances of resource leaks and improves code readability.
+
+            <br><br>Remember that file handling operations might raise various exceptions, and it's essential to handle them appropriately to ensure a robust and reliable file handling mechanism.
+
+
+
+
+
+
+        </p>
+    </div>
+</body>
+</html>

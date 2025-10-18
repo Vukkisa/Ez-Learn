@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+      @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+        <br>
+          <div class="container top">
+            <h1>
+                How To Add Links In HTML
+              </h1>
+          </div>
+          <br>
+
+            <div class="container container1">
+                <p>
+                    As you may have noticed, the internet is made up of lots of links.<br>
+
+Almost everything you click on while surfing the web is a link takes you to another page within the website you are visiting or to an external site.<br>
+
+Links are included in an attribute opened by the &lt;a> tag. This element is the first that we’ve met which uses an attribute and so it looks different to previously mentioned tags.
+<br>
+<b>The Anchor Tag</b><br>
+The &lt;a> (or anchor) opening tag is written in the format:<br>
+
+    <em><span style="color:#007bff">&lt;a href="https://blogging.com/how-to-start-a-blog/">Your Link Text Here &lt;a></span></em><br>
+    The first part of the attribute points to the page that will open once the link is clicked.<br>
+
+Meanwhile, the second part of the attribute contains the text which will be displayed to a visitor in order to entice them to click on that link.<br>
+
+If you are building your own website then you will most likely host all of your pages on professional web hosting. In this case, internal links on your website will &lt;a> href=”mylinkedpage.html”>Link Title Here&lt;/a>.
+</p>
+
+</div>
+<br>
+      <div class="container top">
+        <h1>
+            Let’s Create An Anchor Tag
+
+          </h1>
+      </div>
+      <br>
+
+        <div class="container container1">
+            <p>
+                Let’s try it out. Make a duplicate of the code from your current index.html page. Copy / paste it into a new window in your HTML editor.
+
+Save this new page as “page2.html” and ensure that it is saved in the same folder as your index.html page.
+
+On page2.html add the following code:<br>
+<em style="color:#007bff">&lt; a href="http://www.google.com">Google&lt;/a></em><br>
+
+
+This will create a link to Google on page 2. Hit save and return to your index.html page.<br>
+
+On a new line on index.html add the following code:<br>
+
+<em style="color:#007bff">&lt;a href="*folder(s)*/page2.html">Page2&lt;/a></em><br>
+
+Ensure the folder path to the file (page2.html) is correct. Hit save and preview index.html in your browser.<br>
+
+If everything is correct then you will see a link which will take you to your second page. On the second page, there will be a link that will take you to google.com.
+</p>   </div>
+<br>
+<div class="container top">
+    <h1>
+        How To Add Images In HTML To Your Website </h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        In today’s modern digital world, images are everything. The <img> tag has everything you need to display images on your site. Much like the &lt;a> anchor element, &lt;img> also contains an attribute.<br>
+
+            The attribute features information for your computer regarding the source, height, width and alt text of the image.<br>
+        <b>Styling and Formats</b><br>
+        <img src="img.png" style="height: 400px; width: auto;"><br>
+        You can check the file type of an image by right-clicking the item and selecting ‘Properties’.<br>
+You can also define borders and other styles around the image using the class attribute. However, we shall cover this in a later tutorial.<br>
+
+The file types generally used for image files online are: .jpg, .png, and (less and less) .gif.<br>
+
+Alt text is important to ensure that your site is ranked correctly on search sites and also for visually impaired visitors to your site.<br>
+The &lt;img> tag normally is written as follows:<br>
+
+<em style="color:#007bff">&lt;img src="yourimage.jpg" alt="Describe the image" height="X" width="X"></em><br>
+
+Let’s try it out.<br>
+<b>Create Your Own Image With An Alt Text</b><br>
+Save an image (.jpg, .png, .gif format) of your choice in the same folder where you’ve saved index.html and page2.html. Call this image “testpic.jpg.”
+
+On a new line in your HTML editor enter the following code:<br>
+<em style="color:#007bff">&lt;img src="testpic.jpg" alt="This is a test image" height="42" width="42"></em><br>
+Hit save and preview the index.html page in your browser.
+
+
+
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>
+        How To Make an HTML List
+    </h1>
+</div>
+<br>
+
+<div class="container container1">
+    <p>
+        n web design, there are 3 different types of lists which you may wish to add to your site.<br>
+
+<b>Ordered List</b>
+The first is an &lt;ol>: This is an ordered list of contents. For example:
+
+An item<br>
+Another item<br>
+Another goes here.<br>
+Inside the &lt;ol> tag we list each item on the list inside &lt;li> &lt;/li> tags.
+
+For example:<br>
+<span style="background-color:blanchedalmond">
+    &lt;ol><br>
+        &lt;li>An item &lt;/li> <br>
+        &lt;li>Another item &lt;/li> <br>
+        &lt;li>Another goes here &lt;/li> <br>
+        &lt/ol>
+</span>
+<br>
+<b>Unordered List</b><br>
+The second type of list that you may wish to include is an &ltul> unordered list. This is better known as a bullet point list and contains no numbers.<br>
+
+    <span style="background-color:blanchedalmond">
+        &lt;ul><br>
+            &lt;li> This is &lt;/li> <br>
+            &lt;li>Unordered  &lt;/li> <br>
+            &lt;li>List &lt;/li> <br>
+            &lt/ul>
+    </span><br>
+    <b>Definition List</b><br>
+    Finally, you may wish to include a definition list &lt;dl> on your page. An example of a &lt;dl> list is as follows:<br>
+<b>HTML</b><br>
+Hypertext markup language is a programming language used to create web pages and is rendered by a web browser.<br>
+The code used for the above is as follows:<br>
+<span style="background-color: bisque;">
+    &lt;dl><br>
+    &lt;dt>Item &lt;/dt><br>
+    &lt;dd>The definition goes here &lt;/dd><br>
+    &lt;/dl>
+</span><br>
+Let’s try it out. Open index.html and on a new line, enter the following HTML:<br>
+<span style="background-color: bisque;">
+    &lt;p>This website will have the following benefits for my business:&lt;/p><br>
+    &lt;ul><br>
+    &lt;li>Increased traffic &lt;/li><br>
+    &lt;li>Global Reach &lt;/li><br>
+    &lt;li>Promotional Opportunities &lt;/li><br>
+    &lt;/ul>
+    
+</span><br>
+Now <b>hit save and check out the results in your browser</b>. If everything worked out then it will display a bullet-pointed table displaying the information above.
+  </p>
+</div>
+<br>
+<div class="container top">
+    <h1>
+        How To Add Tables In HTML
+    </h1>
+</div>
+<br>
+<div class="container container1" style="display: block;">
+    <p>
+        <img src="table.png" style="height: 400px; width: auto;"><br>
+        <em>Tables can be styled in various ways – Codepen.io offers live previews to keep track of changes.</em><br>
+        Another way to keep your website looking <b>neat and orderly </b>is through the use of a table.<br>
+        This is definitely the most complicated part of this tutorial, however, learning it will certainly pay off in the long-run.
+
+With this in mind, tables can still be a <b>useful way to present</b> content on your page.<br>
+<b>What Does a Table Consist Of?
+</b>
+When drawing a table we must open an element with the &lt;table> opening tag. Inside this tag, we structure the table using the table rows, &lt;tr>, and cells, &lt;td>.<br>
+An example of an HTML table is as follows:<br>
+<span style="background-color:bisque">
+    &lt;table><br>
+        &lt;tr><br>
+        &lt;td>Row 1 - Column 1 &lt;/td><br>
+        &lt;td>Row 1 - Colunm 2 &lt;/td><br>
+        &lt;td>Row 1 - Column 3 &lt;/td><br>
+        &lt;/tr><br>
+        tr><br>
+        &lt;td>Row 2 - Column 1 &lt;/td><br>
+        &lt;td>Row 2 - Column 2 &lt;/td><br>
+        &lt;td>Row 2 - Column 3 &lt;/td><br>
+        &lt;/tr><br>
+        &lt;/table><br>
+</span>
+This will produce a 2-row table with 3 cells in each row.<br>
+
+Tables can get quite complicated, so be sure to check out our special HTML tables tutorial.<br>
+<b>Table Tags</b><br>
+However, watch out for these tags so that you can recognize them and use them as your skills develop.<br>
+
+Here are the tables tags presented in a table - pun totally intended.<br>
+</p>
+<hr>
+<div>
+<table>
+    <tr>
+        <th>Table Tag</th>
+        <th>Meaning</th>
+        <th>Location</th>
+    </tr>
+    <tr>
+        <td>&lt;body></td>
+        <td>Table Body</td>
+        <td>Content of the Table</td>
+    </tr>
+    <tr>
+        <td>&lt;thead></td>
+        <td>Table Head</td>
+        <td>Top of the Table</td>
+    </tr>
+    <tr>
+        <td>&lt;tfoot></td>
+        <td>Table Foot</td>
+        <td>Bottom of the Table</td>
+    </tr>
+    <tr>
+        <td>&lt;colgroup></td>
+        <td>Column Group</td>
+        <td>Within the Table</td>
+    </tr>
+    <tr>
+        <td>&lt;th></td>
+        <td>Table Header</td>
+        <td>Data cell for the table header</td>
+    </tr>
+</table><br>
+Tables, borders, spacing are usually styled using CSS but we will cover this in a later tutorial.
+</div>
+<b>Let’s Make a Table</b><br>
+Go to a new line on the index.html page within your text editor. Enter the following HTML code:<br>
+<span style="background-color:bisque">
+    &lt;table><br>
+    &lt;tr><br>
+        &lt;td>Row 1 - Column 1&lt;/td><br>
+        &lt;td>Row 1 - Column 2 &lt;/td><br>
+        &lt;/tr><br>
+        &lt;tr><br>
+        &lt; td>Row 2 - Column 1&lt;/td><br>
+        &lt;td>Row 2 - Column 2&lt;/td><br>
+        &lt;/tr><br>
+        &lt;/table><br>
+</span>
+<b>Hit save and preview it in your browser.<br>
+
+    <span style="color: green;">Congratulations:</span>: You did it!
+    
+    </b>
+</div>
+<br>
+<div class="container">
+    <button class="btn btn-primary"><a href="f2.html" style="text-decoration: none;color:white">Prev</a></button>
+    <button class="btn btn-primary"><a href="forms.html" style="color: white;text-decoration: none;">Next</a></button>
+  </div>
+  <br>
+</div>

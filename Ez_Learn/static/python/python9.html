@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Python Modules</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #cee1f5;
+      }
+
+      h1 {
+        color: #007bff;
+      }
+
+      .topic-container {
+        background-color: #94beeb;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .topic-container h2 {
+        color: #004c99;
+      }
+
+      p {
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topic-container">
+      <h1>Python <span class="color_h1">Modules</span></h1>
+      <h2>What is a Module?</h2>
+      <p>Consider a module to be the same as a code library.</p>
+      <p>
+        A file containing a set of functions you want to include in your
+        application.
+      </p>
+      <h2>Create a Module</h2>
+      <p>
+        To create a module just save the code you want in a file with the file
+        extension <code class="w3-codespan">.py</code>:
+      </p>
+      <div class="w3-example">
+        <p>
+          Save this code in a file named
+          <code class="w3-codespan">mymodule.py</code>
+        </p>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span>
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >def</span
+            >
+            greeting(name): <br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(\
+            <span class="pythonstringcolor" style="color: brown"
+              >"Hello, "</span
+            >
+            + name)
+          </span>
+        </div>
+      </div>
+      <h2>Use a Module</h2>
+      <p>
+        Now we can use the module we just created, by using the
+        <code class="w3-codespan">import</code> statement:
+      </p>
+      <div class="w3-example">
+        <h3>Example</h3>
+        <p>Import the module named mymodule, and call the greeting function:</p>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span>
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >import</span
+            >
+            mymodule<br />
+            <br />mymodule.greeting(<span
+              class="pythonstringcolor"
+              style="color: brown"
+              >"Jonathan"</span
+            >
+            )<span class="pythonnumbercolor" style="color: red"> </span>
+          </span>
+        </div>
+      </div>
+      <h2>Variables in Module</h2>
+      <p>
+        The module can contain functions, as already described, but also
+        variables of all types (arrays, dictionaries, objects etc):
+      </p>
+      <div class="w3-example">
+        <h3>Example</h3>
+        <p>
+          Save this code in the file
+          <code class="w3-codespan">mymodule.py</code>
+        </p>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span> person1
+            = {<br />&nbsp;
+            <span class="pythonstringcolor" style="color: brown">"name"</span>:
+            <span class="pythonstringcolor" style="color: brown">"John"</span
+            >,<br />&nbsp;
+            <span class="pythonstringcolor" style="color: brown">"age"</span>:
+            <span class="pythonnumbercolor" style="color: red">36</span
+            >,<br />&nbsp;
+            <span class="pythonnumbercolor" style="color: red"> </span>
+            <span class="pythonstringcolor" style="color: brown">"country"</span
+            >:
+            <span class="pythonstringcolor" style="color: brown">"Norway"</span
+            ><br />}
+          </span>
+        </div>
+      </div>
+      <h2>Naming a Module</h2>
+      <div class="w3-example">
+        <h3>Example</h3>
+        <p>
+          Create an alias for <code class="w3-codespan">mymodule</code> called
+          <code class="w3-codespan">mx</code>:
+        </p>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span>
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >import</span
+            >
+            mymodule
+            <span class="pythonkeywordcolor" style="color: mediumblue">as</span>
+            mx<br /><br />a = mx.person1[
+            <span class="pythonstringcolor" style="color: brown">"age"</span
+            >]<br />
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(a)
+          </span>
+        </div>
+      </div>
+      <h2>Built-in Modules</h2>
+      <div class="w3-example">
+        <h3>Example</h3>
+        <p>
+          Import and use the <code class="w3-codespan">platform</code> module:
+        </p>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span>
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >import</span
+            >
+            platform<br /><br />x = platform.system()<br /><span
+              class="pythonkeywordcolor"
+              style="color: mediumblue"
+              >print</span
+            >(x)
+          </span>
+        </div>
+
+        <h2>Import From Module</h2>
+        <div class="w3-example">
+          <h3>Example</h3>
+          <p>
+            The module named <code class="w3-codespan">mymodule</code> has one
+            function and one dictionary:
+          </p>
+          <div class="w3-code notranslate pythonHigh">
+            <span class="pythoncolor" style="color: black"
+              ><span class="pythonnumbercolor" style="color: red"> </span>
+              <span class="pythonkeywordcolor" style="color: mediumblue"
+                >def</span
+              >
+              greeting(name):<br />&nbsp;
+              <span class="pythonkeywordcolor" style="color: mediumblue"
+                >print</span
+              >(<span class="pythonstringcolor" style="color: brown"
+                >"Hello, "</span
+              >
+              + name)<br /><br />person1
+              <span class="pythonnumbercolor" style="color: red"> </span> = {<br />&nbsp;
+              <span class="pythonstringcolor" style="color: brown">"name"</span
+              >:
+              <span class="pythonstringcolor" style="color: brown">"John"</span
+              >,<br />&nbsp;
+              <span class="pythonstringcolor" style="color: brown">"age"</span>:
+              <span class="pythonnumbercolor" style="color: red">36</span
+              >,<br />&nbsp;
+              <span class="pythonstringcolor" style="color: brown"
+                >"country"</span
+              >: <span class="pythonnumbercolor" style="color: red"> </span>
+              <span class="pythonstringcolor" style="color: brown"
+                >"Norway"</span
+              ><br />}<br />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+      .ezimg{
+        display: inline;
+      }
+      th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+     .top h1{
+      font-size: x-large;
+     }
+          @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+<div class="container top">
+    <h1>CSS Images</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        <b>Images in CSS:</b> Images are a critical part of a web application. It includes various <br>
+        types of images in the web application that cannot be recommended. However, it is essential to use any image when needed. 
+         CSS helps to control an image’s display in web applications.
+         <br> 
+         <br>  
+         The image styling is very similar to an element styling with the help of the margins and borders. Here are several CSS properties like <b>width property, height, and border</b>property that will help us in styling an image. <br>
+         <br>
+         <br>
+         <b>Supported browsers:</b> There are some of the critical browsers that are supported by the various styling images, which are listed as follows: <br>
+         <br>
+         Internet Explorer <br>
+        Google chrome <br>
+    Opera <br>
+    Firefox <br>
+    Safari <br>
+ There are some of the illustrations which are going to help to understand this image property. <br>
+ </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Thumbnail Image</h1>
+</div>
+ <br>
+ <div class="container container1">
+    <p>
+        The thumbnail images can be created or designed by using the border CSS property. Let’s take an example below: <br>
+        <br>
+        <br>
+        <b>Example:</b> <br>
+        <br>
+<textarea readonly style="height: 600px; width: 400px; background-color: white;">
+            <!DOCTYPE html>
+<html>
+<head>
+<style>
+img
+{
+ border: 2px solid purple;
+ border-radius: 5px;
+ padding: 10px;
+}
+h1
+{
+ color: purple;
+}
+</style>
+</head>
+<body>
+<h1> Thumbnail Images </h1>
+<img src= "history.png"></img>
+<h1> "History Reading” </h1>
+</body>
+</html>
+</textarea>
+<br>
+<img src="img1.png" style="height: 400px; width: 400px;">
+        <br>
+    </p>
+    </div>
+    <br>
+<div class="container top">
+    <h1>Transparent Image</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+    A transparent image can be created using the opacity CSS property.<br>
+     The opacity property value is ranges from 0.0-1.0, respectively. Let’s consider the below example: <br>
+
+     <b>Example:</b> <br>
+     <textarea readonly style="height: 600px; width: 400px;">
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+        img
+        {
+         border: 2px solid purple;
+         border-radius: 5px;
+         padding: 10px;
+         opacity: 0.4;
+        }
+        h1
+        {
+        color: purple;
+        }
+        </style>
+        </head>
+        <body>
+        <h1> Transparent Image Illustration </h1>
+        <img src= "history.png"></img>
+        <h1> "History Reading" </h1>
+        </body>
+        </html>
+     </textarea>
+<br>
+<b>Output:</b> <br>
+<img src="img2.png" style="height: 400px;width: 400px;">
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Rounded Image</h1>
+</div>
+<br>
+<div class="container container1">
+    <p >
+           The rounded images are created using a border-radius property as it can set-up the radius of an image.<br>
+           Some of the possible and essential values for setting the rounded images are as follows: <br>
+        <br>
+        <img src="table.png" style="height: 400px;width: 400px;"> <br>
+     <b>Example: </b> <br>
+     <textarea readonly style="height: 800px;width: 400px;">
+        <!DOCTYPE html>
+<html>
+<head>
+<style>
+.img1
+{
+ border: 2px solid purple;
+ border-radius: 10px;
+ padding: 7px;
+}
+.img2
+{
+ border: 2px solid purple;
+ border-radius: 50%;
+ padding: 7px;
+}
+h3
+{
+ color: purple;
+}
+</style>
+</head>
+<body>
+<h3> Rounded Image Illustration </h3>
+<img src= "history.png" class= "img1"></img>
+<h3> Circle Image Illustration </h3>
+<img src= "history.png" class= "img2"></img>
+<h3> "History Reading." </h3>
+</body>
+</html>
+     </textarea> <br>
+     <b>Output:</b> <br>
+     <img src="img3.png" style="height: 500px;width: 500px;">
+    <br>
+    </p>
+     </div>
+</div>
+<br>
+<div class="container top">
+    <h1>Responsive Image</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        The responsive images are able to fit over the size of the screen automatically. It can be applied to adjust an image to a specified box. <br>
+<br>
+        <b>Example:</b> <br>
+        <textarea style="height: 560px; width: 400px;" readonly>
+            <!DOCTYPE html>  
+<html>  
+<head>  
+<style>
+.img
+{
+ max-width: 100%;
+ height: auto;
+}
+h3
+{
+ color: purple;
+} 
+</style>  
+</head>  
+<body> 
+ <h3> Responsive image Illustration </h3> 
+ <h3> We can change the size of the browser to feel the effect </h3> 
+<img src="history.png" class="img" width="1000" height="300"></img> 
+<h3> "History Reading." </h3> 
+</body>  
+</html> 
+        </textarea> <br>
+        <br>
+        <b>Output:</b> <br>
+
+        <img src="img4.png" style="height: 400px; width: 400px;">
+    </p>
+</div>
+    <div class="container">
+        <button class="btn btn-primary"><a href="{% static 'css/c9.html' %}" style=" text-decoration:none;color:white">Prev</a></button>
+        <button class="btn btn-primary">Next</button>
+      </div>
+      <br>
+    </div>
+    </body>
+    </html>

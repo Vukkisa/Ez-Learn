@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Introduction to Python</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-weight:normal;
+            font-size:18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #cee1f5;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        .topic-container {
+            background-color: #94beeb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .topic-container h2 {
+            color: #004C99;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+        .text-area {
+            margin-left: 100px;
+            height: fit-content;
+            resize: none; /* Prevent the textarea from being resized by the user */
+            font-family: Arial, sans-serif;
+            text-align: left; /* Set text alignment to left */
+
+        }
+        span{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="topic-container">
+        <h2> Python lambda fucntion</h2>
+        <p>A lambda function is a small anonymous function.
+            <br>
+            A lambda function can take any number of arguments, but can only have one expression.
+         </p>
+         <textarea readonly class="text-area" name="" id="" cols="40" rows="7" name="input">
+            #Syntax: lambda arguments : expression
+            
+            add = lambda x,y: x + y
+            result = add(3,5)  #Output: 8
+
+         </textarea>
+         <p>
+            Lambda functions are commonly used as arguments to higher-order functions like <span>'map()', 'filter()', and 'sorted()'</span> , where a quick function definition is needed for a short computation.
+         </p>
+         <textarea readonly class="text-area" name="" id="" cols="40" rows="8" name="input">
+            numbers = [1, 2, 3, 4, 5]
+            squared = list(map(lambda x: x**2, numbers))
+            # Output: [1, 4, 9, 16, 25]
+
+         </textarea>
+
+    </div>
+ 
+
+    <div class="topic-container">
+        <h2>Generators:</h2>
+        <p>
+            Generators are special iterators in Python that can be used to create an iterator object using a function with the <span>yield</span> keyword. Instead of returning a value with <span>'return'</span> , generators yield one value at a time during iteration. This makes them memory-efficient for large datasets or infinite sequences.
+        </p>
+        
+
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="10" name="input">
+            def countdown(n):
+            while n > 0:
+                yield n
+                 n -= 1
+
+            # Using the generator
+            for num in countdown(5):
+                print(num)
+            # Output: 5, 4, 3, 2, 1
+
+        </textarea>
+        <p>
+            Generators pause their execution state during each <span>yield</span>, allowing the caller to retrieve the value and then resume the generator's execution when the next value is requested. This feature enables efficient lazy evaluation of data.
+
+Generators can be created using generator expressions as well, similar to list comprehensions, but using parentheses instead of square brackets.
+        </p>
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="10" name="input">
+            
+            numbers = [1, 2, 3, 4, 5]
+            
+            squared_gen = (x**2 for x in numbers)
+            for num in squared_gen:
+                print(num)
+            # Output: 1, 4, 9, 16, 25
+        </textarea>
+
+        <p>
+            Generator functions are especially useful when dealing with large datasets, as they allow you to generate and process data on the fly without loading it all into memory at once.
+
+        </p>
+
+    </div>
+
+
+    
+     
+
+       
+    
+</body>
+</html>

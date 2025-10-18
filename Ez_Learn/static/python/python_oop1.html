@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Introduction to Python</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-weight:normal;
+            font-size:18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #cee1f5;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        .topic-container {
+            background-color: #94beeb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .topic-container h2 {
+            color: #004C99;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+        .text-area {
+            font-size: large;
+            margin-left: 100px;
+            height: fit-content;
+            resize: none; /* Prevent the textarea from being resized by the user */
+            font-family: Arial, sans-serif;
+            text-align: left; /* Set text alignment to left */
+        }
+    </style>
+</head>
+<body>
+    <div class="topic-container">
+        <h2>What Is Object-Oriented Programming in Python?</h2>
+        <p>
+            Object-oriented programming is a programming paradigm that provides a means of structuring programs so that properties and behaviors are bundled into individual objects.<br>
+
+For instance, an object could represent a person with properties like a name, age, and address and behaviors such as walking, talking, breathing, and running. Or it could represent an email with properties like a recipient list, subject, and body and behaviors like adding attachments and sending.<br>
+
+Put another way, object-oriented programming is an approach for modeling concrete, real-world things, like cars, as well as relations between things, like companies and employees, students and teachers, and so on. 
+        </p>
+    </div>
+    <div class="topic-container">
+        <p>
+            OOP models real-world entities as software objects that have some data associated with them and can perform certain functions.<br>
+
+Another common programming paradigm is procedural programming, which structures a program like a recipe in that it provides a set of steps, in the form of functions and code blocks, that flow sequentially in order to complete a task.<br>
+
+The key takeaway is that objects are at the center of object-oriented programming in Python, not only representing the data, as in procedural programming, but in the overall structure of the program as well.
+        </p>
+    </div>
+
+    <div class="topic-container">
+        <h2>Classes Vs Objects (Instances)</h2>
+        <p>
+            Classes are used to create user-defined data structures. Classes define functions called methods, which identify the behaviors and actions that an object created from the class can perform with its data.<br>
+
+In this tutorial, you’ll create a Dog class that stores some information about the characteristics and behaviors that an individual dog can have.<br>
+
+A class is a blueprint for how something should be defined. It doesn’t actually contain any data. The Dog class specifies that a name and an age are necessary for defining a dog, but it doesn’t contain the name or age of any specific dog.<br>
+
+While the class is the blueprint, an instance is an object that is built from a class and contains real data. An instance of the Dog class is not a blueprint anymore. It’s an actual dog with a name, like Miles, who’s four years old.<br>
+
+Put another way, a class is like a form or questionnaire. An instance is like a form that has been filled out with information. Just like many people can fill out the same form with their own unique information, many instances can be created from a single class.
+        </p>
+        <p>Here is a example of declaring class:</p>
+
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="15" name="input">
+            class Dog:
+            species = "Canis familiaris"
+        
+            def __init__(self, name, age, breed):
+                self.name = name
+                self.age = age
+                self.breed = breed
+        </textarea>
+    </div>
+
+
+    <div class="topic-container">
+        <h2>__init__ in python</h2>
+        <p>
+            The Default __init__ Constructor in C++ and Java. Constructors are used to initializing the object’s state. The task of constructors is to initialize(assign values) to the data members of the class when an object of the class is created. Like methods, a constructor also contains a collection of statements(i.e. instructions) that are executed at the time of Object creation. It is run as soon as an object of a class is instantiated. The method is useful to do any initialization you want to do with your object.
+        </p>
+        <p>Here is a example of declaring class:</p>
+
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="20" name="input">
+# A Sample class with init method
+class Person:
+ 
+    # init method or constructor
+    def __init__(self, name):
+        self.name = name
+ 
+    # Sample Method
+    def say_hi(self):
+        print('Hello, my name is', self.name)
+ 
+ 
+p = Person('Nikhil')
+p.say_hi()
+        </textarea>
+    </div>
+
+    <div class="topic-container">
+        <h2>Instance Methods</h2>
+        <p>
+            Instance methods are functions that are defined inside a class and can only be called from an instance of that class. Just like .__init__(), an instance method’s first parameter is always self.<br>
+
+Open a new editor window in IDLE and type in the following Dog class:
+        </p>
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="20" name="input">
+class Dog:
+    species = "Canis familiaris"
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    # Instance method
+    def description(self):
+        return f"{self.name} is {self.age} years old"
+
+    # Another instance method
+    def speak(self, sound):
+        return f"{self.name} says {sound}"
+                    </textarea>
+
+    <p>This Dog class has two instance methods:</p>
+    <ol>
+        <li><span style="font-weight: 600;">.description()</span> - returns a string displaying the name and age of the dog.</li>
+        <li><span style="font-weight: 600;">.speak()</span> -  has one parameter called sound and returns a string containing the dog’s name and the sound the dog makes.</li>
+    </ol>
+    </div>
+</body>
+</html>

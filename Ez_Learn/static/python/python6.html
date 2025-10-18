@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Python Functions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-weight:normal;
+            font-size:18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #cee1f5;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        .topic-container {
+            background-color: #94beeb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .topic-container h2 {
+            color: #004C99;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="topic-container">
+        <h1>Python <span class="color_h1">Functions</span></h1>
+        <p class="intro">A function is a block of code which only runs when it is called.</p>
+        <p class="intro">You can pass data, known as parameters, into a function.</p>
+        <p class="intro">A function can return data as a result.</p>
+        <h2>Creating a Function</h2>
+        <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+            <span class="pythonnumbercolor" style="color:red">
+        </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> my_function():<br>&nbsp; 
+        <span class="pythonkeywordcolor" style="color:mediumblue">print</span>
+        (<span class="pythonstringcolor" style="color:brown">"Hello from a function"</span>) </span></div>
+        <h2>Calling a Function</h2>
+        <p>To call a function, use the function name followed by parenthesis:</p>
+        <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black"><span class="pythonnumbercolor" style="color:red">
+        </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> my_function():<br>&nbsp; <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"Hello from a function"</span>)<br><br><span class="pythonnumbercolor" style="color:red">
+        </span>  <strong>my_function()</strong> </span></div>
+        <h2>Arguments</h2>
+        <p>Information can be passed into functions as arguments.</p>
+        <p>Arguments are specified after the function name, inside the parentheses.
+            You can add as many arguments as you want, just separate them with a comma.</p>
+        <p>
+                The following example has a function with one argument (fname).
+                When the function is called, we pass along a first name,
+                which is used inside the function to print the full name:
+        </p>
+        <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+            <span class="pythonnumbercolor" style="color:red">
+        </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> 
+        my_function(<strong>fname</strong>):<br>&nbsp; <span class="pythonkeywordcolor" style="color:mediumblue">print</span>
+        (fname + <span class="pythonstringcolor" style="color:brown">" Refsnes"</span>)<br><br><span class="pythonnumbercolor" style="color:red">
+        </span>  my_function(<strong><span class="pythonstringcolor" style="color:brown">"Emil"</span></strong>)
+        <br>my_function(<strong><span class="pythonstringcolor" style="color:brown">"Tobias"</span></strong>)
+        <br>my_function(<strong><span class="pythonstringcolor" style="color:brown">"Linus"</span></strong>) </span></div>
+        <h2>Parameters or Arguments?</h2>
+        <p>The terms <em>parameter</em> and <em>argument</em> can be used for the same thing: information that are passed into a function.</p>
+        <h2>Number of Arguments</h2>
+        <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+            <span class="pythonnumbercolor" style="color:red">
+        </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> 
+        my_function(fname, lname):<br>&nbsp; <span class="pythonkeywordcolor" style="color:mediumblue">print</span>
+        (fname + <span class="pythonstringcolor" style="color:brown">" "</span> + lname)<br><br>
+        <span class="pythonnumbercolor" style="color:red">
+        </span>  my_function(<span class="pythonstringcolor" style="color:brown">"Emil"</span>, 
+        <span class="pythonstringcolor" style="color:brown">"Refsnes"</span>) </span></div>
+        <h2>Arbitrary Arguments, *args</h2>
+        <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+            <span class="pythonnumbercolor" style="color:red">
+        </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> my_function(*kids):
+        <br>&nbsp; <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(
+            <span class="pythonstringcolor" style="color:brown">"The youngest child 
+          is "</span> + kids[<span class="pythonnumbercolor" style="color:red">2</span>])<br><br>
+          <span class="pythonnumbercolor" style="color:red">
+        </span>  my_function(<span class="pythonstringcolor" style="color:brown">"Emil"</span>, 
+        <span class="pythonstringcolor" style="color:brown">"Tobias"</span>, 
+        <span class="pythonstringcolor" style="color:brown">"Linus"</span>) </span></div>
+        <h2>Keyword Arguments</h2>
+        <p>You can also send arguments with the <em>key</em> = <em>value</em> syntax.</p>
+        <p>This way the order of the arguments does not matter.</p>
+        <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black"><span class="pythonnumbercolor" style="color:red">
+        </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> my_function(child3, child2, child1):<br>&nbsp; <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"The youngest child 
+          is "</span> + child3)<br><br><span class="pythonnumbercolor" style="color:red">
+        </span>  my_function(child1 = <span class="pythonstringcolor" style="color:brown">"Emil"</span>
+        , child2 = <span class="pythonstringcolor" style="color:brown">"Tobias"</span>, 
+        child3 = <span class="pythonstringcolor" style="color:brown">"Linus"</span>) </span></div>
+        <h2>Arbitrary Keyword Arguments, **kwargs</h2>
+        <p>If you do not know how many keyword arguments that will be passed into your function,
+            add two asterisk: <code class="w3-codespan">**</code> before the parameter name in the function definition.</p>
+            <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+                <span class="pythonnumbercolor" style="color:red">
+            </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> 
+            my_function(**kid):<br>&nbsp; <span class="pythonkeywordcolor" style="color:mediumblue">print</span>
+            (<span class="pythonstringcolor" style="color:brown">"His last name is "</span> 
+            + kid[<span class="pythonstringcolor" style="color:brown">"lname"</span>])<br>
+            <span class="pythonnumbercolor" style="color:red">
+            </span>  <br>my_function(fname = <span class="pythonstringcolor" style="color:brown">"Tobias"</span>, 
+            lname = <span class="pythonstringcolor" style="color:brown">"Refsnes"</span>) </span></div>
+        <h2>Return Values</h2>
+        <p>To let a function return a value, use the <code class="w3-codespan">return</code> 
+            statement:</p>
+            <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+                <span class="pythonnumbercolor" style="color:red">
+            </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> 
+            my_function(x):<br>&nbsp; <strong><span class="pythonkeywordcolor" style="color:mediumblue">return</span> 
+                <span class="pythonnumbercolor" style="color:red">5</span> * x<br></strong><br>
+                <span class="pythonkeywordcolor" style="color:mediumblue">print</span>
+                (my_function(<span class="pythonnumbercolor" style="color:red">3</span>))<br>
+                <span class="pythonkeywordcolor" style="color:mediumblue">print</span>
+                (my_function(<span class="pythonnumbercolor" style="color:red">5</span>))<br>
+                <span class="pythonnumbercolor" style="color:red">
+            </span>  <span class="pythonkeywordcolor" style="color:mediumblue">print</span>
+            (my_function(<span class="pythonnumbercolor" style="color:red">9</span>)) </span></div>
+        <h2>The pass Statement</h2>
+        <p><code class="w3-codespan">function</code> definitions cannot be empty, but if 
+            you for some reason have a <code class="w3-codespan">function</code> definition with no content, put in the <code class="w3-codespan">pass</code> statement to avoid getting an error.</p>
+            <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+                <span class="pythonnumbercolor" style="color:red">
+            </span>  <span class="pythonkeywordcolor" style="color:mediumblue">def</span> 
+            myfunction():<br>&nbsp; <span class="pythonkeywordcolor" style="color:mediumblue">pass</span> </span></div>
+    </div>
+
+    
+</body>
+</html>

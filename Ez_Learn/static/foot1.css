@@ -1,0 +1,76 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+footer {
+    background-color: #66a9f1;
+    padding: 20px;
+  }
+  
+  .footer-content {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  h3 {
+    text-align: center;
+  }
+  
+  #query-form{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  
+  input,
+  textarea,
+  select {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+.social-icons{
+    margin-left:120px;
+}
+  .social-icons li {
+    display: inline-block;
+    margin: 0px 10px;
+  }
+  
+  .social-icons li a {
+    color:whitesmoke;
+    font-size: 24px;
+  }
+  
+  .social-icons li a:hover {
+    color:black ;
+  }
+  h5{
+    font-size: larger;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: black;
+  }
+  p{
+    font-size: small;
+    text-align: center;
+    justify-content: center;
+  }

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+      @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    
+
+<div class="full-body">
+  <br>
+    <div class="container top">
+      <h1>HTML For Beginners The Easy Way: Start Learning HTML
+
+        </h1>
+    </div>
+    
+    <!-- <div class="container">
+      <button class="btn btn-primary">Home</button>
+      <button class="btn btn-primary">Next</button>
+    </div> -->
+  
+  
+    <br>
+
+    <br>
+    <div class="container top">
+      <h1>HTML Editors</h1>
+      
+    </div>
+    <br>
+      <div class="container container1" >
+        <p>
+            Now that we’ve gotten the basic theory out of the way. It’s time to learn how to build our first website.
+
+            First off, we must ensure that we have the right tools. Most important, we need an HTML editor.
+            
+            There are many choices on the market. Here are a handful of the most popular:
+        </p>
+      </div>
+      <br>
+      <div class="container top ">
+        <h1>Sublime Text 3</h1>
+      </div>
+      <br>
+      <div class="container container1">
+        <p>
+
+However, for this tutorial, we will use the Sublime Text 3 as it is free and also offers cross-platform support for Windows, Mac, and Linux users.
+<br><img src="hello.jpeg"  height="400px" width="auto"><br>
+Sublime Text 3 has a mini-preview window on the right.
+</p><br>
+
+</div>
+<br>
+<div class="container top">
+  <h1>Notepad ++
+</h1>
+</div>
+<br>
+<div class="container container1">
+  <p>
+    Another common choice for HTML and other language coders is Notepad ++. It is a tiny program to download and perform the functions you need for writing clean code.
+<img src="notepad4ever.png" height="400px" width="auto"><br>
+This is Notepad ++. Far from glamorous but does the job.
+
+</p>
+</div>
+<br>
+<div class="container top">
+  <h1>Komodo Edit
+
+  </h1>
+</div>
+<br>
+<div class="container container1">
+  <p>
+    Komodo Edit is one of two editors released by the same label. They offer a simple, open-source editor with a variety of extensions and language support.
+     <br> 
+    <img src="edit-vs-ide.png" height="400px" width="auto"><br>
+    Komodo isn’t one for a flash interface either but is simple to use.
+</p>
+</div>
+<br>
+<div class="container top">
+  <h1><strong>What to Avoid</strong> 
+
+  </h1>
+  
+</div>
+<br>
+  <br>
+<div class="container container1">
+  <p>
+   <b> Do not use Microsoft Word</b> or any other word processor when writing HTML code, only an HTML editor or at the very least, your machine’s built-in notepad, is suitable for the task.
+
+    Secondly, ensure that you’ve installed a number of different browsers such as Chrome and Firefox in order to preview your upcoming creation.<br>
+</p>
+</div>
+<br>
+<div class="container top">
+  <h1 >Creating Your First HTML Webpage
+  </h1>
+</div>
+
+
+<br>
+
+<div class="container container1">
+  <p>
+    These tags should be placed underneath each other at the top of every HTML page that you create.<br>
+
+    <b style="color:#007bff">&lt;DOCTYPE html&gt;</b> — This tag specifies the language you will write on the page. In this case, the language is HTML 5.<br>
+    
+    <b style="color:#007bff"> &lt;html&gt;</b> — This tag signals that from here on we are going to write in HTML code.<br>
+    
+        <b style="color:#007bff"> &lt;head&gt;</b> — This is where all the metadata for the page goes — stuff mostly meant for search engines and other computer programs.<br>
+    
+            <b style="color:#007bff">&lt;body&gt;</b>— This is where the content of the page goes.<br>
+<img src="layout.webp" style="height: 400px; width: auto;">
+This is how your average HTML page is structured visually.
+<br>
+</p>
+</div>
+<br>
+<div class="container top">
+    <h1>Further Tags</h1>
+    
+  </div>
+  <br>
+    <div class="container container1" >
+      <p>
+        Inside the &lt;head&gt; tag, there is one tag that is always included: &lt;title&gt; but there are others that are just as important:<br>
+
+         &lt;title&gt;
+            This is where we insert the page name as it will appear at the top of the browser window or tab.<br>
+            &lt;meta&gt;
+            This is where information about the document is stored: character encoding, name (page context), description.<br>
+           <strong>Let’s try out a basic &lt;head&gt;section: </strong><br>
+            <div style="background-color: white;">&lt;head&gt;<br>
+            &lt;title&gt;My First Webpage&lt;/title&gt;<br>
+            &lt;meta charset="UTF-8"&gt;<br>
+            &lt; meta name="description" content="This field contains information about your page. It is usually around two sentences long."&gt;<br>
+            &lt;meta name="author" content="Conor Sheils"&gt;<br>
+            &lt;header&gt;</div>
+      </p>
+    </div>
+    <br>
+
+<div class="container">
+  <button class="btn btn-primary"><a href="front.html" style="text-decoration: none;color: white;">Prev</a></button>
+    <button class="btn btn-primary"><a href="f2.html" style="text-decoration: none;color:white;">Next</a></button>
+  </div>
+  <br>
+</div>

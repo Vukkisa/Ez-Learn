@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+      @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+        <br>
+          <div class="container top">
+            <h1>HTML Web Forms  </h1>
+          </div>
+          <br>
+<div class="container container1">
+<p>
+    Web forms are used by virtually all websites for a wide range of purposes. 
+    Users of forums and social networks use forms to add content and interact with other users. <br>
+    Websites that can be customized to create a personalized experience, such as customizable newsfeeds, use forms to allow users to control the content that appears on the page.
+ And nearly every website uses forms to allow website visitors to contact the organization or person administering the website. Web forms are made possible by the integration of multiple technologies:
+ HTML to create the form fields and labels and accept user input.<br>
+CSS to style the presentation of the form.<br>
+JavaScript to validate form input and provide Ajax-enabled interactions.<br>
+Server-side languages such as PHP to process form data.<br>
+</p>
+</div><br>
+<div class="container top">
+    <h1>Defining the Structure of a Form</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        Every web form must be wrapped in &lt;form> tags. In most cases, all of the form fields will be nested between these tags.<br>
+             There are several attributes that may optional be used with the form element, including:<br>
+              <b>accept-charset:</b> This optional attribute is used to identify the character encodings acceptable to the server and code processing form input.<br>
+              If more than one encoding is specified, one space should be placed between each encoding.<br> If left blank or not provided, the encoding will default to the same encoding as the document containing the form.<br> 
+              <b>action:</b> This attribute is used to specify a URL where form data should be sent (for instance: http://example.com/form_file.php).<br>
+               This field was required prior to HTML5 but is now optional. <br>
+               <b>autocomplete:</b> Use this attribute if you want the visitors browser to suggest form responses based on saved entries. 
+               The default value is autocomplete="on". If you turn autocomplete off you must also turn it off on every field that may allow autocompletion.<br>
+               <b>enctype:</b> Used to specify how form data should be encoded.
+            Only used if the method attribute mentioned below is set to post. There are three possible values:<br>
+            <em style="color: red;">application/x-www-form-urlencoded:</em> The default value which replaces all spaces with “+” and converts all special characters to ASCII HEX values.<br>
+<em style="color: red;">multipart/form-data:</em> Nothing is encoded. Input is uploaded to the server exactly as it is entered into the form.<br>
+<em style="color: red;">text/plain</em>: Spaces are converted into “+” symbols, but not other characters are encoded.<br>
+<b>Method</b><br>
+Dictates the HTTP method a website visitors browser should use to submit form data. If post is specified, form data is enclosed in the body of the HTTP request.
+ If <b>get</b> is specified, form data is appended to the end of the URL specified in the <b>action</b> attribute with a “?” symbol, data length is limited to 300 characters, and form input is visible and can be bookmarked. 
+ <b>name:</b> Similar to an id attribute, a name is a unique identifier that may only be used once within an HTML document and may be used to select the form with JavaScript or another scripting language. 
+ <b>novalidate: </b>Used to override the default validation of form data. <b>target: </b>Specifies where to display the response received after submitting the form.<br>
+
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Grouping Form Fields
+    </h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        The &lt;fieldset> element is used to group together related form fields. 
+            It may also be used to contain an entire form to provide a visual cue that distinguishes the form from surrounding content.<br>
+             The first element within a fieldset is usually a &lt;legend>. The legend will be displayed a part of the fieldset border giving website visitors a clue about the purpose of a form. <br>
+            For example, if a contact form were nested within a web page full of otherwise unrelated content, the fieldset element could be used in combination with the legend element to isolate the contact form from the rest of the content both semantically and visually.<br>
+<br>
+            <span style="background-color: bisque;">
+                &lt;p>Paragraph content.&lt;/p> <br>
+                &lt;form><br>   &lt;fieldset disabled> <br>    &lt;legend>Contact Form&lt;/legend> <br>
+                &lt;p>Name:
+                 &lt;input type="text" size="30">&lt;/p>  <br>   &lt;p>Email: &lt;input type="text" size="30">&lt;/p> <br>
+                     &lt;p>Subject: &lt;input type="text" size="30">&lt;/p>  <br>
+                        &lt;p>Message: &lt;textarea>Type your message here&lt;/textarea>&lt;/p>  <br>
+                      &lt;p>&lt;input type="submit">&lt;/p>   &lt;/fieldset> &lt;/form><br>
+                        &lt;p>Additional paragraph content&lt;/p> 
+            </span><br>
+            When rendered in the browser, the contact form would be clearly separated from surrounding content.<br>
+            <img src="form.png" style="height: 400px; width: auto;"><br>
+
+The fieldset element is optional but is commonly used to group related elements on long and <br>
+complex forms, or to isolate form fields from nearby elements when a form is presented along <br>with 
+non-form content. HTML5 added three attributes which can be applied to fieldset elements:<br>
+<b>disabled:</b> Used to disable all of the forms in a fieldset. Note that we used this attribute in the example form above.<br>
+<b>form:</b> Used to associate a fieldset with the id of one or more form elements. Note that browser support for this attribute is very limited.<br>
+<b>name:</b> Associates a name with the fieldset.<br>
+
+
+    </p>
+</div>
+<div class="container">
+    <button class="btn btn-primary"><a href="f3.html" style="text-decoration: none;color:white">Prev</a></button>
+    <button class="btn btn-primary"><a href="form1.html" style="color: white;text-decoration: none;">Next</a></button>
+  </div>
+  <br>
+</div>

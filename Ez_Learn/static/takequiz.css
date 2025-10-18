@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .nav {
+    top: 0;
+    background-color: blue;
+    position: fixed;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height :100px;
+      width: 100vw;
+    }
+  
+    .profile{
+      margin-right: 10px;
+      display: flex;
+      flex-direction: row;
+  
+    }
+    
+    .profile img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+      
+    }
+    
+    .profile .name {
+      margin-top: 15px;
+      font-weight: bold;
+      padding-right: 20px;
+      color: white;
+      
+    }
+    
+    .logo img {
+      margin-left: 10px;
+      width: 100px;
+      height: 40px;
+    }
+
+    #questions{
+        margin-left: 15px;
+        margin-top: 80px;
+    }

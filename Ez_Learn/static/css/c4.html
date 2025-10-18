@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+          @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+<div class="container top">
+    <h1>Fonts and text </h1>
+</div>
+<br>
+<div class="container container1">
+    <p>Now that we've explored some CSS fundamentals, let's improve the appearance of the example by adding more rules and information to the style.
+        css file.<br>
+        1.First, find the output from Google Fonts that you previously saved from What will your website look like?.<br>
+         Add the &lt;link> element somewhere inside your index.html's head (anywhere between the &lt;head> and &lt;/head> tags). 
+         It looks something like this:<br>
+         <span style="background-color: aquamarine;"><br>
+            &lt;link
+            href="https://fonts.googleapis.com/css?family=Open+Sans"
+            rel="stylesheet" />
+            <br>
+        </span><br>
+        This code links your page to a style sheet that loads the Open Sans font family with your webpage.<br>
+        <br>
+         2.Next, delete the existing rule you have in your style.css file. It was a good test, 
+         but let's not continue with lots of red text.<br>
+         <br>
+         3.Add the following lines (shown below), replacing the font-family assignment with your font-family selection from What will your website <br>
+         look like?. The property font-family refers to the font(s) you want to use for text. This rule defines a global base font and font size for the whole page.<br>
+          Since &lt;html> is the parent element of the whole page, all elements inside it inherit the same font-size and font-family.<br>
+          <span style="background-color: aquamarine;">
+            html {<br>
+                font-size: 10px; /* px means "pixels": the base font size is now 10 pixels high */<br>
+                font-family: "Open Sans", sans-serif; /* this should be the rest of the output you got from Google Fonts */<br>
+              }
+        </span><br>
+        <em><b>NOTE:</b> Anything in CSS between /* and */ is a CSS comment. The browser ignores comments as it renders the code.<br>
+             CSS comments are a way for you to write helpful notes about your code or logic.</em><br>
+             <br>
+             4.Now let's set font sizes for elements that will have text inside the HTML body (h1, &lt;li>, and &lt;p>).<br>
+              We'll also center the heading. Finally, let's expand the second ruleset (below) with settings for line height and letter spacing to make body content more readable.
+            <br>
+            <span style="background-color: aquamarine;">
+                h1 {<br>
+                    font-size: 60px;<br>
+                    text-align: center;<br>
+                }<br>
+                 <br> 
+                  p,
+                  li {<br>
+                    font-size: 16px;<br>
+                    line-height: 2;<br>
+                    letter-spacing: 1px;<br>
+                  }
+            </span><br>
+                <br>
+                Adjust the px values as you like. Your work-in-progress should look similar to this:<br>
+                <br>
+            <img src="st.png" style="height: 400px;width: auto;"><br>
+
+
+    </p>
+</div>
+    <div class="container">
+        <button class="btn btn-primary"><a href="c3.html" style="text-decoration: none;color:white">Prev</a></button>
+        <button class="btn btn-primary"><a href="c5.html" style="color:white;text-decoration: none;">Next</a></button>
+      </div>
+      <br>
+    </div>
+    </body>
+    </html>
+
+

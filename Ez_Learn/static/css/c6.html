@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+          @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+<div class="container top">
+    <h1>CSS Hover</h1>
+</div>
+<br>
+<div class="container container1">
+    <p><b>CSS Hover:</b> css :hover is used to select the various elements whenever we point the mouse on these elements.<br>
+         We can also use this selector on all the HTML elements, instead used only on the links. To design the link for unvisited pages, a :link selector can be used.<br>
+          To develop the link for visited pages, a :visited selector can be used, and to design the active link, an :active selector can be used efficiently.<br>
+          <br>
+          CSS hover was introduced in the CSS1 version. <br>
+          It is applied on web pages to highlight them as per user’s preference within the adequate programs of web-designing.<br>
+        <br>
+        It contains some of the following effects:<br>
+        <br>
+        It can be used to change the background color and font.<br>
+        It can be used to change the image’s opacity.<br>
+        It can be used for text embedding.<br>
+        It can be used to design rollover effects on the images.<br>
+        It can be used to swap the images.<br>
+    <br>
+    <b>Important:</b> To effectively create the hover selector,<br>
+     we need to define it after the declaration of :visited and :link selector, if these selectors are available in the definition of the CSS.<br>
+     <br>
+     The hover changes the property value of elements to enable various animated modifications to the stated text/image or the reciprocal elements.<br>
+      Embedding of various elements of the hover within the web pages allows them to be functional and interactive.<br>
+<br>
+     The hover selectors are compatible with every main browser. Instead, it will be challenging to execute it on several touch devices. It is realized that the active hover operation gets stuck when using with specific non-supportive devices. <br>
+    <br>
+    <b>Syntax:</b><br>
+    <span style="background-color: aquamarine;">
+        :hover {<br>
+            css declaration;<br>
+            }
+    </span><br>
+    <b>Example 1:</b>Apply hover over heading, link, and paragraph <br>
+    <span style="background-color: aquamarine;">
+        &lt;!DOCTYPE html> <br>
+        &lt;html> <br>
+        &lt;head> <br>
+        &lt;style> <br>
+        body { <br>
+        text-align: center; <br>
+        } <br>
+        p:hover, h1:hover, a:hover { <br>
+        background-color: pink; <br>
+        } <br>
+        &lt;/style> <br>
+        &lt;/head> <br>
+        &lt;body> <br>
+        &lt;h1>Hover Example&lt;/h1> <br>
+        &lt;p>In this example, we are applying hover on heading, paragraph, and link&lt;/p> <br>
+        &lt;a href='https://www.javatpoint.com/css-color'>CSS Color&lt;/a> <br>
+        &lt;/body> <br>
+        &lt;/html> <br>
+    </span> <br>
+
+    <b>Ouput:</b> <br>
+    <br>
+    <img src="hover.png" style="height: 400px; width: 500px;">
+ </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Example 2</h1>
+</div>
+<div class="container container1">
+    <p>
+        Example 2: Using CSS to change the color of the link on hover <br>
+<br>
+The link color will be altered when we point the cursor over it. <br>
+Its execution is easy to understand and write, if we are writing in CSS. A stylish effect will be created. <br>
+<br>
+<span style="background-color: aquamarine;">
+ 
+&lt;style> <br>
+body { <br>
+text-align:center; <br>
+} <br>
+a { <br>
+color: green; <br>
+} <br>
+a:hover { <br>
+color: lightblue; <br>
+} <br>
+a:active { <br>
+color: cyan; <br>
+} <br>
+&lt; /style>
+&lt;/head>
+&lt;body>
+&lt;h1>Point the mouse on this link and see the effect of hover.&lt;/h1>
+&lt;a class= "link" href='https://www.javatpoint.com/css-color'>CSS Color &lt;/a> <br>
+</span>
+ <b>OUTPUT:</b> <br> 
+ <br>
+ <img src="hover1.png" style="height: 400px; width: 400px;">
+
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Example 3</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        Example 3: Text overlay over image hover <br>
+<br>
+This code of CSS shows the text over the image as mouse hover. Let’s look at this overlay image effect as mouse hover. <br>
+<br>
+<span style="background-color: aquamarine;">
+    &lt;style> <br>
+        body{  <br>
+           text-align:center;  <br>
+        }  br
+     * {box-sizing: border-box;}  <br>
+     .container {  <br>
+       position: relative;  <br>
+       width: 50%;   <br>
+       max-width: 300px; <br>
+     }  <br>
+     .image { <br>
+       display: block; <br>
+       width: 100%;  <br>
+       height: auto; <br>
+     } <br>
+     .overlay { <br>
+       position: absolute;  <br>
+       bottom: 0;  <br>
+       background: rgba(255, 255, 255, 0.5);  <br>
+       width: 100%; <br>
+       opacity: 0;  <br>
+       transition: .9s ease; <br>
+       font-size: 25px; <br>
+       padding: 20px; <br>
+     } <br>
+     .container:hover .overlay {  <br>
+       opacity: 1.5; <br>
+     } <br>
+     &lt;/style> <br>
+     &lt;/head>  <br>
+     &lt;body>  <br>
+     &lt;h1>Image Overlay Title Effect&lt;/h1> <br>
+     &lt;h2>Point the mouse on the following image to see the effect of hover.&lt;/h2> <br>
+     &lt;center> <br>
+     &lt;div class="container"> <br>
+           &lt;img src="Flower3.png" class="image"> <br>
+           &lt;div class="overlay">Beautiful flower.&lt;/div> <br>
+     &lt;/div> &lt;/center>   <br>
+</span> <br>
+<br>
+<b>Output:</b> <br>
+<br> 
+<img src="hover2.png" style="height: 400px; width: 500px;">
+    </p>
+</div>
+    <div class="container">
+        <button class="btn btn-primary"><a href="c5.html" style="text-decoration: none;color:white">Prev</a></button>
+        <button class="btn btn-primary"><a href="c7.html" style="text-decoration: none;color: white;">Next</a></button>
+      </div>
+      <br>
+    </div>
+    </body>
+    </html>

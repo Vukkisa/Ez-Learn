@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Python Try Except</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #cee1f5;
+      }
+
+      h1 {
+        color: #007bff;
+      }
+
+      .topic-container {
+        background-color: #94beeb;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .topic-container h2 {
+        color: #004c99;
+      }
+
+      p {
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topic-container">
+      <h1>Python <span class="color_h1">Try Except</span></h1>
+      <p class="intro">
+        The <code class="w3-codespan">try</code> block lets you test a block of
+        code for errors.
+      </p>
+      <p class="intro">
+        The <code class="w3-codespan">except</code> block lets you handle the
+        error.
+      </p>
+      <p class="intro">
+        The <code class="w3-codespan">else</code> block lets you execute code
+        when there is no error.
+      </p>
+      <p class="intro">
+        The <code class="w3-codespan">finally</code> block lets you execute
+        code, regardless of the result of the try- and except blocks.
+      </p>
+      <h2>Exception Handling</h2>
+      <p>
+        When an error occurs, or exception as we call it, Python will normally
+        stop and generate an error message.
+      </p>
+      <p>
+        These exceptions can be handled using the
+        <code class="w3-codespan">try</code> statement:
+      </p>
+      <div class="w3-example">
+        <h3>Example</h3>
+        <p>
+          The <code class="w3-codespan">try</code> block will generate an
+          exception, because <code class="w3-codespan">x</code> is not defined:
+        </p>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span>
+            <span class="pythonkeywordcolor" style="color: mediumblue">try</span
+            >:<br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(x)<br />
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >except</span
+            >:<br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(
+            <span class="pythonstringcolor" style="color: brown"
+              >"An exception occurred"</span
+            >)
+          </span>
+        </div>
+      </div>
+      <p>
+        Since the try block raises an error, the except block will be executed.
+      </p>
+      <p>Without the try block, the program will crash and raise an error:</p>
+      <h2>Else</h2>
+      <p>
+        You can use the <code class="w3-codespan">else</code> keyword to define
+        a block of code to be executed if no errors were raised:
+      </p>
+      <div class="w3-example">
+        <h3>Example</h3>
+        <p>
+          In this example, the <code class="w3-codespan">try</code> block does
+          not generate any error:
+        </p>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span>
+            <span class="pythonkeywordcolor" style="color: mediumblue">try</span
+            >:<br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(
+            <span class="pythonstringcolor" style="color: brown">"Hello"</span
+            >)<br />
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >except</span
+            >: <br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(
+            <span class="pythonstringcolor" style="color: brown"
+              >"Something went wrong"</span
+            >)<br /><span class="pythonkeywordcolor" style="color: mediumblue"
+              >else</span
+            >:<br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(
+            <span class="pythonstringcolor" style="color: brown"
+              >"Nothing went wrong"</span
+            >)
+          </span>
+        </div>
+      </div>
+      <h2>Finally</h2>
+      <p>
+        The <code class="w3-codespan">finally</code> block, if specified, will
+        be executed regardless if the try block raises an error or not.
+      </p>
+      <div class="w3-example">
+        <h3>Example</h3>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span>
+            <span class="pythonkeywordcolor" style="color: mediumblue">try</span
+            >:<br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(x)<br />
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >except</span
+            >:<br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(<span class="pythonstringcolor" style="color: brown"
+              >"Something went wrong"</span
+            >)<br /><span class="pythonkeywordcolor" style="color: mediumblue"
+              >finally</span
+            >: <br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >print</span
+            >(
+            <span class="pythonstringcolor" style="color: brown"
+              >"The 'try except' is finished"</span
+            >)
+          </span>
+        </div>
+      </div>
+      <h2>Raise an exception</h2>
+      <p>
+        As a Python developer you can choose to throw an exception if a
+        condition occurs.
+      </p>
+      <p>
+        To throw (or raise) an exception, use the
+        <code class="w3-codespan">raise</code> keyword.
+      </p>
+      <div class="w3-example">
+        <h3>Example</h3>
+        <p>Raise an error and stop the program if x is lower than 0:</p>
+        <div class="w3-code notranslate pythonHigh">
+          <span class="pythoncolor" style="color: black">
+            <span class="pythonnumbercolor" style="color: red"> </span> x =
+            -<span class="pythonnumbercolor" style="color: red">1</span
+            ><br /><br />
+            <span class="pythonkeywordcolor" style="color: mediumblue">if</span>
+            x &lt;
+            <span class="pythonnumbercolor" style="color: red">0</span
+            >:<br />&nbsp;
+            <span class="pythonkeywordcolor" style="color: mediumblue"
+              >raise</span
+            >
+            Exception(
+            <span class="pythonstringcolor" style="color: brown"
+              >"Sorry, no numbers below zero"</span
+            >)
+          </span>
+          <p>The <code class="w3-codespan">raise</code> keyword is used to raise an 
+            exception.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

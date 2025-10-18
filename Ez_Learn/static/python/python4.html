@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Python If ... Else</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-weight:normal;
+            font-size:18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #cee1f5;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        .topic-container {
+            background-color: #94beeb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .topic-container h2 {
+            color: #004C99;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="topic-container">
+        <h1>Python <span class="color_h1">If ... Else</span></h1>
+        <h2>Python Conditions and If statements</h2>
+        <p>Python supports the usual logical conditions from mathematics:</p>
+        <ul>
+            <li>Equals: <span class="w3-codespan">a == b</span></li>
+            <li>Not Equals: <span class="w3-codespan">a != b</span></li>
+            <li>Less than: <span class="w3-codespan">a &lt; b</span></li>
+            <li>Less than or equal to: <span class="w3-codespan">a &lt;= b</span></li>
+            <li>Greater than: <span class="w3-codespan">a &gt; b</span></li>
+            <li>Greater than or equal to: <span class="w3-codespan">a &gt;= b</span></li>
+            </ul>
+            <div class="w3-example">
+            
+                <p>If statement:</p>
+                <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+                a = <span class="pythonnumbercolor" style="color:red">33</span><br>
+                b = <span class="pythonnumbercolor" style="color:red">200</span><br>
+                <span class="pythonkeywordcolor" style="color:mediumblue">if</span> b &gt; a:<br>&nbsp; <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"b is greater than a"</span>)<span class="pythonnumbercolor" style="color:red">
+                </span> </span></div>
+                
+                </div>
+    </div>
+
+    <div class="topic-container">
+        <p>In this example we use two variables, <span class="w3-codespan">a</span> and <span class="w3-codespan">b</span>,
+            which are used as part of the if statement to test whether <span class="w3-codespan">b</span> is greater than <span class="w3-codespan">a</span>.
+            As <span class="w3-codespan">a</span> is <span class="w3-codespan">33</span>, and <span class="w3-codespan">b</span> is <span class="w3-codespan">200</span>,
+            we know that 200 is greater than 33, and so we print to screen that "b is greater than a".</p>
+    </div>
+
+    <div class="topic-container">
+        <h2>Indentation</h2>
+        <p>Python relies on indentation (whitespace at the beginning of a line) to define scope in the code. Other programming languages often use curly-brackets for this purpose.
+
+        </p>
+        <div class="w3-code notranslate pythonHigh w3-border-red"><span class="pythoncolor" style="color:black">
+            a = <span class="pythonnumbercolor" style="color:red">33</span><br>
+            b = <span class="pythonnumbercolor" style="color:red">200</span><br>
+            <span class="pythonkeywordcolor" style="color:mediumblue">if</span> b &gt; a:<br>
+            <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"b is greater than a"</span>)
+            <span class="commentcolor" style="color:green"># you will get an error
+             </span></span></div>
+    </div>
+
+    <div class="topic-container">
+        <h2>Elif</h2>
+        <p>The <span class="w3-codespan">elif</span> keyword is Python's way of saying "if the previous conditions were not true, then 
+            try this condition".</p>
+            <span class="pythoncolor" style="color:black">
+                a = <span class="pythonnumbercolor" style="color:red">33</span><br>
+                b = <span class="pythonnumbercolor" style="color:red">33</span><br>
+                <span class="pythonkeywordcolor" style="color:mediumblue">if</span> b &gt; a:<br><span class="pythonnumbercolor" style="color:red">
+                    </span>&nbsp;
+                    <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"b is greater than a"</span>)<br>
+                <span class="pythonkeywordcolor" style="color:mediumblue">elif</span> a == b:<br><span class="pythonnumbercolor" style="color:red">
+                    </span>&nbsp;
+                    <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"a and b are equal"</span>)<br><span class="pythonnumbercolor" style="color:red">
+                </span> </span>
+                <p>In this example <span class="w3-codespan">a</span> is equal to <span class="w3-codespan">b</span>, so the first condition is not true, but the <span class="w3-codespan">elif</span> condition is true, so we print to screen that "a and b are equal".</p>
+    </div>
+
+    <div class="topic-container">
+        <h2>Else</h2>
+        <p>The <span class="w3-codespan">else</span> keyword catches anything which isn't caught by the preceding conditions.</p>
+        <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+            a = <span class="pythonnumbercolor" style="color:red">200</span><br>
+            b = <span class="pythonnumbercolor" style="color:red">33</span><br>
+            <span class="pythonkeywordcolor" style="color:mediumblue">if</span> b &gt; a:<br><span class="pythonnumbercolor" style="color:red">
+                </span>&nbsp;
+                <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"b is greater than a"</span>)<br>
+            <span class="pythonkeywordcolor" style="color:mediumblue">elif</span> a == b:<br><span class="pythonnumbercolor" style="color:red">
+                </span>&nbsp;
+                <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"a and b are equal"</span>)<br><span class="pythonnumbercolor" style="color:red">
+            </span>  <span class="pythonkeywordcolor" style="color:mediumblue">else</span>:<br><span class="pythonnumbercolor" style="color:red">
+                </span>&nbsp;
+                <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"a is greater than b"</span>)<br><span class="pythonnumbercolor" style="color:red">
+            </span> </span></div>
+            <p>In this example <span class="w3-codespan">a</span> is greater than <span class="w3-codespan">b</span>,
+                so the first condition is not true, also the <span class="w3-codespan">elif</span> condition is not true,
+                so we go to the <span class="w3-codespan">else</span> condition and print to screen that "a is greater than b".</p>
+                <p>You can also have an <code class="w3-codespan">else</code> without the
+                    <code class="w3-codespan">elif</code>:</p>
+                    <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black">
+                        a = <span class="pythonnumbercolor" style="color:red">200</span><br>
+                        b = <span class="pythonnumbercolor" style="color:red">33</span><br>
+                        <span class="pythonkeywordcolor" style="color:mediumblue">if</span> b &gt; a:<br><span class="pythonnumbercolor" style="color:red">
+                            </span>&nbsp;
+                            <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"b is greater than a"</span>)<br><span class="pythonnumbercolor" style="color:red">
+                        </span>  <span class="pythonkeywordcolor" style="color:mediumblue">else</span>:<br><span class="pythonnumbercolor" style="color:red">
+                            </span>&nbsp;
+                            <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"b is not greater than a"</span>)<br><span class="pythonnumbercolor" style="color:red">
+                        </span> </span></div>
+    </div>
+    <div class="topic-container">
+        <h2>Short Hand If</h2>
+        <p>If you have only one statement to execute, you can put it on the same line as the if statement.</p>
+        <div class="w3-code notranslate pythonHigh"><span class="pythoncolor" style="color:black"><span class="pythonnumbercolor" style="color:red">
+        </span>  <span class="pythonkeywordcolor" style="color:mediumblue">if</span> a &gt; b: <span class="pythonkeywordcolor" style="color:mediumblue">print</span>(<span class="pythonstringcolor" style="color:brown">"a is greater than b"</span>)<span class="pythonnumbercolor" style="color:red">
+        </span> </span></div>
+    </div>
+</body>
+</html>

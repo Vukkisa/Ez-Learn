@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+          @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+<div class="container top">
+    <h1>CSS Opacity</h1>
+</div>
+<div class="container container1">
+    <p>
+        The CSS Opacity property is used to set the clarity of the image. It is defined as degree and specify the transparency of an element. <br>
+<br>
+Note: Opacity value will be less than 1. <br>
+<br> 
+<span style="background-color: aquamarine;">
+
+&lt;html>    <br>
+&lt;head> <br>    
+&lt;style> <br>    
+img.traspar{   <br>  
+    opacity: 0.5;    <br>
+    filter: alpha(opacity=40); /* For IE8 and earlier */    <br>
+}    <br>
+&lt;/style>   <br> 
+&lt;/head>  <br>  
+&lt;body>    <br>
+&lt;p>without Opacity Image&lt;/p>    <br>
+&lt;img src="image/opacity-img.png">    <br>
+&lt;p>Transparent Image&lt;/p>    <br>
+&lt;img class="traspar" src="image/opacity-img.png">    br
+&lt;/body>    <br>
+&lt;/html> <br>
+</span>
+<b>output:</b> <br>
+<br>
+<img src="opc.png" style="height: auto;">
+    </p>
+</div>
+    <div class="container">
+        <button class="btn btn-primary"><a href="c6.html" style="text-decoration: none;color:white">Prev</a></button>
+        <button class="btn btn-primary"><a href="{% static 'css/c8.html' %}" style="text-decoration: none;color:white">Next</a></button>
+      </div>
+      <br>
+    </div>
+    </body>
+    </html>

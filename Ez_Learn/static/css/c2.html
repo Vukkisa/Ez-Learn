@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+      @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+<div class="container top">
+    <h1>CSS Basics</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>CSS (Cascading Style Sheets) is the code that styles web content. CSS basics walks through what you need to get started.<br>
+         We'll answer questions like: How do I make text red? How do I make content display at a certain location in the (webpage) layout?<br>
+         How do I decorate my webpage with background images and colors?</p>
+</div>
+<br>
+<div class="container top">
+    <h1>WHAT IS CSS </h1>
+</div>
+<div class="container container1">
+    <p>
+        Like HTML, CSS is not a programming language. It's not a markup language either. CSS is a style sheet language. <br>
+        CSS is what you use to selectively style HTML elements.<br>
+         For example, this CSS selects paragraph text, setting the color to red:<br>
+         <img src="basic.png" style="height: 200px;width:500px" alt="">
+         <br>
+         Let's try it out! Using a text editor, paste the three lines of CSS (above) into a new file. Save the file as style.css in a directory named styles.<br>
+         <br>
+         To make the code work, we still need to apply this CSS (above) to your HTML document.<br>
+          Otherwise, the styling won't change the appearance of the HTML. <br>
+         (If you haven't been following our project, pause here to read Dealing with files and HTML basics.)<br>
+         1.Open your index.html file. Paste the following line in the head (between the <head> and </head> tags):<br>
+         <b>HTMl</b><br>
+          <span style="background-color:aquamarine;"> &lt;link href="styles/style.css" rel="stylesheet" /&gt; </span><br>
+          Save index.html and load it in your browser. You should see something like this:<br>
+        <img src="index.png" style="height: 400px; width: auto;"><br>
+        <br>
+<b>If your paragraph text is red, congratulations! Your CSS is working.</b><br>
+
+    </p>
+</div>
+<br>
+<div class="container">
+    <button class="btn btn-primary"><a href="{% static 'css/c1.html' %}" style="text-decoration: none;color:white">Prev</a></button>
+    <button class="btn btn-primary"><a href="c3.html" style="text-decoration: none;color: white;">Next</a></button>
+  </div>
+  <br>
+</div>
+</body>
+</html>

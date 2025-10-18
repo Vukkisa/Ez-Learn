@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+          @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+<div class="container top">
+    <h1>CSS Font</h1>
+</div>
+<br>
+<div class="container container1" style="display: block">
+    <p>
+        CSS Font: CSS has font property, which makes the text more attractive. We can alter the entire look by changing font color, font size, font style, and much more. In this section, we will learn how to change the size of our font by the use percentage.<br>
+         The following are a few critical attributes which we can use in our text to make it more attractive: <br>
+    </p>
+    <table style="border-collapse: collapse;
+    width: 100%;">
+      <tr>
+          <th>Attribute</th>
+          <th>Description</th>
+      </tr>
+      <tr>
+          <td>Font color</td>
+          <td>Font color property is applied to modify the text color.</td>
+      </tr>
+      <tr><td>Font size</td>
+    <td>Font size property is applied to either increase the font size or decrease the font size.</td></tr>
+    <tr>
+        <td>Font font-family
+        </td>
+        <td>Font family property is applied to modify the font face.</td>
+    </tr>
+    <tr>
+        <td>Font style</td>
+        <td>Font style property is applied to produce the font oblique, italic, or bold.</td>
+    </tr>
+    <tr>
+        <td>Font weight</td>
+        <td>Font weight property is applied to increase the font’s lightness and boldness or decrease the same.</td>
+    </tr>
+    <tr>
+        <td> Font variant</td>
+        <td>The font-variant is applied to makes an effect of small-caps.</td>
+    </tr>
+    </table>
+</div>
+<br>
+<div class="container top">
+    <h1>Font color</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        The font color property of CSS is a unique and standalone attribute, although it looks like a type of fonts in CSS. It is applied to make modifications to the text color. We can define the font color by one of the following formats: <br>
+<br>
+        Color name <br>
+        Hexadecimal value <br>
+        RGB <br>
+        <br>
+        <b>Example:</b>
+        <br>
+        <span style="background-color: aquamarine;">
+            &lt;!DOCTYPE html> <br>
+            &lt;html> <br>
+            &lt;head> <br>
+            &lt;style> <br>
+ body { <br>
+ font-size: 100%; <br>
+ } <br>
+ h1 {color: green;}  <br>
+ h2 {color: #FF00FF;}  /*Fuchsia Color*/ <br>
+ p {color: rgb(0, 255, 255);}   /*Aqua Color*/ <br>
+ &lt;/style> <br>
+ &lt;/head> <br>
+ &lt;body> <br>
+ &lt;h1>This is First Heading.&lt;/h1> <br>
+ &lt;h2>This is second Heading.&lt;/h2> <br>
+ &lt;p>This is paragraph.&lt;/p> <br>
+ &lt;/body> <br>
+ &lt;/html>  <br>
+ &lt;/span> <br>
+</span> <br>
+<br>
+<b>Output:</b> <br>
+<br>
+<img src="font.png" style="height: 400px; width: 400px;">
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Font Size</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        The font size attribute of CSS is applied to modify the font size. Some of the essential values that are applied to set-up the size of the font: <br>
+<br>
+xx-small:  It isapplied to show the text in extremely small size. <br>
+x-small: It isapplied to show the text in extra small size. <br>
+small: It isapplied to show the text in small size. <br>
+medium: It isapplied to show the text in medium size.<br>
+large: It isapplied to show the text in large size.<br>
+x-large: It isapplied to show the text in extra-large size.<br>
+xx-large: It isapplied to explain the text in extremely large size.<br>
+smaller: It isapplied to show the text comparatively in smaller size.<br>
+larger: It isappliedto show the text comparatively in larger size.<br>
+% or pixels size: It isemployed to set the font size in percentage or in pixels.<br>
+<br>
+<b>Example:</b> <br>
+<br> 
+<span style="background-color: aquamarine;">
+    &lt;!DOCTYPE html> <br>
+    &lt;html> <br>
+    &lt;head> <br>
+    &lt;/head> <br>
+    &lt;body> <br>
+    &lt;p style="font-size:xx-small;">These fonts are in extremely small size    &lt;/p>  <br>
+    &lt;p style="font-size:x-small;">These fonts are in extra small size.&lt;/p> <br>
+    &lt;p style="font-size:small;">These fonts are in small size.&lt;/p> <br>
+    &lt;p style="font-size:medium;">These fonts are in medium size.&lt;/p> <br>
+    &lt;p style="font-size:large;">These fonts are in large size.&lt;/p> <br>
+    &lt;p style="font-size:x-large;">These fonts are in extra large size.&lt;/p>  <br>
+    &lt;p style="font-size:xx-large;">These fonts are in extremely large size.&lt;/p> <br>
+    &lt;p style="font-size:smaller;">These fonts are in smaller size.&lt;/p> <br>
+    &lt;p style="font-size:larger;">These fonts are in larger size.&lt;/p> <br>
+    &lt;p style="font-size:100%;">These fonts are in 100% size.&lt;/p>  <br>
+    &lt;p style="font-size:30px;">These fonts are in 30pixel size.&lt;/p> <br>
+    &lt;/body> <br>
+    &lt;/html>  <br>
+
+</span> <br>
+<br>
+<b>Output</b> <br>
+<br>
+<img src="fsize.png" style="height: 400px; width: 400px;">
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Font Family</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        The font family is categorized into two parts: <br>
+        <br>
+
+<b>Font family:</b> It defines the name of the font family such as Times New Roman, Arial etc. <br>
+<b>Generic family:</b> The generic family includes Sans-serif, Monospace, and Serif. <br>
+<b>Serif:</b> These types of fonts incorporate tiny lines at any character’s end. Its examples are- Georgia, and Times New Roman. <br>
+
+<b>Sans-serif:</b> It does not hold tiny lines at any character end. The examples are- Verdana, Arial, etc. <br>
+
+<b>Monospace:</b> Every character of monospace has the similar width. <br>
+<br>
+<b>Example</b> <br>
+<br>
+<span style="background-color: aquamarine;">
+    &lt;!DOCTYPE html> <br>
+    &lthtml> <br>
+    &lthead><br>
+    &ltstyle><br>
+    .sansserif { <br>
+    font-family: sans-serif; <br>
+    }<br>
+    .serif { <br>
+    font-family: serif; <br>
+    } <br>
+    .monospace { <br>
+    font-family: monospace; <br>
+    }  <br>
+    &lt/style> <br>
+    &lt/head> <br>
+    &ltbody><br>
+    &lth1 class="sansserif">These fonts are in sans-serif.&lt/h1><br>
+    &lth2 class="serif">These fonts are in serif.&lt/h2><br>
+    &ltp class="monospace">These fonts are in monospace.&lt/p><br> 
+    &lt/body><br>
+    &lt/html> <br>
+</span><br>
+<br>
+<b>Output</b> <br>
+<br>
+<img src="ffamily.png" style="height: 400px; width: 400px;"> <br>
+    </p>
+</div>
+
+<div class="container top">
+    <h1>Font style</h1>
+</div>
+<div class="container container1">
+    <p>
+        This property describes what kind of font view we wish to illustrate on the screen. These styles can be normal, italic, oblique etc. <br>
+        <br>
+        <b>Example</b> <br>
+        <span style="background-color: aquamarine;">
+            &lt;!DOCTYPE html>  <br>
+            &lt;html> <br>
+    &lt;head> <br>
+    &lt;style>  <br>
+ .italic { <br>
+ font-style: italic; <br>
+ } <br>
+ .oblique { <br>
+ font-style: oblique; <br>
+ } <br>
+ .normal { <br>
+ font-style: normal; <br>
+ } <br>
+ &lt;/style> <br>
+ &lt;/head><br>
+ &lt;body><br>
+    &lt;h1 class="italic">These fonts are in italic style.&lt;/h1>  <br>
+    &lt;h2 class="oblique">These fonts are in oblique style.&lt;/h2> <br>
+ &lt;p class="normal">These fonts are in normal style.&lt;/p> <br>
+ &lt;/body> <br>
+&lt;/html>  <br>
+        </span> <br>
+        <br>
+        <b>Output:</b> <br>
+<img src="fstyle.png" style="height: 400px; width: 400px;">
+    </p>
+</div>
+<br> 
+<div class="container top">
+    <h1>Font Weight</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        It is used to depict the weight of the font. Some of the values to determine the font’s weight are- <b>bold, bolder, lighter, normal, number,</b> or <b>lighter.</b> <br>
+        <br>
+        <b>Example:</b> <br>
+        <br>
+        <span style="background-color: aquamarine;">
+            &lt;!DOCTYPE html> <br>
+            &lt;html> <br>
+            &lt;head> <br>
+            &lt;/head> <br>
+            &lt;body> <br>
+            &lt;p style="font-weight:bold;">These fonts are bold.&lt;/p>  <br>
+            &lt;p style="font-weight:bolder;">These fonts are bolder.&lt;/p> <br>
+            &lt;p style="font-weight:lighter;">These fonts are lighter.&lt;/p> <br>
+            &lt;p style="font-weight:100;">These fonts have 100 weight.&lt;/p> <br>
+            &lt;p style="font-weight:200;">These fonts have 200 weight.&lt;/p>  <br>
+            &lt;p style="font-weight:300;">These fonts have 300 weight.&lt;/p> <br>
+            &lt;p style="font-weight:400;">These fonts have 400 weight.&lt;/p> <br>
+            &lt;p style="font-weight:500;">These fonts have 500 weight.&lt;/p> <br>
+            &lt;p style="font-weight:600;">These fonts have 600 weight.&lt;/p> <br>
+            &lt;p style="font-weight:700;">These fonts have 700 weight.&lt;/p> <br>
+            &lt;p style="font-weight:800;">These fonts have 800 weight.&lt;/p> <br>
+            &lt;/body>   <br>    
+            &lt;/html>   <br>
+        </span> <br>
+        <br>
+        <b>Output:</b> <br>
+        <img src="fweight.png" style="height: 400px; width: 400px;">
+        </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Font Varient</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        It determines that either the text should be viewed in the small-caps font effect. The effect can also be set as normal. <br>
+        <br>
+        <b>Example</b>
+        <br>
+        <span style="background-color: aquamarine;">
+            &lt;!DOCTYPE html> <br>
+            &lt;html> <br>
+            &lt;head> <br>
+            &lt;style> <br>
+            .smallcaps { <br>
+            font-variant: small-caps;  <br>
+            } <br>
+            .normal { <br>
+            font-variant: normal; <br>
+            } <br>
+            &lt;/style> <br>
+            &lt;/head>  <br>
+            &lt;body> <br>
+            &lt;p class="smallcaps">These fonts are in small-caps variant. &lt;/p> <br>
+            &lt;p class="normal">These fonts are in normal variant. &lt;/p> <br>
+            &lt;/body> <br>
+            &lt;/html>   <br>
+        </span> <br>
+        <br>
+        <b>Output:</b> <br>
+        <img src="fvariant.png" style="height: 400px; width: 400px;">
+    </p>
+</div>
+    <div class="container">
+        <button class="btn btn-primary"><a href="c8.html" style="text-decoration: none;color:white">Prev</a></button>
+        <button class="btn btn-primary"><a href="{% static 'css/c10.html' %}" style="text-decoration: none;color: white;">Next</a></button>
+      </div>
+      <br>
+    </div>
+    </body>
+    </html>

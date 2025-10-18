@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+          @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+<div class="container top">
+    <h1>CSS Border</h1>
+</div>
+<div class="container container1">
+    <p>
+        CSS Border: The border property of CSS allows us to define the style, color, width, and radius of the element’s border. It is applied to various elements to set-up the border. Some essential properties of CSS border are as follows: <br>
+<br>
+border-style <br>
+border-width <br>
+border-color <br>
+border-radius <br>
+<br>
+<b>CSS border-style</b> <br>
+<br>
+A border-style CSS property is applied to define the type of border which we want to present inside various web pages.<br>
+ Some of the essential style values are permitted in this property, which is as follows: <br>
+ <br>
+ 1.dotted: This value is used to specify the dotted border. <br>
+2.dashed: This value is used to specify the dashed border. <br>
+3.double: This value is used to define two borders along with a similar border-width value. <br>
+4.groove: This value is used to specify the 3D grooved border. Its effect leans on the value of border-color. <br>
+5.hidden: This value is used to specify the hidden border. <br>
+6.inset: This value is used to specify the 3D inset border. Its effect leans on the value of border-color. <br>
+7.none: This value is used to specify no border. <br>
+8.out set: This value is used to specify the 3D out set border. Its effect leans on the value of border-value. <br>
+9.ridge: This value is used to specify the 3D ridged border. Its effect leans on the value of border-color. <br>
+10.solid: This value is used to specify the solid border. <br>
+<br>
+This property of CSS may have one to four values. These values are left border, right border, top border, and the bottom border. <br>
+<b>Example:</b> <br>
+<br>
+<span style="background-color:aquamarine">
+    &lt;!DOCTYPE html> <br>
+    &lt;html> <br>
+    &lt;head>  <br>
+    &lt;style>   p.dotted {border-style: dotted;}   p.dashed {border-style: dashed;}   p.double {border-style: double;}   p.groove {border-style: groove;}   p.hidden {border-style: hidden;}   p.inset {border-style: inset;}   p.none {border-style: none;}   p.outset {border-style: outset;}   p.ridge {border-style: ridge;}   p.solid {border-style: solid;}   </style>
+     &lt;/head>  <br>
+     &lt;body>  <br>
+     &lt;p class="dotted">Dotted   Border. &lt;/p>  <br>
+    &lt;p class="dashed">Dashed   Border. &lt;/p> <br>
+    &lt;p class="double">Double   Border. &lt;/p> <br>
+    &lt;p class="groove">Groove   Border. &lt;/p>  <br>
+    &lt;p class="hidden">Hidden   Border. &lt;/p> <br>
+    &lt;p class="inset">Inset Border. &lt;/p> <br>
+    &lt;p class="none">No Border. &lt;/p>  <br>
+    &lt;p class="outset">Outset   Border. &lt;/p>  <br> 
+    &lt;p class="ridge">Ridge   Border. &lt;/p>  <br>
+    &lt;p class="solid">Solid   Border. &lt;/p> <br>
+    &lt;/body>  br
+    &lt;/html>   <br> </span> <br>
+
+    <b>output:</b> <br>
+    <img src="border.png" style="height: 400px; width: 400px;">
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>CSS border-width</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        The CSS border-width property is applied on the web pages to fix the width of the border. <br>
+        It can be set-up in pixels. We can also use the three values to set-up the border-width property, which is as follows: <br>
+
+Thin <br>
+Medium <br>
+Thick <br>
+<br>
+This property can’t be applied alone. It is always applied with other properties, if borders such as “border-style” are used for setting the border. Otherwise it will be useless. <br>
+<br>
+<span style="background-color: aquamarine;">
+        &lt;DOCTYPE html> <br>
+        &lt;html> <br>
+        &lt;head> <br>
+        &lt;style>   <br>
+            p.one {   border-style: solid;   border-width: 6px;   } <br>
+               p.two {   border-style: solid;   border-width: medium;   }  <br>
+                p.three {   border-style: solid;   border-width: 2px;   }   <br>
+                p.four {   border-style: solid;   border-width: thick;   }  <br>
+                 p.five {   border-style: solid;   border-width: 6px 10px; /*Some particular Side widths*/   } <br>
+                 &lt;/style> <br>
+                   &lt;/head>   <br>
+                   &lt;body> <br>
+                   &lt;p class="one">This is an example to   set the border width.&lt;/p> <br>
+                   &lt;p class="two">This is an example to   set the border width.&lt;/p> <br>
+                   &lt;p class="three">This is an example to   set the border width.&lt;/p> <br>
+                   &lt;p class="four">This is an example to   set the border width.&lt;/p> <br>
+                   &lt;p class="five">This is an example to   set the border width.&lt;/p> <br>
+                   &lt;/body>  <br>
+                   &lt;/html> <br>
+        </span> <br>
+        <b>Output:</b> <br>
+        <br>
+        <img src="border1.png" style="height: 400px; width: 400px;"> <br>
+          
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>CSS border-color</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+    The CSS border-color is applied to set the border’s color. Here, we can do this by one the following three types: <br>
+<br>
+<b>Name:</b> This method is used to define a color name. For-example: “green”. <br>
+<b>RGB: </b> This method is used to define the color’s RGB value. For-example: “rgb(255,0,0)”. <br>
+<b>HEX:</b> This method is used to define the color’s hex value. For-example: “#ff0000”. <br>
+<b>Transparent:</b> When the color of the border is not fixed then it inherits through its element’s color property. <br>
+This property can’t be applied alone. It must be applied along with other properties like “border-style”. <br>
+
+<b>Example: </b>
+<span style="background-color: aquamarine;"></span>
+ &lt;!DOCTYPE html> <br>
+ &lt;html> <br>
+ &lt;head> <br>
+ &lt;style>  <br>
+  p.color1 {   border-style: solid;   border-color: green;   }  <br>
+   p.color2 {   border-style: solid;   border-color: #ff0000;   }  <br>
+    p.color3 {   border-style: solid;   border-color: rgb(255,0,0);   }   <br>
+     p.color4 {   border-style: solid;   border-color: blue red green yellow;   }  <br>
+     &lt;/style> <br> 
+     &lt;body>   <br>
+     &lt;p class="color1">Green   Border.&lt;/p>   <br>
+     &lt;p class="color2">Red Border.&lt;/p>   <br>
+&lt;p class="color3">Red Border.&lt;/p>   <br>
+&lt;p class="color4">Mix color   Border.&lt;/p>   <br>
+&lt;/body>   <br>
+&lt;/html> <br>
+    </span> <br>
+    <b>Output:</b> <br>
+    <br>
+    <img src="bcolor.png" style="height: 400px; width: 400px;">
+</p>
+</div>
+    <div class="container">
+        <button class="btn btn-primary"><a href="c7.html" style="text-decoration: none;color:white">Prev</a></button>
+        <button class="btn btn-primary"><a href="c9.html" style="text-decoration: none;color: white;">Next</a></button>
+      </div>
+      <br>
+    </div>
+    </body>
+    </html>

@@ -1,0 +1,124 @@
+body, html {
+    margin: 0;
+    padding: 0;
+  }
+  .nav {
+    background-color: blue;
+    position: fixed;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height :100px;
+      width: 100vw;
+    }
+  
+    .profile{
+      margin-right: 10px;
+      display: flex;
+      flex-direction: row;
+  
+    }
+    
+    .profile img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+      
+    }
+    
+    .profile .name {
+      margin-top: 15px;
+      font-weight: bold;
+      padding-right: 20px;
+      color: white;
+      
+    }
+    
+    .logo img {
+      margin-left: 10px;
+      width: 100px;
+      height: 40px;
+    }
+  .main-container {
+    padding-top: 100px;
+    display: flex;
+    width: 100%;
+  }
+  
+  .photo-container {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+  }
+  
+  .photo-container img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .content-container {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    flex: 1;
+    max-width: 50%;
+    padding: 20px;
+    background-color: #e0e0e0;
+  }
+  #submit{
+      width:30vw;
+      height: 5vh;
+      background-color: rgb(91, 91, 250);
+      font-weight:bolder;
+      border-radius:20px;
+      border: none;
+  }
+
+  .card {
+    width: 300px;
+    border: 1px solid #007BFF;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #F8F9FA;
+}
+.heading {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #007BFF;
+}
+.info {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.amount {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.button:hover {
+    background-color: #0056b3;
+}

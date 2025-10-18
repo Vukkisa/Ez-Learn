@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Introduction to Python</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-weight:normal;
+            font-size:18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #cee1f5;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        .topic-container {
+            background-color: #94beeb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .topic-container h2 {
+            color: #004C99;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+        .text-area {
+            margin-left: 100px;
+            height: fit-content;
+            resize: none; /* Prevent the textarea from being resized by the user */
+            font-family: Arial, sans-serif;
+            text-align: left;
+            font-size: large; /* Set text alignment to left */
+        }
+    </style>
+</head>
+<body>
+    <div class="topic-container">
+        <h2>Priciples of Object oriented Programming</h2>
+        <p>
+            Object Oriented Programming (OOP) is based on the concept of objects rather than
+actions, and data rather than logic. In order for a programming language to be objectoriented, it should have a mechanism to enable working with classes and objects as well
+as the implementation and usage of the fundamental object-oriented principles and
+concepts namely inheritance, abstraction, encapsulation and polymorphism.
+            <img style="margin-left: 16%;"  src="Screenshot (106).png" alt="">
+        </p>
+    </div>
+    <div class="topic-container">
+        <h2>What is polymorphism?</h2>
+        <p>
+            Polymorphism in Python is the ability of an object to take many forms. In simple words, polymorphism allows us to perform the same action in many different ways.
+
+            For example, Jessa acts as an employee when she is at the office. However, when she is at home, she acts like a wife. Also, she represents herself differently in different places. Therefore, the same person takes different forms as per the situation.    
+        </p>
+        <img style="margin-left: 16%;" src="polymorphism.jpg" alt="">
+    </div>
+
+    <div class="topic-container">
+        <h2>Polymorphism is built-in functions</h2>
+        <p>
+            The built-in function len() calculates the length of an object depending upon its type. If an object is a string, it returns the count of characters, and If an object is a list, it returns the count of items in a list.   
+        </p>
+        
+        <p>The len() method treats an object as per its class type.</p>
+
+
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="15" name="input">
+students = ['Emma', 'Jessa', 'Kelly']
+school = 'ABC School'
+
+# calculate count
+print(len(students))
+print(len(school))
+        </textarea>
+        <img style="margin-left: 5%;" src="polymorphism2.webp" alt="">
+    </div>
+
+    <div class="topic-container">
+        <h2>Method overriding</h2>
+        <p>
+            In this example, we have a vehicle class as a parent and a ‘Car’ and ‘Truck’ as its sub-class. But each vehicle can have a different seating capacity, speed, etc., so we can have the same instance method name in each class but with a different implementation. Using this code can be extended and easily maintained over time.
+        </p>
+        
+        <img style="margin-left: 10%;" src="polymorphism3.jpg" alt="">
+
+
+        <textarea readonly class="text-area" name="" id="" cols="40" rows="15" name="input">
+class Vehicle:
+
+    def __init__(self, name, color, price):
+        self.name = name
+        self.color = color
+        self.price = price
+
+    def show(self):
+        print('Details:', self.name, self.color, self.price)
+
+    def max_speed(self):
+        print('Vehicle max speed is 150')
+
+    def change_gear(self):
+        print('Vehicle change 6 gear')
+
+
+# inherit from vehicle class
+class Car(Vehicle):
+    def max_speed(self):
+        print('Car max speed is 240')
+
+    def change_gear(self):
+        print('Car change 7 gear')
+
+
+# Car Object
+car = Car('Car x1', 'Red', 20000)
+car.show()
+# calls methods from Car class
+car.max_speed()
+car.change_gear()
+
+# Vehicle Object
+vehicle = Vehicle('Truck x1', 'white', 75000)
+vehicle.show()
+# calls method from a Vehicle class
+vehicle.max_speed()
+vehicle.change_gear()
+        </textarea>
+
+    </div>
+</body>
+</html>

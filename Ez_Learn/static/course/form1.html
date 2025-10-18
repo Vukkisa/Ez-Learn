@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+      @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+        <br>
+          <div class="container top">
+            <h1> Forms Attributes </h1>
+          </div>
+          <br>
+<div class="container container1">
+<p>
+    <b>The Input Element</b><br>
+    <br>
+    Depending on the type of form you are creating, it’s entirely possible to have a form that only includes two types of elements: one form element and one or more input elements. 
+    The &lt;input> element is used to create a variety of different types of input fields for form users to interact with.<br>
+    <br>
+    <b style="background-color: #007bff;color:white">Common &lt;input type=""> Values</b><br>
+    The input element is a very flexible element who appearance and behavior can change dramatically based on the type attribute applied to the element. The most common type values include:<br>
+    <br>
+    <b>text:</b>  The default value for the type="" attribute. Defines a single line of text 20 characters wide.<br>
+     The width can be adjusted with the size attribute as you can see in the form code in our previous example.<br>
+     <br>
+     <b>password:</b> The password type is basically the same as the text field with the exception that characters entered into a password field are masked. <br>
+     <br>
+     <b>radio</b> Radio buttons can be used to provide multiple options of which only one may be chosen.<br>
+    <br>
+     <b>checkbox</b>  Checkboxes are similar to radio buttons, but more than one selection can be active at a time.
+      This means multiple values can be submitted with a set of checkboxes while a set of radio buttons will only accept one value.<br>
+      <br>
+      <b>submit:</b>  The submit type value creates a form submission button. 
+      When clicked, the form will take the action specified in the action attribute associated with the form element. Many forms make use of just one or two input types, and most simple forms are built using just the types listed above. However, there are many additional types you can use to accept form data that
+       doesn’t fit into any of the types listed above.<br>
+       <br>
+       <b style="background-color: #007bff;color:white">Less Common &lt;input type=""> Values</b><br>
+       <br>
+       These input types are less common than those listed above but are supported by virtually all browsers and can be used to build many different types of form inputs.<br>
+ <br>
+       <b>button:</b> If you want to run a script when a button is clicked, the button input type can be used to create a button which can be associated with a variety of actions. hidden: This attribute type is usually used simultaneously with the value attribute, which we’ll cover momentarily, to add a pre-defined value to every form submission. 
+      <br> For example, if you have contact forms on five different pages you could add <br>
+      &ltinput type="hidden" value="page_name"> to each form to submit the name of the page where the contact form was submitted from.<br>
+      <br>
+      <b>reset</b>  This type is used to create a reset button that will return all form fields to their default state.<br>
+      <br>
+      <b>file:</b> If you want to allow form users to upload and submit files, &lt;input type="file"> will provide that capability. <br>
+      <br>
+      <b>image:</b> In the past, it was common to use an image as a submit button. While this type value is still valid, it is not used very frequently in modern web form design. Instead, use CSS to style the button.<br>
+      <br>
+      <b style="background-color: #007bff;color:white">New added &lt;input type=""> Values Added by HTML 5</b><br>
+      <br>
+      Several additional input types are defined by the HTML5 specification. Many of these types have limited browser support.
+       So if you use them, be sure to check caniuse.com for browser support and provide adequate fallback options where appropriate. <br>
+       <br>
+       <b>search:</b> This is the proper type to specify if your form provides search functionality. 
+       Unlike most of the other types of inputs added in HTML5, type="search" is supported by all browsers. 
+       Just remember that this feature doesn’t actually provide search functionality, it just creates a form input field designed to be used
+        as a part of a search feature.<br>
+        <br>
+        <b>color:</b>  When this input type is specified it will display a colored-button that launches a basic color selector tool. 
+        Set the default color value by using the value attribute and a hex color code like this: &lt;input type="color" value="#0000FF"><br>
+        <br>
+        <b>number:</b>  This type produces a field for entering a number which has increment buttons on the righthand side of box. 
+        Limits can be placed on the range of acceptable entries with the max, min, and step attributes, but browsers that lack support for this element typically fallback to a standard text input that
+         does not recognize these limits.<br>
+         <br>
+         <b>range:</b>  Browser support for this element is pretty good with a few exceptions.
+        
+          Use this attribute to produce a slider which can be used to select a value within a specified range. <br>
+          For example, this code would produce a slider to select a number between 100 and 1000 in increments of 50: &lt;input type="range" name="range" min="100" max="1000" step="50">.
+           You’ll need to pair the range element with another technique to provide a live preview of the selected value.
+            Thankfully, HTML5 Doctor has a simple way to do this using the output element. Date and Time Types: HTML5 added a number of input types that can be used to specify time and date values.<br>
+             For example, the date type defines a control to enter a year, month, and day. 
+             To add time to the date input, use datetime-local. If you want time without date information use the time input type. 
+             Less specific input types include the month and week options which can be used to select a week or month within a year without specifying the day or time. 
+             <br>Browsers have been slow to add support for this type, so be sure to check for browser support and provide fallbacks if you use this type of input.<br>
+              Contact Detail Types: Broad support is available for the three input types used to collect pertinent details like email addresses (email), telephone numbers (tel), and website URLs (url).
+
+<br>
+</p>
+</div>
+<br>
+<div class="container top">
+    <h1>Common Input Attributes
+    </h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        While the type attribute is by far the most-used and most useful <b>input</b> attribute, there are several other attributes you will need to know to build useful forms.<br>
+        <br>
+        <b>name:</b> The name assigned to an input element will be submitted along with the value entered into the associated field. In other words, if the value “Fred” were entered into an input element with this code &lt;input type="text" name="first_name"> the value submitted would be “first_name=Fred”. <br>
+        <br>
+        <b>value:</b> The value of an input element performs a different function depending on the type of input it is applied to. When applied to the submit, reset, or button types the value is used as the text on the button. When applied to text fields it provides the default value associated with the field.<br>
+<br>
+         When associated with a checkbox or radio button, the value provides the value that will be associated with that field if selected.<br>
+         <br>
+         <b>readonly:</b>When readonly is applied as an attribute of an input element the value in the field cannot be changed. JavaScript can be used to remove the readonly attribute after some other action is taken, such as clicking a button or selecting a checkbox.
+          For example, readonly could be applied to a submit input type and removed when a checkbox was selected confirming that the user accepted the website’s terms of service<br>
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>
+        New Attributes Added by HTML5
+
+    </h1>
+</div>
+</br>
+<div class="container container1">
+    <p>
+        HTML5 added many new attributes which can be associated with input elements. 
+        Browser support for some of these elements is limited, so be sure to check for support and provide fallback options for users 
+        of unsupported browsers. <br>
+        <br>
+        <b>autocomplete:</b> If your form includes common fields, leaving autocomplete on will allow the visitors browser to suggest entries based on previously completed forms.<br>
+        <br>
+        <b>autofocus:</b> Use this attribute to identify the form field that should be in focus when the form loads.<br>
+        <br>
+        <b> multiple:</b> The multiple attribute can be used with email and file input types to allow form users to input more than one value.<br>
+         When used for email inputs, more than one email address can be submitted by separating each address from the next with a comma. When used for file inputs, multiple files may be selected and submitted simultaneously. <br>
+         <br>
+         <b>pattern:</b> There may be times when you want to specify that the value of an input must meet certain criteria.
+          For example, you may want to require that a password field includes at least one uppercase letter, one lowercase letter, one number, and meets a minimum length requirement. 
+        The pattern attribute can be used to create expressions against which input values are validated.
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Drop-Downs, Text Areas, & Buttons</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>Inputs aren’t the only elements that can be used to create form fields. Other types of elements can be<br>
+         associated with forms to create drop-down lists or options, free-form text areas, and flexible buttons.<br>
+         <br>
+         <b>Pre-Populated Drop-Down Lists</b><br>
+         <br>
+         To create a drop-down list of pre-populated options from which a website visitor can select an option,<br>
+          use the select element to create the field, and nest multiple option elements to create the various options that should appear in the drop-down menu.<br>
+           For example, to create a drop-down menu of pretentious color options for a fictional e-commerce store, the following code could be used:
+<br>
+<span style="background-color: bisque;">
+    <br>
+    &lt;select name="color"> <br>
+      &lt;option value="tan">Windswept Sand Dune&lt;/option> <br>
+        &lt;option value="green">Lush Forest&lt;/option>  <br>
+         &lt;option value="blue">Turbulent Waters&lt;/option> <br>
+           &lt;option value="black">Deep Night&ltl/option> <br>
+        &lt;/select> 
+        <br>
+</span><br>
+Note that the value is what will actually be submitted with the form while the text between the opening and closing tags is what is presented to the visitor completing the form.<br>
+ For example, if a visitor selects “Lush Forest” the actual value submitted with the form will be green. Here’s how our drop-down list shows up in the browser:
+ <br>
+ <span style="background-color: bisque;">
+    Windswept Sand Dune Lush Forest Turbulent Waters Deep Night
+</span><br>
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Free Form Text Areas</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>All of the text inputs we’ve seen so far, such as &lt;input type="text">, only accept a single line of text. However, if you want to create a larger text area for longer text input a single line input field isn’t going to work. The textarea element is the correct choice for creating a large text input area capable of accepting text input that won’t render well on a single line
+         There are three parts to a <br>
+         <b>textarea:</b><br>
+         1.The textarea is created by inserting opening and closing tags. Any text nested between the tags will be loaded in the text area when the form loads and will be submitted along with the form unless the visitor submitting the form deletes the text out of the textarea.<br>
+
+2.If you want to define the size of the text area use the rows attribute to define the number of rows of text that should able to be displayed without resizing the text area.<br>
+
+3.To set a predefined width use the cols attribute. The value applied will be the number of characters that will appear on a single row before wrapping to the second row.<br>
+
+Text area elements are resizable. However, the rows and cols attributes will define the size of the textarea when it is first rendered by the browser and will also set the minimum space the area may be resized to fit.<br>
+<br>
+<span style="background-color: bisque;">
+    &lt;textarea rows="3" cols="60" placeholder="Enter Text Here"><br>
+ &lt;/textarea> &lt;br> &lt;textarea rows="3" cols="60">  <br>
+  Enter Text Here &lt;/textarea> 
+</span><br>
+<br>
+This code will produce two identically sized text areas that are three rows tall and can accept 60 characters per row.<br>
+ They will be resizable to any size larger than the default size. Note how the placeholder text was added to <br>
+ the first with the placeholder element but simply nested between the opening and closing tags in the second example. 
+Below you can see how these two bits of code are rendered.<br>
+<br>
+<img src="textarea.png" alt="" style="height: 400px; width: auto;"><br>
+<br>
+While textarea size can be specified using ‘rows’ and ‘cols’, it is a better practice to use CSS to <br>
+style and size text areas. Many of the attributes that can be applied to input elements can also be <br>
+applied to textarea elements. In addition, to those included in our example above, attributes that can be applied to text areas include:<br>
+ autofocus, disabled, form, maxlength, name,readonly, required, and wrap.
+
+
+
+        </p>
+</div>
+<div class="container">
+    <button class="btn btn-primary"><a href="forms.html" style="text-decoration: none;color:white">Prev</a></button>
+    <button class="btn btn-primary"><a href="f4.html" style="text-decoration: none;color: white;">Next</a></button>
+  </div>
+  <br>
+</div>
+
+
+
+
+    

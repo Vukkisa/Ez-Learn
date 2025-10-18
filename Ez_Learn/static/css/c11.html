@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ-Learning</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+    
+      .container  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color:whitesmoke;
+        border-radius:10px ;
+        color:white;
+      }
+      
+
+      .container button {
+        margin: 5px;
+      }
+      .container p {
+        margin: 0;
+        line-height: 1.5;
+        
+        
+        
+      }
+      .white-link{
+        color:black;
+      }
+      .container1{
+        border-radius:10px ;
+        box-shadow: 2px 5px 10px black;
+        color: black;
+        
+        
+        /* opacity: 50%; */
+   
+      }
+      .top{
+        color: black;
+        background-color:#007bff;
+        border-radius:10px ;
+        box-shadow: 2px 5px 3px white;
+        font-family: "Poppins", sans-serif;
+        opacity: 80%;
+        font-size: medium;
+        
+      }
+      /* img{
+        width: 4.5%;
+        height: 10vh;
+      } */
+      .full-body{
+        background-color:whitesmoke;
+      }
+     .top h1{
+      font-size: x-large;
+     }
+          @media (max-width: 576px) {
+        .container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="full-body">
+<div class="container top">
+    <h1>CSS Gradient</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        <b>CSS Gradient:</b> The CSS gradient property is applied to show the smooth transition inside two specified colors or more than two specified colors. <br>
+<br>
+Need of CSS Gradient <br>
+The following are a few reasons why CSS gradient is used: <br>
+We do not have to apply images to show transition effects. <br>
+The bandwidth and download time usage may be reduced also. <br>
+It can give a better appearance to an element if zoomed because any gradient is produced by a browser. <br>
+<br>
+Following are two types of CSS3 gradients: <br>
+<br>
+Radial gradients <br>
+Linear gradients <br>
+<br>
+<b>Linear Gradient </b> <br>
+ The linear gradient in CSS3 goes left, right, up, down, and diagonally. To design the linear gradient in CSS3,<br>
+  we should have to specify two or more than two color stops. These are any color which can be applied to make the smooth transition. The direction and starting point can be included with any gradient effect also. <br>
+ <br>
+<span style="background-color: aquamarine;">background: linear-gradient (direction, color-stop1, color-stop2.....);  </span> <br>
+<br>
+i <b>Linear Gradient: (Top-Bottom)</b> <br>
+The linear gradient from top to bottom is a default CSS linear gradient. Following is an illustration of the linear gradient, and it will start from the top. It will start blue and the transitions to the yellow. <br>
+<br>
+<b>Example:</b> <br>
+<textarea readonly  style="height: 602px; width: 400px;">
+    <!DOCTYPE html> 
+<html> 
+<head> 
+<style> 
+#grad1
+{ 
+height: 100px; 
+background: -webkit-linear-gradient(blue, yellow); /* For browser Safari 5.1 to 6.0 */ 
+background: -o-linear-gradient(blue, yellow); /* For browser Opera 11.1 to 12.0 */ 
+background: -moz-linear-gradient(blue, yellow); /* For browser Firefox 3.6 to 15 */ 
+background: linear-gradient(blue, yellow); /* Standard syntax (should be last) */ 
+} 
+</style> 
+</head> 
+<body> 
+<h3> Linear Gradient (Top-Bottom) </h3> 
+<p> This linear gradient will be started from the top. It will start blue, transitioning to yellow: </p>  
+<div id="grad1"></div> 
+</body> 
+</html> 
+</textarea> <br>
+<br>
+<b>Output:</b><br>
+<img src="grad1.png" style="height: 400px; width: 400px;">
+<br>
+  </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Linear Gradient: (Left-Right)</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        The following illustration displays the CSS linear gradient. It will start from the left side and proceed to the right side. It will start blue from the left and the transitioning to the green. <br>
+        <br>
+
+<b>Example:</b> <br>
+<textarea readonly  style="height: 580px; width: 400px;">
+    <!DOCTYPE html> 
+<html> 
+<head> 
+<style> 
+#grad1
+{ 
+height: 100px; 
+background: -webkit-linear-gradient(left, blue, yellow); /* For browser Safari 5.1 to 6.0 */ 
+background: -o-linear-gradient(right, blue, yellow); /* For browser Opera 11.1 to 12.0 */ 
+background: -moz-linear-gradient(right, blue, yellow); /* For browser Firefox 3.6 to 15 */ 
+background: linear-gradient(to right, blue, yellow); /* Standard syntax (should be last) */ 
+} 
+</style> 
+</head> 
+<body> 
+<h3> Linear Gradient (Left-Right) </h3> 
+<p> This linear gradient will be started from the left. It will start blue, transitioning to yellow: </p> 
+<div id="grad1"></div> 
+</body> 
+</html> 
+</textarea> <br>
+<b>Output:</b> <br>
+<img src="grad2.png" style="height: 400px;width: 500px;">
+<br>
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Linear Gradient: (Diagonal)    </h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+    When we describe the vertical and horizontal starting positions, we can create any linear-gradient diagonal. <br>
+<br>
+<b>Example:</b> <br>
+<br>
+<textarea readonly style="height: 570px; width: 400px;">
+    <!DOCTYPE html> 
+<html> 
+<head> 
+<style> 
+#grad1
+{ 
+height: 100px; 
+background: -webkit-linear-gradient(left top, blue, yellow); /* For browser Safari 5.1 to 6.0 */ 
+background: -o-linear-gradient(bottom right, blue, yellow); /* For browser Opera 11.1 to 12.0 */ 
+background: -moz-linear-gradient(bottom right, blue, yellow); /* For browser Firefox 3.6 to 15 */ 
+background: linear-gradient(to bottom right, blue, yellow); /* Standard syntax (should be last) */ 
+} 
+</style> 
+</head> 
+<body> 
+<h3> Linear Gradient (Diagonal) </h3> 
+<p> This linear gradient will be started from the left. It will start blue, transitioning to yellow: </p> 
+<div id="grad1"></div> 
+</body> 
+</html> 
+</textarea> <br>
+<b>Output:</b> <br>
+<img src="grad3.png" style="height: 400px; width: 500px;">
+
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Radial Gradient</h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        We should have to represent at least two of the color stops for making the radial gradient. This gradient can be represented through its center. <br>
+        <br>
+        <span style="background-color: aquamarine;">background: radial-gradient(shape size at position, start-color, ..., last-color);   </span> <br>
+        <br>
+        <b>Radial Gradient: (Color Stops, i.e., evenly spaced)</b> <br>
+        <br>
+        <b>color stops:</b>, i.e., evenly spaced, is the default CSS radial gradient. It has default shapes, which can be position in the center, eclipse, size in the farthest- carner. <br>
+        <br>
+        <b>Example:</b> <br>
+        <textarea readonly style="height: 580px; width: 400px;">
+            <!DOCTYPE html> 
+<html> 
+<head> 
+<style> 
+#grad1
+{ 
+height: 150px; 
+width: 200px; 
+background: -webkit-radial-gradient(blue, yellow, green); /* For browser Safari 5.1 to 6.0 */ 
+background: -o-radial-gradient(blue, yellow, green); /* For browser Opera 11.6 to 12.0 */ 
+background: -moz-radial-gradient(blue, yellow, green); /* For browser Firefox 3.6 to 15 */ 
+background: radial-gradient(blue, yellow, green); /* Standard syntax (should be last) */ 
+} 
+</style> 
+</head> 
+<body> 
+<h3>Radial Gradient - Color Stops, i.e., Evenly Spaced </h3> 
+<div id="grad1"></div> 
+</body> 
+</html> 
+        </textarea> <br>
+        <br>
+        <b>Output:</b> <br>
+        <img src="gard4.png" style="height: 400px;width: 500px;">
+
+    </p>
+</div>
+<br>
+<div class="container top">
+    <h1>Radial Gradient: (Color Stops, i.e., differently spaced)
+    </h1>
+</div>
+<br>
+<div class="container container1">
+    <p>
+        <b>Example:</b> <br>
+        <br>
+        <textarea style="height: 550px; width: 400px;">
+            <!DOCTYPE html> 
+<html> 
+<head> 
+<style> 
+#grad1
+{ 
+height: 150px; 
+width: 200px; 
+background: -webkit-radial-gradient(blue 5%, yellow 15%, green 60%); /* For browser Safari 5.1 to 6.0 */ 
+background: -o-radial-gradient(blue 5%, yellow 15%, green 60%); /* For browser Opera 11.6 to 12.0 */ 
+background: -moz-radial-gradient(blue 5%, yellow 15%, green 60%); /* For browser Firefox 3.6 to 15 */ 
+background: radial-gradient(blue 5%, yellow 15%, green 60%); /* Standard syntax (should be last) */ 
+} 
+</style> 
+</head> 
+<body> 
+<h3>Radial Gradient - Color Stops, i.e., Differently Spaced </h3> 
+<div id="grad1"></div> 
+</body> 
+</html> 
+        </textarea> <br>
+        <br>
+        <b>Output:</b> <br>
+        <img src="grad5.png" style="height: 400px; width: 500px;">
+    </p>
+</div>
+    <div class="container">
+        <button class="btn btn-primary"><a href="c10.html" style="text-decoration: none;color:white">Prev</a></button>
+        <button class="btn btn-primary"><a href="" style="text-decoration: none;color:white">Next</a></button>
+      </div>
+      <br>
+    </div>
+    </body>
+    </html>
