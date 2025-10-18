@@ -1,0 +1,1 @@
+web: bash -lc "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ez_Learn.wsgi --workers 3 --bind 0.0.0.0:$PORT"
