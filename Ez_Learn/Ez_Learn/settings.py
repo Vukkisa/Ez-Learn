@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ez_learn.apps.EzLearnConfig',
+    'Ez_Learn.apps.EzLearnConfig',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +54,7 @@ MIDDLEWARE = [
 
 CSRF_TRUSTED_ORIGINS = ["https://api.razorpay.com"]
 
-ROOT_URLCONF = 'ez_learn_project.urls'
+ROOT_URLCONF = 'website.urls'
 
 TEMPLATES = [
     {
