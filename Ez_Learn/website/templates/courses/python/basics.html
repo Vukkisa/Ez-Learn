@@ -4,46 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Basics - Ez-Learn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
         }
         .header {
-            background: #667eea;
-            color: white;
-            padding: 20px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            color: #f1f5f9;
+            padding: 25px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .header h1::before {
+            content: '🐍';
+            font-size: 2rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .header .welcome-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: rgba(6, 182, 212, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+            color: #06b6d4;
+        }
+        .header .welcome-text:hover {
+            background: rgba(6, 182, 212, 0.2);
+            transform: scale(1.05);
         }
         .container {
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 16px;
             display: inline-block;
             margin: 10px 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
         }
         .btn:hover {
-            background: #5a6fd8;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+            background: linear-gradient(135deg, #0891b2 0%, #0369a1 100%);
         }
         .lesson {
             margin: 30px 0;
-            padding: 20px;
-            border-left: 4px solid #667eea;
-            background: #f8f9fa;
+            padding: 25px;
+            border-left: 4px solid #06b6d4;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .lesson h3 {
+            color: #f1f5f9;
+            margin-bottom: 15px;
+        }
+        .lesson p {
+            color: #94a3b8;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .lesson ul, .lesson ol {
+            color: #94a3b8;
+            margin-left: 20px;
+        }
+        .lesson li {
+            margin-bottom: 8px;
+        }
+        .lesson strong {
+            color: #f1f5f9;
+        }
+        .lesson em {
+            color: #06b6d4;
         }
         .code-block {
             background: #2d3748;
@@ -76,58 +163,85 @@
             opacity: 1;
         }
         .interactive-demo {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 12px;
             padding: 20px;
             margin: 15px 0;
+            color: #e2e8f0;
+        }
+        .interactive-demo h4 {
+            color: #f1f5f9;
+            margin-bottom: 10px;
+        }
+        .interactive-demo p {
+            color: #94a3b8;
         }
         .demo-button {
-            background: #667eea;
+            background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
             color: white;
-            border: none;
+            border: 1px solid rgba(6, 182, 212, 0.3);
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 12px;
             cursor: pointer;
             margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
         }
         .demo-button:hover {
-            background: #5a6fd8;
+            background: linear-gradient(135deg, #0891b2 0%, #0369a1 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
         }
         .quiz-container {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             padding: 20px;
             margin: 15px 0;
+            color: #e2e8f0;
         }
         .quiz-option {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             padding: 15px;
             margin: 10px 0;
             cursor: pointer;
             transition: all 0.3s ease;
+            color: #e2e8f0;
         }
         .quiz-option:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
+            border-color: #06b6d4;
+            background: rgba(30, 41, 59, 0.8);
+            transform: translateY(-2px);
         }
         .quiz-option.correct {
             border-color: #28a745;
-            background: #d4edda;
+            background: rgba(40, 167, 69, 0.2);
         }
         .quiz-option.incorrect {
             border-color: #dc3545;
-            background: #f8d7da;
+            background: rgba(220, 53, 69, 0.2);
+        }
+        .quiz-feedback {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        .quiz-feedback.correct {
+            color: #28a745;
+        }
+        .quiz-feedback.incorrect {
+            color: #dc3545;
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Python Basics</h1>
-        <span>Welcome, {{ learner.username }}</span>
+        <span class="welcome-text">Welcome, {{ learner.username }}</span>
     </div>
     
     <div class="container">
@@ -140,27 +254,27 @@
         </div>
 
         <!-- Progress indicator -->
-        <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
-            <h4 style="margin: 0; color: #667eea;">📚 Python Basics - Free Content</h4>
-            <div style="width: 100%; background: rgba(102, 126, 234, 0.2); border-radius: 10px; margin-top: 10px;">
-                <div id="progress-bar" style="width: 0%; background: linear-gradient(135deg, #667eea, #764ba2); height: 8px; border-radius: 10px; transition: width 0.5s ease;"></div>
+        <div style="background: rgba(6, 182, 212, 0.1); padding: 20px; border-radius: 12px; margin-bottom: 30px; text-align: center; border: 1px solid rgba(6, 182, 212, 0.3);">
+            <h4 style="margin: 0; color: #06b6d4; font-size: 1.2rem; font-weight: 600;">📚 Python Basics - Free Content</h4>
+            <div style="width: 100%; background: rgba(6, 182, 212, 0.2); border-radius: 10px; margin-top: 10px;">
+                <div id="progress-bar" style="width: 0%; background: linear-gradient(135deg, #06b6d4, #8b5cf6); height: 8px; border-radius: 10px; transition: width 0.5s ease;"></div>
             </div>
-            <p style="margin: 10px 0 0 0; color: #666; font-size: 0.9rem;">Progress: <span id="progress-text">0%</span> Complete (<span id="completed-lessons">0</span>/10 lessons) - Est. 45 minutes</p>
+            <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 0.9rem;">Progress: <span id="progress-text" style="color: #06b6d4; font-weight: 600;">0%</span> Complete (<span id="completed-lessons" style="color: #06b6d4; font-weight: 600;">0</span>/10 lessons) - Est. 45 minutes</p>
         </div>
 
-        <h2>🎓 Python Fundamentals - FREE CONTENT</h2>
+        <h2 style="color: #f1f5f9; text-align: center; margin-bottom: 30px;">🎓 Python Fundamentals - FREE CONTENT</h2>
         
         <div class="lesson">
             <h3>1. What is Python? 🐍</h3>
             <p><strong>Python</strong> is a high-level, interpreted programming language with simple syntax and powerful capabilities. It's perfect for beginners and used by companies like Google, Netflix, and Instagram!</p>
             
-            <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #667eea;">
-                <h4>🌟 Why Python?</h4>
-                <ul>
-                    <li><strong>Easy to read:</strong> Code looks like plain English</li>
-                    <li><strong>Versatile:</strong> Web development, data science, AI, automation</li>
-                    <li><strong>Large community:</strong> Tons of libraries and help available</li>
-                    <li><strong>Great for beginners:</strong> Quick to learn and start building</li>
+            <div style="background: rgba(6, 182, 212, 0.1); padding: 15px; border-radius: 12px; margin: 15px 0; border-left: 4px solid #06b6d4; border: 1px solid rgba(6, 182, 212, 0.3);">
+                <h4 style="color: #f1f5f9; margin-bottom: 10px;">🌟 Why Python?</h4>
+                <ul style="color: #94a3b8; margin-left: 20px;">
+                    <li><strong style="color: #f1f5f9;">Easy to read:</strong> Code looks like plain English</li>
+                    <li><strong style="color: #f1f5f9;">Versatile:</strong> Web development, data science, AI, automation</li>
+                    <li><strong style="color: #f1f5f9;">Large community:</strong> Tons of libraries and help available</li>
+                    <li><strong style="color: #f1f5f9;">Great for beginners:</strong> Quick to learn and start building</li>
                 </ul>
             </div>
             
@@ -490,7 +604,7 @@ print(name, "is", age, "years old")
             <div style="margin-top: 20px;">
                 <p style="font-size: 1.1rem; color: #666;"><strong>Ready for the next level?</strong> Unlock Intermediate and Advanced Python lessons!</p>
                 <a href="{% url 'check_payment' learner.id course.name %}" class="btn" style="background: linear-gradient(135deg, #4caf50, #45a049); font-size: 1.1rem; padding: 15px 30px;">
-                    🚀 Upgrade to Full Course - ₹{{ course.price }}
+                    🚀 Upgrade to Full Course
                 </a>
             </div>
             {% else %}

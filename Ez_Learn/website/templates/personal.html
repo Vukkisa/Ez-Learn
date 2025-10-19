@@ -66,6 +66,12 @@
             
             <div class="form-group">
                 {{ form.profile_picture.label_tag }}
+                {% if learner.profile_picture %}
+                    <div style="margin-bottom: 10px;">
+                        <strong>Current Profile Picture:</strong><br>
+                        <img src="{{ learner.profile_picture.url }}" alt="Current Profile Picture" style="max-width: 150px; max-height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ddd;">
+                    </div>
+                {% endif %}
                 {{ form.profile_picture }}
             </div>
             

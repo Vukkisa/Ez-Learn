@@ -6,7 +6,12 @@ from django import forms
 class ImageForm(forms.Form):
     profile_picture = forms.ImageField(
         required=False,
-        label="Upload Profile Picture"
+        label="Upload Profile Picture",
+        help_text="Select an image file (JPEG, PNG, etc.)",
+        widget=forms.FileInput(attrs={
+            'accept': 'image/*',
+            'class': 'form-control'
+        })
     )
 
     # You can extend this form with more fields if needed later

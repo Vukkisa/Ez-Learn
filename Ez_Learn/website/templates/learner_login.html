@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learner Login - Ez-Learn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,13 +13,16 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #e2e8f0;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
         
         /* Skip to main content - Accessibility feature */
@@ -50,26 +54,31 @@
         }
         
         .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 50px 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 60px 50px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
             position: relative;
             overflow: hidden;
-            animation: slideIn 0.6s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
         }
         
-        @keyframes slideIn {
-            from {
+        @keyframes slideInScale {
+            0% {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px) scale(0.9);
             }
-            to {
+            50% {
+                opacity: 0.8;
+                transform: translateY(-10px) scale(1.02);
+            }
+            100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
         
@@ -79,8 +88,9 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
         }
         
         .login-header {
@@ -89,14 +99,14 @@
         }
         
         .login-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 8px;
+            color: #f1f5f9;
+            margin-bottom: 12px;
         }
         
         .login-subtitle {
-            color: #666;
+            color: #94a3b8;
             font-size: 0.9rem;
         }
         
@@ -111,68 +121,74 @@
         
         input[type="text"], input[type="password"] {
             width: 100%;
-            padding: 15px 20px 15px 50px;
-            border: 2px solid #e1e5e9;
-            border-radius: 12px;
+            padding: 18px 25px 18px 55px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
             font-size: 16px;
-            background: #f8f9fa;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             outline: none;
+            font-weight: 500;
+            color: #e2e8f0;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
         }
         
         input[type="text"]:focus, input[type="password"]:focus {
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #06b6d4;
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3), 
+                        0 0 0 1px rgba(6, 182, 212, 0.2);
+            transform: translateY(-2px);
+        }
+
+        input[type="text"]::placeholder, input[type="password"]::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
         }
         
         .input-icon {
             position: absolute;
-            left: 18px;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            color: #999;
-            font-size: 18px;
+            color: #94a3b8;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        input[type="text"]:focus + .input-icon, 
+        input[type="password"]:focus + .input-icon {
+            color: #06b6d4;
+            transform: translateY(-50%) scale(1.1);
         }
         
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
             color: white;
-            padding: 15px 20px;
+            padding: 18px 25px;
             border: none;
-            border-radius: 12px;
+            border-radius: 16px;
             cursor: pointer;
             width: 100%;
             font-size: 16px;
             font-weight: 600;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.3);
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+            background: linear-gradient(135deg, #0891b2 0%, #0369a1 100%);
         }
         
         .btn:active {
-            transform: translateY(0);
+            transform: translateY(-2px) scale(1.01);
         }
         
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
         
         .error {
             background: #ffe6e6;
@@ -194,23 +210,23 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 25px;
-            border-top: 1px solid #e1e5e9;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .register-links p {
             margin-bottom: 10px;
-            color: #666;
+            color: #94a3b8;
         }
         
         .register-links a {
-            color: #667eea;
+            color: #06b6d4;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
         }
         
         .register-links a:hover {
-            color: #764ba2;
+            color: #0dc4e8;
             text-decoration: underline;
         }
         
@@ -220,7 +236,7 @@
         }
         
         .forgot-password a {
-            color: #667eea;
+            color: #06b6d4;
             text-decoration: none;
             font-size: 0.9rem;
         }

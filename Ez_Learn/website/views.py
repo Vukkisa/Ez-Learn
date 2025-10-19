@@ -370,18 +370,27 @@ def complete_profile(request, id):
     
     if request.method == 'POST':
         try:
+            print(f"🔍 Processing POST request for learner: {learner.id}")
+            print(f"🔍 FILES data: {request.FILES}")
+            print(f"🔍 POST data: {request.POST}")
+            
             form = imageForm(request.POST, request.FILES)
+            print(f"🔍 Form is valid: {form.is_valid()}")
+            if not form.is_valid():
+                print(f"🔍 Form errors: {form.errors}")
+            
             if form.is_valid():
                 img = form.cleaned_data.get('profile_picture')
-                print(f"🔍 Profile picture: {img}")
+                print(f"🔍 Profile picture from form: {img}")
+                print(f"🔍 Profile picture type: {type(img)}")
                 
                 # Update learner fields safely
-                learner.dno = request.POST.get('house_no', '')
-                learner.street = request.POST.get('street', '')
-                learner.city = request.POST.get('city', '')
-                learner.state = request.POST.get('state', '')
-                learner.country = request.POST.get('country', '')
-                learner.pincode = request.POST.get('pincode', '')
+                learner.dno = request.POST.get('house_no', learner.dno or '')
+                learner.street = request.POST.get('street', learner.street or '')
+                learner.city = request.POST.get('city', learner.city or '')
+                learner.state = request.POST.get('state', learner.state or '')
+                learner.country = request.POST.get('country', learner.country or '')
+                learner.pincode = request.POST.get('pincode', learner.pincode or '')
                 learner.ph_number = request.POST.get('phone_no', learner.ph_number)
                 
                 # Handle date field safely
@@ -389,35 +398,44 @@ def complete_profile(request, id):
                 if dob_str:
                     learner.DOB = dob_str
                 
-                # Handle image safely
+                # Handle image safely - only update if a new image was provided
                 if img:
+                    print(f"🔍 Setting new profile picture: {img.name}")
                     learner.profile_picture = img
+                    print(f"🔍 Profile picture set successfully")
+                else:
+                    print(f"🔍 No new profile picture provided, keeping existing: {learner.profile_picture}")
                 
                 learner.save()
                 print(f"✅ Profile saved for learner: {learner.username}")
                 
-                # Automatically log in the user after profile completion
-                if learner.user:
+                # Check if profile picture was actually saved
+                if img:
+                    print(f"✅ Profile picture saved: {learner.profile_picture}")
+                    print(f"✅ Profile picture URL: {learner.profile_picture.url if learner.profile_picture else 'None'}")
+                
+                # Automatically log in the user after profile completion if not already logged in
+                if learner.user and not request.user.is_authenticated:
                     login(request, learner.user)
                     print(f"✅ User automatically logged in after profile completion")
-                    return redirect('home', learner.id)
-                else:
-                    # Fallback if no user account found
-                    print(f"❌ No user account found for learner")
-                    return redirect('learner_login')
+                
+                # Redirect to profile page to show updated info
+                return redirect('learner_profile', learner.id)
             else:
                 print(f"❌ Form validation errors: {form.errors}")
                 return render(request, 'personal.html', {
                     'learner': learner, 
                     'form': form,
-                    'error': 'Please correct the errors below'
+                    'error': f'Please correct the errors below: {form.errors}'
                 })
         except Exception as e:
+            import traceback
             print(f"❌ Error saving profile: {e}")
+            print(f"❌ Traceback: {traceback.format_exc()}")
             return render(request, 'personal.html', {
                 'learner': learner, 
                 'form': imageForm(),
-                'error': 'Error saving profile. Please try again.'
+                'error': f'Error saving profile: {str(e)}. Please try again.'
             })
         
 

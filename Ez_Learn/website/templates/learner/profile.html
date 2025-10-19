@@ -19,13 +19,30 @@
         }
         
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            padding: 25px 0;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #4facfe);
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .header-content {
@@ -39,8 +56,19 @@
         
         .header h1 {
             color: #333;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        .header h1:hover {
+            transform: scale(1.02);
         }
         
         .header-actions {
@@ -340,8 +368,8 @@
             <!-- Profile Picture & Stats -->
             <div class="profile-card">
                 <div class="profile-pic">
-                    {% if learner.profile_picture and learner.profile_picture.url %}
-                        <img src="{{ learner.profile_picture.url }}" alt="Profile Picture">
+                    {% if learner.profile_picture %}
+                        <img src="{{ learner.profile_picture.url }}" alt="Profile Picture" onerror="this.parentElement.innerHTML='<div class=\'default-avatar\'>👤</div>';">
                     {% else %}
                         <div class="default-avatar">👤</div>
                     {% endif %}

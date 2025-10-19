@@ -9,7 +9,7 @@ class Learner(models.Model):
         username = models.CharField(max_length=50)
         first_name = models.CharField(max_length=50, default='')
         last_name = models.CharField(max_length=50, default='')
-        profile_picture = models.ImageField(null=True, blank=True, upload_to='images/', default='static/dummy.png')
+        profile_picture = models.ImageField(null=True, blank=True, upload_to='images/')
         email = models.EmailField()
         ph_number = models.CharField(max_length=15, blank=True, null=True)
         DOB = models.DateField( null = True, default='2001-01-01')

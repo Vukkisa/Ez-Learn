@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Ez-Learn - Your Learning Journey Starts Here</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -13,14 +14,15 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            background-attachment: fixed;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #e2e8f0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
         }
         
         /* Skip to main content - Accessibility feature */
@@ -51,146 +53,131 @@
             text-decoration: none;
         }
         
-        /* Floating particles animation */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
-            50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
-        }
         
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
-            padding: 20px 0;
+            padding: 32px 0 40px 0;
             text-align: center;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
         }
-        
+
         header::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-            animation: gradientShift 3s ease-in-out infinite;
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
         }
-        
-        @keyframes gradientShift {
-            0%, 100% { background: linear-gradient(90deg, #667eea, #764ba2, #f093fb); }
-            50% { background: linear-gradient(90deg, #f093fb, #667eea, #764ba2); }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
         }
-        
+
         .logo {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            position: relative;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 30px rgba(6, 182, 212, 0.3));
         }
-        
+
+        .logo:hover {
+            transform: translateY(-2px);
+            filter: drop-shadow(0 0 40px rgba(139, 92, 246, 0.4));
+        }
+
         .tagline {
-            color: #666;
+            color: #94a3b8;
             font-size: 1.1rem;
-            margin-bottom: 20px;
+            margin-bottom: 0;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        /* Responsive header */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .header-content {
+                padding: 0 20px;
+            }
         }
         
         main {
             flex: 1;
-            max-width: 1000px;
+            max-width: 1400px;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 0 32px;
             width: 100%;
         }
         
         .hero-section {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 64px;
+            padding: 48px 0;
         }
         
         .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff, #f8f9ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1s ease-out, glow 2s ease-in-out infinite alternate;
+            font-size: 4.2rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 32px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
             position: relative;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 40px rgba(226, 232, 240, 0.3);
+            cursor: default;
+            user-select: none;
         }
-        
-        .hero-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #fff, transparent);
-            animation: expandLine 2s ease-out 1s both;
-        }
-        
-        @keyframes glow {
-            from { filter: brightness(1); }
-            to { filter: brightness(1.2); }
-        }
-        
-        @keyframes expandLine {
-            from { width: 0; }
-            to { width: 100px; }
+
+        .hero-title:hover {
+            transform: translateY(-2px);
+            color: #f1f5f9;
         }
         
         .hero-subtitle {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 40px;
+            font-size: 1.25rem;
+            color: #94a3b8;
+            margin-bottom: 48px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            animation: fadeInUp 1s ease-out 0.2s both, typewriter 3s ease-out 1.5s both;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-weight: 400;
         }
         
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
         
         .main-content {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(20px);
-            padding: 50px 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 1s ease-out 0.4s both;
+            padding: 56px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         main {
@@ -201,8 +188,8 @@
         .role-section {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 30px;
-            margin: 40px 0;
+            gap: 40px;
+            margin: 56px 0;
         }
         
         @media (min-width: 768px) {
@@ -213,138 +200,191 @@
         
         .learner-card, .developer-card {
             text-align: center;
-            padding: 40px 30px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            padding: 56px 40px;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
-            overflow: hidden;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            color: #e2e8f0;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
         
         .learner-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            border-left: 4px solid #06b6d4;
         }
         
         .developer-card {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-            color: white;
+            border-left: 4px solid #8b5cf6;
         }
         
         .learner-card:hover, .developer-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
         
         .role-icon {
             font-size: 3rem;
-            margin-bottom: 20px;
+            margin-bottom: 32px;
             display: block;
+            opacity: 0.9;
         }
         
         .role-title {
-            font-size: 1.8rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: #f1f5f9;
         }
         
         .role-description {
             font-size: 1rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #94a3b8;
+            line-height: 1.7;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .button-group {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
         }
         
         .btn {
             display: inline-block;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 16px 32px;
+            border-radius: 16px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            min-width: 140px;
+            backdrop-filter: blur(10px);
         }
         
-        .btn-primary {
-            background: rgba(255, 255, 255, 0.2);
+        .learner-card .btn-primary {
+            background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
             color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
         }
         
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
+        .learner-card .btn-secondary {
+            background: rgba(6, 182, 212, 0.1);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        
+        .developer-card .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
             color: white;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+        }
+        
+        .developer-card .btn-secondary {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            backdrop-filter: blur(10px);
         }
         
         .btn-primary:hover, .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .learner-card .btn-primary:hover {
+            background: linear-gradient(135deg, #0891b2 0%, #0369a1 100%);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+        }
+        
+        .learner-card .btn-secondary:hover {
+            background: rgba(6, 182, 212, 0.2);
+            color: #0dc4e8;
+            border-color: rgba(6, 182, 212, 0.6);
+        }
+        
+        .developer-card .btn-primary:hover {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+        
+        .developer-card .btn-secondary:hover {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+            border-color: rgba(139, 92, 246, 0.6);
         }
         
         .features-section {
-            margin-top: 60px;
+            margin-top: 80px;
             text-align: center;
         }
         
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 56px;
         }
         
         .feature-item {
-            padding: 30px 20px;
-            border-radius: 15px;
-            background: rgba(102, 126, 234, 0.1);
-            transition: all 0.3s ease;
+            padding: 40px 32px;
+            border-radius: 20px;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            position: relative;
         }
         
         .feature-item:hover {
-            transform: translateY(-5px);
-            background: rgba(102, 126, 234, 0.15);
+            transform: translateY(-6px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
         }
         
         .feature-icon {
             font-size: 2.5rem;
-            margin-bottom: 15px;
+            margin-bottom: 24px;
             display: block;
+            color: #06b6d4;
+            opacity: 0.9;
         }
         
         .feature-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #333;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #f1f5f9;
         }
         
         .feature-description {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
         
         .feature-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
             color: white;
-            padding: 5px 12px;
-            border-radius: 15px;
+            padding: 8px 16px;
+            border-radius: 12px;
             font-size: 0.8rem;
             font-weight: 600;
-            margin-top: 15px;
+            margin-top: 20px;
             display: inline-block;
-            animation: pulse 2s infinite;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         
@@ -384,40 +424,16 @@
         }
         
         footer {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
             text-align: center;
-            padding: 30px 20px;
-            color: #666;
+            padding: 40px 32px;
+            color: #94a3b8;
             margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.3);
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
     </style>
 </head>
 <body>
@@ -425,14 +441,16 @@
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
     
     <header>
-        <div class="logo">Ez-Learn</div>
-        <div class="tagline">Learn Programming & Web Development</div>
+        <div class="header-content">
+            <div class="logo">Ez-Learn</div>
+            <div class="tagline">Your Journey to Smarter Learning — Easy, Engaging & Exciting!</div>
+        </div>
     </header>
 
     <main id="main-content">
         <div class="hero-section">
-            <h1 class="hero-title">Welcome to Ez-Learn</h1>
-            <p class="hero-subtitle">Master Python, HTML, and CSS through structured courses, interactive quizzes, and progress tracking. Get started with free basic content today!</p>
+            <h1 class="hero-title">Start Your Coding Adventure Today!</h1>
+            <p class="hero-subtitle">Transform from beginner to pro with our interactive Python, HTML, and CSS courses. Take engaging quizzes, earn certificates, and track your progress as you build real-world skills!</p>
         </div>
 
         <div class="main-content">
@@ -440,7 +458,7 @@
                 <div class="learner-card">
                     <span class="role-icon">🎓</span>
                     <h3 class="role-title">I'm a Learner</h3>
-                    <p class="role-description">Access free Python, HTML, and CSS courses. Take quizzes with 11 questions each and earn certificates by scoring 60% or higher.</p>
+                    <p class="role-description">Access free Python, HTML, and CSS courses. Take quizzes with 10 questions each and earn certificates by scoring 60% or higher.</p>
                     <div class="button-group">
                         <a href="{% url 'learner_login' %}" class="btn btn-primary">Sign In</a>
                         <a href="{% url 'register_learner' %}" class="btn btn-secondary">Get Started</a>
@@ -459,7 +477,7 @@
             </div>
             
             <div class="features-section">
-                <h2 style="font-size: 2rem; margin-bottom: 20px; color: #333;">What We Offer</h2>
+                <h2 style="font-size: 2.25rem; margin-bottom: 56px; color: #f1f5f9; font-weight: 700; letter-spacing: -0.025em;">What We Offer</h2>
                 <div class="features-grid">
                     <div class="feature-item">
                         <div class="feature-icon"><i class="fas fa-book-open"></i></div>
@@ -470,8 +488,8 @@
                     <div class="feature-item">
                         <div class="feature-icon"><i class="fas fa-brain"></i></div>
                         <h4 class="feature-title">Knowledge Quizzes</h4>
-                        <p class="feature-description">Test your understanding with 11 multiple-choice questions per quiz. Track your scores and quiz history in your dashboard.</p>
-                        <div class="feature-badge">11 Questions</div>
+                        <p class="feature-description">Test your understanding with 10 multiple-choice questions per quiz. Track your scores and quiz history in your dashboard.</p>
+                        <div class="feature-badge">10 Questions</div>
                     </div>
                     <div class="feature-item">
                         <div class="feature-icon"><i class="fas fa-trophy"></i></div>
@@ -502,115 +520,16 @@
         <p>&copy; 2025 Ez-Learn. Learn programming fundamentals with Python, HTML, and CSS.</p>
     </footer>
     
-    <!-- Floating Particles -->
-    <div class="particles" id="particles"></div>
-    
     <script>
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                particle.style.width = particle.style.height = Math.random() * 6 + 2 + 'px';
-                particlesContainer.appendChild(particle);
-            }
-        }
-        
-        // Animate statistics counter
-        function animateCounter(element, target, duration = 2000) {
-            const start = 0;
-            const increment = target / (duration / 16);
-            let current = start;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                element.textContent = Math.floor(current);
-            }, 16);
-        }
-        
-        // Add interactive elements and animations
+        // Minimal interaction handling
         document.addEventListener('DOMContentLoaded', function() {
-            // Create floating particles
-            createParticles();
-            
-            // Add click tracking for analytics (placeholder)
+            // Simple button click tracking
             const buttons = document.querySelectorAll('.btn');
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
                     console.log('Button clicked:', this.textContent);
-                    // Add ripple effect
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
                 });
             });
-            
-            // Animate statistics when they come into view
-            const observerOptions = {
-                threshold: 0.5,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (entry.target.classList.contains('stat-number')) {
-                            const target = parseInt(entry.target.getAttribute('data-target'));
-                            animateCounter(entry.target, target);
-                            observer.unobserve(entry.target);
-                        } else {
-                            entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                        }
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe elements
-            document.querySelectorAll('.feature-item, .stat-item, .stat-number').forEach(item => {
-                observer.observe(item);
-            });
-            
-            // Add hover effects to cards
-            document.querySelectorAll('.learner-card, .developer-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-15px) scale(1.02)';
-                    this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.25)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                });
-            });
-            
-            // Typewriter effect for hero subtitle
-            const heroSubtitle = document.querySelector('.hero-subtitle');
-            if (heroSubtitle) {
-                const text = heroSubtitle.textContent;
-                heroSubtitle.textContent = '';
-                let index = 0;
-                
-                setTimeout(() => {
-                    const typeInterval = setInterval(() => {
-                        heroSubtitle.textContent += text[index];
-                        index++;
-                        if (index >= text.length) {
-                            clearInterval(typeInterval);
-                        }
-                    }, 30);
-                }, 1000);
-            }
         });
     </script>
 </body>

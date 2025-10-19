@@ -4,55 +4,256 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Course - Ez-Learn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
         }
+        /* AshyTech Header */
         .header {
-            background: #667eea;
-            color: white;
-            padding: 20px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            color: #f1f5f9;
+            padding: 30px 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
         }
+        
+        @keyframes cssDesignFlow {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: hue-rotate(0deg);
+            }
+            25% { 
+                background-position: 100% 50%;
+                filter: hue-rotate(90deg);
+            }
+            50% { 
+                background-position: 100% 100%;
+                filter: hue-rotate(180deg);
+            }
+            75% { 
+                background-position: 0% 100%;
+                filter: hue-rotate(270deg);
+            }
+        }
+
+        /* CSS Creative Elements Floating */
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.12) 2px, transparent 2px),
+                radial-gradient(circle at 85% 25%, rgba(255, 107, 107, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 25% 75%, rgba(78, 205, 196, 0.08) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 65% 85%, rgba(150, 206, 180, 0.06) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, rgba(255, 234, 167, 0.04) 3px, transparent 3px);
+            background-size: 150px 150px, 250px 250px, 200px 200px, 300px 300px, 400px 400px;
+            animation: cssFloatMagic 18s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cssFloatMagic {
+            0% { 
+                transform: translateY(0px) rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-80px) rotate(180deg) scale(1.2);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-160px) rotate(360deg) scale(0.8);
+                opacity: 0.6;
+            }
+        }
+
+        /* AshyTech Accent Bar */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 100%);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+
+        @keyframes cssRainbowFlow {
+            0% { background-position: -400% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        /* Elite CSS Title */
+        .header h1 {
+            margin: 0;
+            font-size: 2.6rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .header h1::before {
+            content: '🎨';
+            font-size: 3.2rem;
+            animation: cssArtFloat 4s ease-in-out infinite;
+            filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.5));
+            transition: all 0.5s ease;
+        }
+
+        .header h1::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            width: 8px;
+            height: 80%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9), transparent);
+            border-radius: 4px;
+            animation: cssGlowPulse 3s ease-in-out infinite;
+        }
+
+        .header h1:hover {
+            transform: scale(1.02) translateY(-1px);
+        }
+
+        /* AshyTech Welcome Text */
+        .header .welcome-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: rgba(6, 182, 212, 0.1);
+            padding: 16px 32px;
+            border-radius: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            color: #06b6d4;
+        }
+
+
+        .header .welcome-text:hover {
+            background: rgba(6, 182, 212, 0.2);
+            transform: scale(1.05);
+        }
+        
         .container {
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
+            color: #e2e8f0;
         }
+        
+        .container h2 {
+            color: #f1f5f9;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
         .level-selector {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin-top: 30px;
         }
         .level-card {
-            background: white;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
             text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
+        .level-card h3 {
+            color: #f1f5f9;
+        }
+        
+        .level-card p {
+            color: #94a3b8;
+        }
+        
         .btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
             color: white;
             padding: 12px 30px;
-            border: none;
-            border-radius: 5px;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 16px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
             margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+            background: linear-gradient(135deg, #0891b2 0%, #0369a1 100%);
+        }
+        
+        /* Add level card status and badge styles */
+        .level-card.unlocked {
+            border: 2px solid #28a745;
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .level-card.locked {
+            border: 2px solid #dc3545;
+            background: rgba(30, 41, 59, 0.6);
+        }
+        .level-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        .level-badge.free {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+        .level-badge.premium {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+        .level-badge.unlocked {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.3);
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>CSS Course</h1>
-        <span>Welcome, {{ learner.username }}</span>
+        <span class="welcome-text">Welcome, {{ learner.username }}</span>
     </div>
     
     <div class="container">
@@ -61,36 +262,49 @@
         <form method="post">
             {% csrf_token %}
             <div class="level-selector">
-                <div class="level-card" style="border: 2px solid #28a745;">
-                    <h3>Basics <span style="color: #28a745; font-size: 0.8em;">FREE</span></h3>
+                <div class="level-card unlocked">
+                    <h3>Basics <span class="level-badge free">FREE</span></h3>
                     <p>Learn CSS fundamentals and styling basics.</p>
-                    <button type="submit" name="basics" value="basics" class="btn" style="background: #28a745;">Start Basics</button>
+                    <button type="submit" name="basics" value="basics" class="btn">Start Basics</button>
                 </div>
                 
-                <div class="level-card" style="border: 2px solid {% if has_full_access %}#28a745{% else %}#dc3545{% endif %};">
-                    <h3>Intermediate <span style="color: {% if has_full_access %}#28a745{% else %}#dc3545{% endif %}; font-size: 0.8em;">{% if has_full_access %}UNLOCKED{% else %}PREMIUM{% endif %}</span></h3>
+                <div class="level-card {% if has_full_access %}unlocked{% else %}locked{% endif %}">
+                    <h3>Intermediate 
+                        {% if has_full_access %}
+                            <span class="level-badge unlocked">UNLOCKED</span>
+                        {% else %}
+                            <span class="level-badge premium">PREMIUM</span>
+                        {% endif %}
+                    </h3>
                     <p>Layout, positioning, and advanced selectors.</p>
                     {% if has_full_access %}
-                        <button type="submit" name="intermediate" value="intermediate" class="btn" style="background: #28a745;">Start Intermediate</button>
+                        <button type="submit" name="intermediate" value="intermediate" class="btn">Start Intermediate</button>
                     {% else %}
-                        <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #dc3545; text-decoration: none;">Purchase to Access</a>
+                        <a href="{% url 'making_payment' learning.id %}" class="btn">Purchase to Access</a>
                     {% endif %}
                 </div>
                 
-                <div class="level-card" style="border: 2px solid {% if has_full_access %}#28a745{% else %}#dc3545{% endif %};">
-                    <h3>Advanced <span style="color: {% if has_full_access %}#28a745{% else %}#dc3545{% endif %}; font-size: 0.8em;">{% if has_full_access %}UNLOCKED{% else %}PREMIUM{% endif %}</span></h3>
+                <div class="level-card {% if has_full_access %}unlocked{% else %}locked{% endif %}">
+                    <h3>Advanced 
+                        {% if has_full_access %}
+                            <span class="level-badge unlocked">UNLOCKED</span>
+                        {% else %}
+                            <span class="level-badge premium">PREMIUM</span>
+                        {% endif %}
+                    </h3>
                     <p>CSS3 features, animations, and responsive design.</p>
                     {% if has_full_access %}
-                        <button type="submit" name="advanced" value="advanced" class="btn" style="background: #28a745;">Start Advanced</button>
+                        <button type="submit" name="advanced" value="advanced" class="btn">Start Advanced</button>
                     {% else %}
-                        <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #dc3545; text-decoration: none;">Purchase to Access</a>
+                        <a href="{% url 'making_payment' learning.id %}" class="btn">Purchase to Access</a>
                     {% endif %}
                 </div>
             </div>
             
             {% if not has_full_access %}
-            <div style="text-align: center; margin-top: 30px; padding: 20px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px;">
-                <p><strong>Want full access?</strong> <a href="{% url 'making_payment' learning.id %}" class="btn" style="background: #667eea;">Purchase Full Course - ₹{{ course.price }}</a></p>
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 12px;">
+                <p style="color: #94a3b8; margin-bottom: 15px;"><strong style="color: #f1f5f9;">Want full access?</strong> Unlock all CSS courses and content!</p>
+                <a href="{% url 'making_payment' learning.id %}" class="btn">🔓 Unlock Full Course</a>
             </div>
             {% endif %}
         </form>
