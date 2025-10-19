@@ -183,6 +183,181 @@ document.getElementById('range').addEventListener('input', function(e) {
             </div>
         </div>
 
+        <div class="lesson">
+            <h3>3. HTML5 APIs and Web Components</h3>
+            <p>Explore HTML5 APIs for geolocation, localStorage, and more advanced features.</p>
+            <div class="code-block">
+&lt;!-- Geolocation API Example --&gt;
+&lt;button id="getLocation"&gt;Get My Location&lt;/button&gt;
+&lt;p id="location-info"&gt;Location will appear here&lt;/p&gt;
+
+&lt;script&gt;
+document.getElementById('getLocation').addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            document.getElementById('location-info').textContent = 
+                `Latitude: ${lat}, Longitude: ${lon}`;
+        });
+    }
+});
+&lt;/script&gt;
+
+&lt;!-- Local Storage Example --&gt;
+&lt;input type="text" id="userInput" placeholder="Enter text to save"&gt;
+&lt;button id="saveButton"&gt;Save to LocalStorage&lt;/button&gt;
+&lt;button id="loadButton"&gt;Load from LocalStorage&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+// Save to localStorage
+document.getElementById('saveButton').addEventListener('click', function() {
+    const userData = document.getElementById('userInput').value;
+    localStorage.setItem('userInput', userData);
+});
+
+// Load from localStorage
+document.getElementById('loadButton').addEventListener('click', function() {
+    const savedData = localStorage.getItem('userInput');
+    document.getElementById('output').textContent = savedData || 'No data found';
+});
+&lt;/script&gt;
+
+&lt;!-- Canvas Example --&gt;
+&lt;canvas id="myCanvas" width="300" height="200"&gt;
+    Your browser does not support the canvas element.
+&lt;/canvas&gt;
+
+&lt;script&gt;
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+// Draw a rectangle
+ctx.fillStyle = '#e34c26';
+ctx.fillRect(50, 50, 200, 100);
+
+// Draw text
+ctx.font = '20px Arial';
+ctx.fillStyle = '#ffffff';
+ctx.fillText('HTML5 Canvas!', 75, 110);
+&lt;/script&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>4. Microdata and Schema.org</h3>
+            <p>Add structured data using HTML5 microdata for better SEO and rich snippets.</p>
+            <div class="code-block">
+&lt;!-- Structured Data for a Person --&gt;
+&lt;div itemscope itemtype="https://schema.org/Person"&gt;
+    &lt;h1 itemprop="name"&gt;John Doe&lt;/h1&gt;
+    &lt;img itemprop="image" src="john-doe.jpg" alt="John Doe photo"&gt;
+    &lt;p itemprop="jobTitle"&gt;Senior Web Developer&lt;/p&gt;
+    &lt;p itemprop="worksFor" itemscope itemtype="https://schema.org/Organization"&gt;
+        Works at &lt;span itemprop="name"&gt;Tech Corp&lt;/span&gt;
+    &lt;/p&gt;
+    &lt;div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"&gt;
+        &lt;span itemprop="streetAddress"&gt;123 Main St&lt;/span&gt;
+        &lt;span itemprop="addressLocality"&gt;Anytown&lt;/span&gt;
+        &lt;span itemprop="addressRegion"&gt;CA&lt;/span&gt;
+        &lt;span itemprop="postalCode"&gt;12345&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p&gt;Contact: &lt;a itemprop="email" href="mailto:john@example.com"&gt;john@example.com&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;Phone: &lt;span itemprop="telephone"&gt;(555) 123-4567&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Structured Data for an Article --&gt;
+&lt;article itemscope itemtype="https://schema.org/Article"&gt;
+    &lt;header&gt;
+        &lt;h1 itemprop="headline"&gt;The Future of Web Development&lt;/h1&gt;
+        &lt;meta itemprop="datePublished" content="2024-01-15"&gt;
+        &lt;meta itemprop="dateModified" content="2024-01-20"&gt;
+        &lt;div itemprop="author" itemscope itemtype="https://schema.org/Person"&gt;
+            By &lt;span itemprop="name"&gt;Jane Smith&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+    
+    &lt;div itemprop="articleBody"&gt;
+        &lt;p&gt;The future of web development is bright...&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div itemprop="publisher" itemscope itemtype="https://schema.org/Organization"&gt;
+        &lt;span itemprop="name"&gt;Web Dev Magazine&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/article&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>5. Performance Optimization Techniques</h3>
+            <p>Optimize HTML for better performance and user experience.</p>
+            <div class="code-block">
+&lt;!-- Resource Hints for Performance --&gt;
+&lt;head&gt;
+    &lt;!-- Preconnect to external domains --&gt;
+    &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+    &lt;link rel="preconnect" href="https://cdn.example.com"&gt;
+    
+    &lt;!-- Preload critical resources --&gt;
+    &lt;link rel="preload" href="critical.css" as="style"&gt;
+    &lt;link rel="preload" href="hero-image.jpg" as="image"&gt;
+    &lt;link rel="preload" href="main.js" as="script"&gt;
+    
+    &lt;!-- Prefetch resources for next page --&gt;
+    &lt;link rel="prefetch" href="next-page.js"&gt;
+    &lt;link rel="prefetch" href="next-page.css"&gt;
+    
+    &lt;!-- DNS prefetch for external resources --&gt;
+    &lt;link rel="dns-prefetch" href="//www.google-analytics.com"&gt;
+    
+    &lt;!-- Critical CSS inline for above-the-fold content --&gt;
+    &lt;style&gt;
+        .hero { 
+            background: #f4f4f4; 
+            padding: 2rem; 
+            text-align: center; 
+        }
+        .hero h1 { 
+            font-size: 2rem; 
+            color: #333; 
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;!-- Lazy loading for images --&gt;
+&lt;img src="placeholder.jpg" data-src="actual-image.jpg" 
+     loading="lazy" alt="Description"&gt;
+
+&lt;script&gt;
+// Intersection Observer for lazy loading
+const images = document.querySelectorAll('img[data-src]');
+const imageObserver = new IntersectionObserver((entries, observer) =&gt; {
+    entries.forEach(entry =&gt; {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('loading');
+            imageObserver.unobserve(img);
+        }
+    });
+});
+
+images.forEach(img =&gt; imageObserver.observe(img));
+&lt;/script&gt;
+
+&lt;!-- Subresource Integrity for security --&gt;
+&lt;script src="https://cdn.example.com/jquery.min.js" 
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+        crossorigin="anonymous"&gt;&lt;/script&gt;
+
+&lt;!-- Web App Manifest --&gt;
+&lt;link rel="manifest" href="manifest.json"&gt;
+&lt;meta name="theme-color" content="#e34c26"&gt;
+&lt;meta name="mobile-web-app-capable" content="yes"&gt;
+            </div>
+        </div>
+
         <div style="text-align: center; margin-top: 40px; padding: 40px; background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; border-radius: 20px;">
             <h2 style="color: white; margin-top: 0;">🏆 CONGRATULATIONS!</h2>
             <div style="font-size: 4rem; margin: 20px 0;">🎓</div>

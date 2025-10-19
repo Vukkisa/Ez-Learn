@@ -32,6 +32,13 @@ ALLOWED_HOSTS = os.environ.get(
     "localhost,127.0.0.1"
 ).split(",")
 
+# Add Render domain pattern
+if not DEBUG:
+    ALLOWED_HOSTS.extend([
+        ".render.com",  # Render default domain
+        ".onrender.com",  # Alternative Render domain
+    ])
+
 # ----------------------------------------------------------
 # Installed Applications
 # ----------------------------------------------------------
@@ -53,6 +60,7 @@ INSTALLED_APPS = [
 # ----------------------------------------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Add WhiteNoise for static files
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -132,8 +140,17 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+# WhiteNoise configuration for static files
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Media files configuration for production
+if not DEBUG:
+    # In production, you might want to use a cloud storage service
+    # For now, we'll use WhiteNoise for basic media serving
+    pass
 
 # ----------------------------------------------------------
 # Default Primary Key
@@ -238,6 +255,13 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://0.0.0.0:8000',
 ]
+
+# Add Render domains to CSRF trusted origins
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS.extend([
+        'https://*.render.com',
+        'https://*.onrender.com',
+    ])
 
 # ----------------------------------------------------------
 # Logging (minimal console output)

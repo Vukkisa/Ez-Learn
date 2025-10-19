@@ -167,6 +167,113 @@
             </div>
         </div>
 
+        <div class="lesson">
+            <h3>3. Multimedia Integration</h3>
+            <p>Embed images, videos, and audio content with proper HTML elements.</p>
+            <div class="code-block">
+&lt;!-- Responsive Images --&gt;
+&lt;picture&gt;
+    &lt;source media="(min-width: 768px)" srcset="large-image.jpg"&gt;
+    &lt;source media="(min-width: 480px)" srcset="medium-image.jpg"&gt;
+    &lt;img src="small-image.jpg" alt="Responsive image" loading="lazy"&gt;
+&lt;/picture&gt;
+
+&lt;!-- Video with multiple sources --&gt;
+&lt;video width="640" height="360" controls preload="metadata" poster="video-poster.jpg"&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+    &lt;source src="video.webm" type="video/webm"&gt;
+    &lt;track kind="subtitles" src="subtitles.vtt" srclang="en" label="English"&gt;
+    Your browser does not support the video tag.
+&lt;/video&gt;
+
+&lt;!-- Audio with fallback --&gt;
+&lt;audio controls preload="none"&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+    &lt;source src="audio.ogg" type="audio/ogg"&gt;
+    Your browser does not support the audio element.
+&lt;/audio&gt;
+
+&lt;!-- Embed external content --&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+        frameborder="0" allowfullscreen title="YouTube video"&gt;&lt;/iframe&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>4. Lists and Navigation</h3>
+            <p>Create various list types and navigation structures for better content organization.</p>
+            <div class="code-block">
+&lt;!-- Navigation List --&gt;
+&lt;nav role="navigation" aria-label="Main navigation"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#team"&gt;Our Team&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#mission"&gt;Mission&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- Description List --&gt;
+&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;HyperText Markup Language - the standard markup language for web pages&lt;/dd&gt;
+    
+    &lt;dt&gt;CSS&lt;/dt&gt;
+    &lt;dd&gt;Cascading Style Sheets - used for styling web pages&lt;/dd&gt;
+    
+    &lt;dt&gt;JavaScript&lt;/dt&gt;
+    &lt;dd&gt;A programming language that adds interactivity to web pages&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;!-- Ordered List with Custom Start --&gt;
+&lt;ol start="10" reversed type="I"&gt;
+    &lt;li&gt;Tenth item&lt;/li&gt;
+    &lt;li&gt;Ninth item&lt;/li&gt;
+    &lt;li&gt;Eighth item&lt;/li&gt;
+&lt;/ol&gt;
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>5. HTML Attributes and Accessibility</h3>
+            <p>Use proper attributes to enhance accessibility and user experience.</p>
+            <div class="code-block">
+&lt;!-- Accessible Images --&gt;
+&lt;img src="chart.jpg" alt="Sales increased by 25% from Q1 to Q2, reaching $50,000 total" 
+     width="400" height="300" loading="lazy"&gt;
+
+&lt;!-- Form with ARIA Labels --&gt;
+&lt;form aria-labelledby="contact-form"&gt;
+    &lt;h2 id="contact-form"&gt;Contact Form&lt;/h2&gt;
+    
+    &lt;div role="group" aria-labelledby="name-label"&gt;
+        &lt;label id="name-label" for="name-input"&gt;Full Name&lt;/label&gt;
+        &lt;input type="text" id="name-input" name="name" required 
+               aria-describedby="name-help" autocomplete="name"&gt;
+        &lt;div id="name-help"&gt;Enter your full legal name&lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div role="group" aria-labelledby="email-label"&gt;
+        &lt;label id="email-label" for="email-input"&gt;Email Address&lt;/label&gt;
+        &lt;input type="email" id="email-input" name="email" required 
+               aria-describedby="email-help" autocomplete="email"&gt;
+        &lt;div id="email-help"&gt;We'll never share your email&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;!-- Data Attributes for JavaScript --&gt;
+&lt;button id="toggle-btn" data-target="content-1" data-action="toggle" 
+        aria-expanded="false" aria-controls="content-1"&gt;
+    Toggle Content
+&lt;/button&gt;
+&lt;div id="content-1" aria-hidden="true"&gt;Hidden content...&lt;/div&gt;
+            </div>
+        </div>
+
         <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #e8f5e8, #f1f8e9); border-radius: 15px; border: 2px solid #28a745;">
             <h3>🎉 Great Progress!</h3>
             <p style="font-size: 1.1rem; margin: 15px 0;">You've mastered HTML Intermediate concepts!</p>

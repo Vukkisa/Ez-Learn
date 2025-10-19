@@ -175,6 +175,326 @@
             </div>
         </div>
 
+        <div class="lesson">
+            <h3>3. Advanced Positioning</h3>
+            <p>Master CSS positioning including static, relative, absolute, fixed, and sticky.</p>
+            <div class="code-block">
+/* Relative Positioning */
+.relative-box {
+    position: relative;
+    top: 20px;
+    left: 30px;
+    background: #ff6b6b;
+    padding: 20px;
+}
+
+/* Absolute Positioning */
+.container {
+    position: relative;  /* Creates positioning context */
+    height: 300px;
+    border: 2px solid #333;
+}
+
+.absolute-box {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background: #4ecdc4;
+    padding: 15px;
+}
+
+/* Fixed Positioning */
+.fixed-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 15px 0;
+}
+
+/* Sticky Positioning */
+.sticky-sidebar {
+    position: sticky;
+    top: 100px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Z-index and Stacking Context */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 10000;
+}
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>4. Transforms and 2D/3D Effects</h3>
+            <p>Create dynamic visual effects using CSS transforms and transitions.</p>
+            <div class="code-block">
+/* 2D Transforms */
+.transform-2d {
+    transform: translate(50px, 20px);         /* Move element */
+    transform: rotate(45deg);                 /* Rotate element */
+    transform: scale(1.5, 0.8);              /* Scale element */
+    transform: skew(10deg, 5deg);            /* Skew element */
+}
+
+/* Combined transforms */
+.combo-transform {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+.combo-transform:hover {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.5);
+}
+
+/* 3D Transforms */
+.transform-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.card-3d {
+    transform: rotateY(45deg) rotateX(15deg);
+    transition: transform 0.5s ease;
+}
+
+.card-3d:hover {
+    transform: rotateY(0deg) rotateX(0deg) translateZ(50px);
+}
+
+/* Transform Origin */
+.rotate-center {
+    transform-origin: center center;
+    transform: rotate(45deg);
+}
+
+.rotate-corner {
+    transform-origin: top left;
+    transform: rotate(45deg);
+}
+
+/* Backface Visibility */
+.flip-card {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.flip-card:hover {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: #4ecdc4;
+}
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>5. Advanced Selectors and Pseudo-classes</h3>
+            <p>Master complex CSS selectors for precise element targeting.</p>
+            <div class="code-block">
+/* Attribute Selectors */
+input[type="text"] {
+    border: 2px solid #ccc;
+}
+
+input[type="email"]:valid {
+    border-color: #28a745;
+}
+
+input[type="email"]:invalid {
+    border-color: #dc3545;
+}
+
+a[href^="https://"] {
+    color: green;
+}
+
+a[href$=".pdf"]::after {
+    content: " 📄";
+}
+
+/* Pseudo-class Combinations */
+.nav li:first-child a {
+    font-weight: bold;
+}
+
+.nav li:last-child a {
+    color: #666;
+}
+
+.nav li:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.nav li:nth-child(3n+1) {
+    border-left: 3px solid #007bff;
+}
+
+/* Complex Pseudo-classes */
+.form-group:focus-within {
+    background: #e3f2fd;
+    border-radius: 8px;
+}
+
+.card:target {
+    border: 3px solid #ff6b6b;
+    animation: highlight 0.5s ease;
+}
+
+@keyframes highlight {
+    0% { background: transparent; }
+    50% { background: #fff3cd; }
+    100% { background: transparent; }
+}
+
+/* Structural Pseudo-classes */
+.content p:only-child {
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.list li:not(.disabled):hover {
+    background: #e9ecef;
+    cursor: pointer;
+}
+
+/* Responsive Selectors */
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+    
+    .mobile-nav::after {
+        content: "📱 Menu";
+        font-weight: bold;
+    }
+}
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h3>6. CSS Custom Properties (Variables)</h3>
+            <p>Use CSS variables for maintainable and dynamic styling.</p>
+            <div class="code-block">
+/* Define CSS Variables */
+:root {
+    /* Colors */
+    --primary-color: #1572b6;
+    --secondary-color: #28a745;
+    --accent-color: #ffc107;
+    --danger-color: #dc3545;
+    
+    /* Typography */
+    --font-family-primary: 'Inter', -apple-system, sans-serif;
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+    --line-height-base: 1.6;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 3rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.15);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.2);
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+
+/* Using CSS Variables */
+.button {
+    background: var(--primary-color);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background: color-mix(in srgb, var(--primary-color) 85%, black);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Dynamic Theme Switching */
+[data-theme="dark"] {
+    --primary-color: #66b3ff;
+    --secondary-color: #4ade80;
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+}
+
+[data-theme="light"] {
+    --primary-color: #1572b6;
+    --secondary-color: #28a745;
+    --bg-color: #ffffff;
+    --text-color: #333333;
+}
+
+/* Component-level Variables */
+.card {
+    --card-bg: var(--bg-color);
+    --card-padding: var(--spacing-md);
+    background: var(--card-bg);
+    padding: var(--card-padding);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.card.featured {
+    --card-bg: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --card-padding: var(--spacing-lg);
+}
+            </div>
+        </div>
+
         <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #e8f5e8, #f1f8e9); border-radius: 15px; border: 2px solid #28a745;">
             <h3>🎉 Excellent Progress!</h3>
             <p style="font-size: 1.1rem; margin: 15px 0;">You've mastered CSS Intermediate concepts!</p>

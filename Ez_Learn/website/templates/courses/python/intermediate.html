@@ -478,11 +478,11 @@ def database_connection(db_path):
         connection = sqlite3.connect(db_path)
         connection.row_factory = sqlite3.Row  # Enable column access by name
         yield connection
-    except Exception as e:
+except Exception as e:
         if connection:
             connection.rollback()
         raise e
-    finally:
+finally:
         if connection:
             connection.close()
 
@@ -689,7 +689,7 @@ if __name__ == "__main__":
             // Add click handlers to all code blocks
             document.querySelectorAll('.code-block').forEach(block => {
                 if (!block.onclick) {
-                    block.addEventListener('click', function() {
+                block.addEventListener('click', function() {
                         copyCode(this);
                     });
                 }
