@@ -32,12 +32,12 @@ ALLOWED_HOSTS = os.environ.get(
     "localhost,127.0.0.1"
 ).split(",")
 
-# Add Render domain pattern
-if not DEBUG:
-    ALLOWED_HOSTS.extend([
-        ".render.com",  # Render default domain
-        ".onrender.com",  # Alternative Render domain
-    ])
+# Add Render domain pattern (always add for production deployment)
+ALLOWED_HOSTS.extend([
+    ".render.com",  # Render default domain
+    ".onrender.com",  # Alternative Render domain
+    "ez-learn.onrender.com",  # Specific Render app domain
+])
 
 # ----------------------------------------------------------
 # Installed Applications
@@ -256,12 +256,12 @@ CSRF_TRUSTED_ORIGINS = [
     'http://0.0.0.0:8000',
 ]
 
-# Add Render domains to CSRF trusted origins
-if not DEBUG:
-    CSRF_TRUSTED_ORIGINS.extend([
-        'https://*.render.com',
-        'https://*.onrender.com',
-    ])
+# Add Render domains to CSRF trusted origins (always add for production deployment)
+CSRF_TRUSTED_ORIGINS.extend([
+    'https://*.render.com',
+    'https://*.onrender.com',
+    'https://ez-learn.onrender.com',
+])
 
 # ----------------------------------------------------------
 # Logging (minimal console output)
