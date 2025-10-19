@@ -27,17 +27,23 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS",
-    "localhost,127.0.0.1"
-).split(",")
+# Get base allowed hosts from environment or default
+base_hosts = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+ALLOWED_HOSTS = [host.strip() for host in base_hosts if host.strip()]
 
 # Add Render domain pattern (always add for production deployment)
-ALLOWED_HOSTS.extend([
+render_domains = [
     ".render.com",  # Render default domain
     ".onrender.com",  # Alternative Render domain
     "ez-learn.onrender.com",  # Specific Render app domain
-])
+]
+
+for domain in render_domains:
+    if domain not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(domain)
+
+# Debug: Print ALLOWED_HOSTS in production for troubleshooting
+print(f"🌐 ALLOWED_HOSTS configured: {ALLOWED_HOSTS}")
 
 # ----------------------------------------------------------
 # Installed Applications
